@@ -12,18 +12,28 @@ public class Toggle_Main : MonoBehaviour
     [SerializeField] Sprite normal_Image;
     [SerializeField] Sprite selected_Image;
 
+    [Header("선택시 활성화할 오브젝트")]
+    [SerializeField] GameObject activeObj;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        toggle.image.sprite = toggle.isOn ? selected_Image : normal_Image;
     }
 
     // Update is called once per frame
     void Update()
     {
-        toggle.image.sprite = toggle.isOn ? selected_Image : normal_Image;
+
     }
 
-    
+    /// <summary>
+    /// IsOn 값이 바뀌었을 때 토글 이미지를 바꾸고, 각각의 UI를 활성화하는 함수
+    /// </summary>
+    public void OnValueChanged()
+    {
+        toggle.image.sprite = toggle.isOn ? selected_Image : normal_Image;
+        activeObj.SetActive(toggle.isOn);
+    }
 }
