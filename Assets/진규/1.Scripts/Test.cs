@@ -10,10 +10,13 @@ public class Test : MonoBehaviour
     {
         List<Dictionary<string, object>> data = CSVReader.Read("EnemyData");
 
-        for(var i = 0; i < data.Count; i++)
+        /*for(var i = 0; i < data.Count; i++)
         {
             Debug.Log(data[i]["Name"]+" : "+ data[i]["Exp"] + " : " + data[i]["Hp"] + " : " + data[i]["Attack"] + " : " + data[i]["Defence"] + " : " + data[i]["Speed"]);
-        }
+        }*/
+        //Debug.Log(data[0]["Exp"].ToString());
+
+        
     }
 
 }

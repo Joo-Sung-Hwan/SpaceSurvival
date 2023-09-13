@@ -1,2 +1,3 @@
 Name,Exp,Hp,Attack,Defence,Speed
-Astronaut,10,50,5,5,2
+Astronaut,10,50,5,5,3
+Alien,15,60,7,7,1
