@@ -18,7 +18,7 @@ public class Astronaut : Enemy
     void Start()
     {
         Init();
-        DataInfo();
+        //DataInfo();
     }
 
     void Update()

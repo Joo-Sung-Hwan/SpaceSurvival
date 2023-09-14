@@ -13,13 +13,13 @@ public class Alien : Enemy
     void Start()
     {
         Init();
-        DataInfo();
-        Debug.Log(ed.exp);
-        Debug.Log(ed.hp);
-        Debug.Log(ed.attack);
-        Debug.Log(ed.defence);
-        Debug.Log(ed.speed);
-    }
+        //DataInfo();
+        //Debug.Log(ed.exp);
+        //Debug.Log(ed.hp);
+        //Debug.Log(ed.attack);
+        //Debug.Log(ed.defence);
+        //Debug.Log(ed.speed);
+    }   
 
     void Update()
     {
