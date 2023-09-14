@@ -29,7 +29,7 @@ public class Toggle_Main : MonoBehaviour
     }
 
     /// <summary>
-    /// IsOn 값이 바뀌었을 때 토글 이미지를 바꾸고, 각각의 UI를 활성화하는 함수
+    /// IsOn 값이 바뀌었을 때 토글 이미지를 바꾸고, UI를 활성화하는 함수
     /// </summary>
     public void OnValueChanged()
     {
