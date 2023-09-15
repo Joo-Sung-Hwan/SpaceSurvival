@@ -8,8 +8,7 @@ public class Spon : MonoBehaviour
     public Transform trans;
     void Start()
     {
-        Enemy enemy = Instantiate(obj, trans);
-        enemy.Init();
+        StartCoroutine(MonsterSpawn());
         //enemy.DataInfo(obj.name);
     }
 
@@ -18,9 +17,10 @@ public class Spon : MonoBehaviour
         
     }
 
-    void DataInfo()
+    IEnumerator MonsterSpawn()
     {
-        List<Dictionary<string, object>> data = CSVReader.Read("EnemyData");
-
+        yield return new WaitForSeconds(4f);
+        Enemy enemy = Instantiate(obj, trans);
+        enemy.Init();
     }
 }
