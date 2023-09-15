@@ -9,7 +9,7 @@ public class JoyStick : MonoBehaviour, IBeginDragHandler,IEndDragHandler,IDragHa
     [Header("Lever 속성 값")]
     [SerializeField] private RectTransform lever;
     // lever 최대범위 - 조이스틱 밖으로 나가지 않게 하는 범위
-    float lever_range = 50f;
+    float lever_range = 100f;
     Vector2 input_vector;
 
     // Player 속성 값
@@ -21,7 +21,7 @@ public class JoyStick : MonoBehaviour, IBeginDragHandler,IEndDragHandler,IDragHa
 
     void Start()
     {
-        player = GameManager.instance.playerSpawnManager.Create_Player();
+        player = GameManager.instance.playerSpawnManager.player;
         Speed = 2f;
     }
 
@@ -59,11 +59,11 @@ public class JoyStick : MonoBehaviour, IBeginDragHandler,IEndDragHandler,IDragHa
         {
             if(input_vector.x > 0)
             {
-                p.GetComponent<Transform>().localScale = new Vector3(-1f, 1f, 1f);
+                p.GetComponent<Transform>().localScale = new Vector3(-0.5f, 0.5f, 0.5f);
             }
             else
             {
-                p.GetComponent<Transform>().localScale = new Vector3(1f, 1f, 1f);
+                p.GetComponent<Transform>().localScale = new Vector3(0.5f, 0.5f, 0.5f);
             }
             p.GetComponent<CharacterController>().Move(new Vector2(input_vector.x, input_vector.y) * Time.deltaTime * Speed);
         }

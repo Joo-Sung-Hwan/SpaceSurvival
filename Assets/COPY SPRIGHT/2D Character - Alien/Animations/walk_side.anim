@@ -117,6 +117,15 @@ AnimationClip:
     path: weapon_sword_side
     classID: 212
     script: {fileID: 0}
+  - curve:
+    - time: 0
+      value: {fileID: 8333481726314500824, guid: f4b2c3508f924765b8aac9b9d9cf3443, type: 3}
+    - time: 0.7
+      value: {fileID: 8333481726314500824, guid: f4b2c3508f924765b8aac9b9d9cf3443, type: 3}
+    attribute: m_Sprite
+    path: weapon_rifle_side
+    classID: 212
+    script: {fileID: 0}
   m_SampleRate: 20
   m_WrapMode: 0
   m_Bounds:
@@ -140,6 +149,13 @@ AnimationClip:
       isPPtrCurve: 1
     - serializedVersion: 2
       path: 213816744
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+    - serializedVersion: 2
+      path: 1686915176
       attribute: 0
       script: {fileID: 0}
       typeID: 212
@@ -172,12 +188,14 @@ AnimationClip:
     - {fileID: 2888725853716638510, guid: 861eae035e044023a4505879ab2ca5b9, type: 3}
     - {fileID: 6287047653866031396, guid: 861eae035e044023a4505879ab2ca5b9, type: 3}
     - {fileID: 2996700135033197648, guid: 861eae035e044023a4505879ab2ca5b9, type: 3}
+    - {fileID: 8333481726314500824, guid: f4b2c3508f924765b8aac9b9d9cf3443, type: 3}
+    - {fileID: 8333481726314500824, guid: f4b2c3508f924765b8aac9b9d9cf3443, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.7
+    m_StopTime: 0.75
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

@@ -11,7 +11,11 @@ public class Player : MonoBehaviour
     [HideInInspector] public float AttackSpeed { get; set; }
     [HideInInspector] public float Speed { get; set; }
 
-    
+    public Bullet[] bullets;
+    public Transform bullet_parent;
+    float fire_time = 1f;
+    float time_D = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +26,8 @@ public class Player : MonoBehaviour
     void Update()
     {
         
+        FireBullet();
+
     }
 
     public void SetLevel(int level)
@@ -62,5 +68,16 @@ public class Player : MonoBehaviour
         SetDefense(5);
         SetAttackSpeed(1);
         SetSpeed(2);
+    }
+
+    public void FireBullet()
+    {
+        time_D += Time.deltaTime;
+        if (time_D > fire_time)
+        {
+            Bullet b = Instantiate(bullets[0], bullet_parent);
+            b.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bullet_parent);
+            time_D = 0f;
+        }
     }
 }

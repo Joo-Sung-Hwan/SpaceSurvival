@@ -6,10 +6,12 @@ public class PlayerSpawnManager : MonoBehaviour
 {
     public Player player_prefab;
     public Transform parent;
+    public Transform tmp_bullet_parent;
+    [HideInInspector] public Player player;
     // Start is called before the first frame update
     void Start()
     {
-        
+        Create_Player();
     }
 
     // Update is called once per frame
@@ -18,9 +20,8 @@ public class PlayerSpawnManager : MonoBehaviour
         
     }
 
-    public Player Create_Player()
+    public void Create_Player()
     {
-        Player p = Instantiate(player_prefab, parent);
-        return p;
+        player = Instantiate(player_prefab, parent);
     }
 }
