@@ -18,16 +18,10 @@ public class Astronaut : Enemy
     void Start()
     {
         Init();
-        //DataInfo();
     }
 
     void Update()
     {
-        
-    }
-
-    public override void DataInfo()
-    {
-        base.DataInfo();
+        Debug.Log(ed.exp);
     }
 }

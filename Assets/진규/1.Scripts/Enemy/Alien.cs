@@ -13,9 +13,7 @@ public class Alien : Enemy
     void Start()
     {
         Init();
-        //DataInfo();
-        //Debug.Log(ed.exp);
-        //Debug.Log(ed.hp);
+        Debug.Log(ed.hp);
         //Debug.Log(ed.attack);
         //Debug.Log(ed.defence);
         //Debug.Log(ed.speed);
@@ -23,11 +21,6 @@ public class Alien : Enemy
 
     void Update()
     {
-        
-    }
-
-    public override void DataInfo()
-    {
-        base.DataInfo();
+        Debug.Log(ed.exp);
     }
 }

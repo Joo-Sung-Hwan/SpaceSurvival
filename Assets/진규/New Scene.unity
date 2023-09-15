@@ -197,6 +197,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26867fb7461296144ae27a06b6af3f63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemys:
+  - {fileID: 3953778415427760373, guid: 696ef37abbb3842469196f1fdb4fa63f, type: 3}
+  - {fileID: -2137747203840829851, guid: fdf845aedde057542ba85d93989abee8, type: 3}
+  eDataList: []
+  text: {fileID: 0}
 --- !u!4 &1669177943
 Transform:
   m_ObjectHideFlags: 0
@@ -325,7 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27be5c6d52a96254499caed896b10a96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj: {fileID: -2137747203840829851, guid: fdf845aedde057542ba85d93989abee8, type: 3}
+  obj: {fileID: 3953778415427760373, guid: 696ef37abbb3842469196f1fdb4fa63f, type: 3}
   trans: {fileID: 2108582837}
 --- !u!4 &2108582837
 Transform:
