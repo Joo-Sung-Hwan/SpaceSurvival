@@ -13,14 +13,17 @@ public class Alien : Enemy
     void Start()
     {
         Init();
-        Debug.Log(ed.hp);
-        //Debug.Log(ed.attack);
-        //Debug.Log(ed.defence);
-        //Debug.Log(ed.speed);
-    }   
+        DataInPut();
+        Debug.Log(ed.exp);
+    }
 
     void Update()
     {
-        Debug.Log(ed.exp);
+
+    }
+
+    public override void DataInPut()
+    {
+        base.DataInPut();
     }
 }

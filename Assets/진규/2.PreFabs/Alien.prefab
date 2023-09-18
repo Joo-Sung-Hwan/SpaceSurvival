@@ -45,10 +45,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a69cc718ae13efb4b93e58925d28883f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSp: []
-  n: 
-  exp: 0
-  hp: 0
+  walkSp:
+  - {fileID: -6959915571989194883, guid: e5fe59ed7cca4e0db490aff9a46a5a9c, type: 3}
+  - {fileID: 960921020097805623, guid: e5fe59ed7cca4e0db490aff9a46a5a9c, type: 3}
+  - {fileID: -3336701548478254045, guid: e5fe59ed7cca4e0db490aff9a46a5a9c, type: 3}
+  - {fileID: -5400053455435091454, guid: e5fe59ed7cca4e0db490aff9a46a5a9c, type: 3}
+  - {fileID: 4408406346810168619, guid: e5fe59ed7cca4e0db490aff9a46a5a9c, type: 3}
+  - {fileID: -485737157877676475, guid: e5fe59ed7cca4e0db490aff9a46a5a9c, type: 3}
+  - {fileID: -5106187503225981072, guid: e5fe59ed7cca4e0db490aff9a46a5a9c, type: 3}
+  - {fileID: 4312765686203540801, guid: e5fe59ed7cca4e0db490aff9a46a5a9c, type: 3}
+  - {fileID: 5251978615751408329, guid: e5fe59ed7cca4e0db490aff9a46a5a9c, type: 3}
+  - {fileID: 2965599932687856292, guid: e5fe59ed7cca4e0db490aff9a46a5a9c, type: 3}
+  - {fileID: 2365076705713957727, guid: e5fe59ed7cca4e0db490aff9a46a5a9c, type: 3}
+  - {fileID: 6256131582671704638, guid: e5fe59ed7cca4e0db490aff9a46a5a9c, type: 3}
+  - {fileID: 7208522903439339441, guid: e5fe59ed7cca4e0db490aff9a46a5a9c, type: 3}
+  - {fileID: -8803371887732516606, guid: e5fe59ed7cca4e0db490aff9a46a5a9c, type: 3}
 --- !u!212 &200129810344162430
 SpriteRenderer:
   m_ObjectHideFlags: 0

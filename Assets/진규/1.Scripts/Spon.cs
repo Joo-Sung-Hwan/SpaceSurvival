@@ -9,7 +9,7 @@ public class Spon : MonoBehaviour
     void Start()
     {
         StartCoroutine(MonsterSpawn());
-        //enemy.DataInfo(obj.name);
+        //Enemy.Instance.DataInPut();
     }
 
     void Update()

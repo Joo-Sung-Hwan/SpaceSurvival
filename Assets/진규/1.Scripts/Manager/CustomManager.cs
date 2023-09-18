@@ -9,14 +9,17 @@ public class CustomManager : Editor
 {
     public override void OnInspectorGUI()
     {
+        // Editor를 활용하여 EnemyDate.csv파일 입력
         base.OnInspectorGUI();
         if (GUI.Button(new Rect(0, 0, 100, 20), "Load"))
         {
             string path = EditorUtility.OpenFilePanel("EnemyData",Application.streamingAssetsPath,"csv");
+            
             if (path.Length != 0)
             {
-                DefineDataEnemy.Instance.DataInfo();
-                //DefineDataEnemy.Instance.text = Resources.Load(path) as TextAsset;
+                DefineDataEnemy define = FindObjectOfType<DefineDataEnemy>();
+                define.eDataList.Clear();
+                define.DataSet();
             }
             else
                 Debug.Log("데이터를 넣으시오");

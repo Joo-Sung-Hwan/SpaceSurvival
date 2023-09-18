@@ -12,8 +12,15 @@ public struct EnemyData
     public float attack;
     public float defence;
     public float speed;
+    public EnemyState enemyState;
 }
 
+public enum EnemyState
+{
+    Idle,
+    Walk,
+    Dead
+}
 public enum EnemyType
 {
     None,
@@ -32,32 +39,58 @@ public enum DefineEnemyData
 
 public abstract class Enemy : MonoBehaviour
 {
-    public static Enemy Instance;
     public EnemyData ed = new EnemyData();
-    public List<Sprite> walkSp = new List<Sprite>();
+
+    [SerializeField]List<Sprite> walkSp = new List<Sprite>();
+    protected Animator anim;
     protected EnemyType enemyT = EnemyType.None;
     protected DefineEnemyData defineData;
     //protected DefineEnemyData defineD = DefineEnemyData.None;
 
-    void Awake() => Instance = this;
 
     public abstract void Init();
 
 
     void Update()
     {
-
+        Move();
     }
 
-    List<string> DefineData()
+    public virtual void Move()
     {
-        //List<string> data = new List<string>();
-        return  Enum.GetNames(typeof(DefineEnemyData)).ToList();
-        
+        PlayerTest player = FindObjectOfType<PlayerTest>();
+        Vector3 distance = player.transform.position - transform.position;
+
+        transform.Translate(Time.deltaTime * ed.speed * distance.normalized);
+        if (distance.normalized.x < 0)
+            transform.GetComponent<SpriteRenderer>().flipX = false;
+        else if (distance.normalized.x > 0)
+            transform.GetComponent<SpriteRenderer>().flipX = true;
+
+        if(ed.enemyState != EnemyState.Walk)
+        {
+            ed.enemyState = EnemyState.Walk;
+            
+        }
     }
 
-    public void DD()
+    public virtual void DataInPut()
     {
-        List<string> data = new List<string>();
+        DefineDataEnemy define = DefineDataEnemy.Instance;
+        int count = 0;
+        while(count < define.eDataList.Count)
+        {
+            if (ed.name != define.eDataList[count].name)
+                count++;
+            else
+            {
+                ed.exp = define.eDataList[count].exp;
+                ed.hp = define.eDataList[count].hp;
+                ed.attack = define.eDataList[count].attack;
+                ed.defence = define.eDataList[count].defence;
+                ed.speed = define.eDataList[count].speed;
+                break;
+            }
+        }
     }
 }

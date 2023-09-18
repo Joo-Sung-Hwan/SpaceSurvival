@@ -24,10 +24,10 @@ public class DefineDataEnemy : MonoBehaviour
 
     void Awake() => Instance = this;
 
-    public void DataInfo()
+    public void DataSet()
     {
+        // EData에 EnemyData.csv파일 데이터 입히기
         List<Dictionary<string, object>> data = CSVReader.Read("EnemyData");
-
         for (int i = 0; i < data.Count; i++)
         {
             EData _defineData = new EData();
@@ -41,7 +41,8 @@ public class DefineDataEnemy : MonoBehaviour
             eDataList.Add(_defineData);
         }
     }
-
+    
+    // 간소화 함수
     float Cast(List<Dictionary<string, object>> data, int index, string str)
     {
         float dataCast = float.Parse(data[index][str].ToString());

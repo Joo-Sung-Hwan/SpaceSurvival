@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4585585803880917801}
   - component: {fileID: 3953778415427760373}
   - component: {fileID: -2243018945179211920}
+  - component: {fileID: 5823191300511609777}
   m_Layer: 0
   m_Name: Astronaut
   m_TagString: Untagged
@@ -45,8 +46,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f90e9b5ff2562b44864fa35e14ac613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSp: []
-  hp: 0
+  walkSp:
+  - {fileID: -6959915571989194883, guid: 3d2f599474fd4b2994881f42880ea8c6, type: 3}
+  - {fileID: 960921020097805623, guid: 3d2f599474fd4b2994881f42880ea8c6, type: 3}
+  - {fileID: -3336701548478254045, guid: 3d2f599474fd4b2994881f42880ea8c6, type: 3}
+  - {fileID: -5400053455435091454, guid: 3d2f599474fd4b2994881f42880ea8c6, type: 3}
+  - {fileID: 4408406346810168619, guid: 3d2f599474fd4b2994881f42880ea8c6, type: 3}
+  - {fileID: -485737157877676475, guid: 3d2f599474fd4b2994881f42880ea8c6, type: 3}
+  - {fileID: -5106187503225981072, guid: 3d2f599474fd4b2994881f42880ea8c6, type: 3}
+  - {fileID: 4312765686203540801, guid: 3d2f599474fd4b2994881f42880ea8c6, type: 3}
+  - {fileID: 5251978615751408329, guid: 3d2f599474fd4b2994881f42880ea8c6, type: 3}
+  - {fileID: 2965599932687856292, guid: 3d2f599474fd4b2994881f42880ea8c6, type: 3}
+  - {fileID: 2365076705713957727, guid: 3d2f599474fd4b2994881f42880ea8c6, type: 3}
+  - {fileID: 6256131582671704638, guid: 3d2f599474fd4b2994881f42880ea8c6, type: 3}
+  - {fileID: 7208522903439339441, guid: 3d2f599474fd4b2994881f42880ea8c6, type: 3}
+  - {fileID: -8803371887732516606, guid: 3d2f599474fd4b2994881f42880ea8c6, type: 3}
+  player: {fileID: 4646192630875636619, guid: 906a758d83eb2ec49acae96176111a95, type: 3}
 --- !u!212 &-2243018945179211920
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -99,3 +114,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &5823191300511609777
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4585585803880917806}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 483f1f91f0570734d98b5d1647baf585, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
