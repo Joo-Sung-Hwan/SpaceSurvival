@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
     public PlayerSpawnManager playerSpawnManager;
+    public PollingSystem pollingsystem;
+
     private void Awake()
     {
         if(instance == null)

@@ -75,8 +75,7 @@ public class Player : MonoBehaviour
         time_D += Time.deltaTime;
         if (time_D > fire_time)
         {
-            Bullet b = Instantiate(bullets[0], bullet_parent);
-            b.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bullet_parent);
+            GameManager.instance.pollingsystem.PollingBullet(bullets[0], bullet_parent);
             time_D = 0f;
         }
     }

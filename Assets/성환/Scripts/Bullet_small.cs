@@ -13,8 +13,29 @@ public class Bullet_small : Bullet
     {
         base.Move();
     }
+
+    public override void SetDir()
+    {
+        base.SetDir();
+    }
+
+    public override void DestroyBullet()
+    {
+        base.DestroyBullet();
+    }
+
     void Start()
     {
         init();
+    }
+
+    private void OnEnable()
+    {
+        SetDir();
+    }
+    private void Update()
+    {
+        Move();
+        DestroyBullet();
     }
 }
