@@ -22,29 +22,4 @@ public class SettingManager : MonoBehaviour
         
     }
 
-
-    /// <summary>
-    /// 어떤 toggle이 꺼지고, 어떤 toggle이 켜지는지 받는 함수
-    /// </summary>
-    public void SetToggle(Enum_UI.Tg_Setting ts)
-    {
-
-    }
-
-
-    /// <summary>
-    /// 활성/비활성화된 Toggle의 이미지 크기를 바꿔주는 함수
-    /// </summary>
-    void ChangeToggle()
-    {
-        if (curTg > preTg)
-        {
-
-        }
-        else
-        {
-
-        }
-    }
-
 }

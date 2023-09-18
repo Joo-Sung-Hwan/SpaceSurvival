@@ -20,6 +20,7 @@ public class Toggle_Main : MonoBehaviour
     void Start()
     {
         toggle.image.sprite = toggle.isOn ? selected_Image : normal_Image;
+        activeObj.SetActive(toggle.isOn);
     }
 
     // Update is called once per frame
