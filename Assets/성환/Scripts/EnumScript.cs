@@ -15,3 +15,10 @@ public enum Monster
     two,
     three
 }
+
+public enum Weapon
+{
+    Sword,
+    Rifle,
+    Hammer
+}

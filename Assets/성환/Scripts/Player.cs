@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
 
 public class Player : MonoBehaviour
 {
+    
     [HideInInspector] public int Level { get; set; }
     [HideInInspector] public int HP { get; set; }
     [HideInInspector] public float Attack { get; set; }
     [HideInInspector] public float Defense { get; set; }
     [HideInInspector] public float AttackSpeed { get; set; }
     [HideInInspector] public float Speed { get; set; }
+
+    [HideInInspector] Weapon weapon;
 
     public Bullet[] bullets;
     public Transform bullet_parent;
@@ -26,7 +31,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         
-        FireBullet();
+        // FireBullet();
 
     }
 
