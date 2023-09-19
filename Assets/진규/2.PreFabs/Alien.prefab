@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3641627116844660426}
   - component: {fileID: -2137747203840829851}
   - component: {fileID: 200129810344162430}
+  - component: {fileID: 1968938035775545839}
   m_Layer: 0
   m_Name: Alien
   m_TagString: Untagged
@@ -45,6 +46,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a69cc718ae13efb4b93e58925d28883f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idleSp:
+  - {fileID: -3655621501393774895, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: -3185995270805410201, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: -6334799096112948352, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: -2134340880611598165, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: -2151818530499332596, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: 3051071556821484571, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: -5705869721440319331, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: 7168834123846226226, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: -5112156401277642946, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: -4904485453230194659, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: 929150727014594773, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: -8898634129254946022, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: -1574576503455686002, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: 6367498201634126667, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: -7207429827535173402, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: -8215856964752772259, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: -6871614914986685141, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: 532023552575573989, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: -3490280450085971560, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: 2973940874069163354, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
+  - {fileID: -3547867813687463170, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
   walkSp:
   - {fileID: -6959915571989194883, guid: e5fe59ed7cca4e0db490aff9a46a5a9c, type: 3}
   - {fileID: 960921020097805623, guid: e5fe59ed7cca4e0db490aff9a46a5a9c, type: 3}
@@ -60,6 +83,39 @@ MonoBehaviour:
   - {fileID: 6256131582671704638, guid: e5fe59ed7cca4e0db490aff9a46a5a9c, type: 3}
   - {fileID: 7208522903439339441, guid: e5fe59ed7cca4e0db490aff9a46a5a9c, type: 3}
   - {fileID: -8803371887732516606, guid: e5fe59ed7cca4e0db490aff9a46a5a9c, type: 3}
+  deadSp:
+  - {fileID: -6933376847463828097, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: -5237305773744717419, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: -8832942586056227262, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: -8963126696323742251, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: -5780482753717323668, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: 3281484461675188788, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: -1242349326372387410, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: 6980888030113846711, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: -3064017222887765310, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: 7909386141080420498, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: 2208351160603301257, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: -3524833060866120207, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: 5290899786636593083, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: 3793135003011521512, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: 8127399618877946523, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: 4907074289330451353, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: -243917037616477623, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: 2503918929811048904, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: 1120524881432023382, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: -9181914173064295235, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: -3995811919799648164, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: -4951816434380497990, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: 8240427576413946002, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: -4554653555070836905, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: -6245187095425293849, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: -2491518914093591735, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: -6312508621195008799, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: 2541455224421076861, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: 7809726351429310546, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: 3477101644308552507, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: -275543275449285507, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  - {fileID: 3946212249003284976, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
 --- !u!212 &200129810344162430
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -112,3 +168,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1968938035775545839
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8538675551991660895}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0f5b59c823c24944c8cf87e745a39cc8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

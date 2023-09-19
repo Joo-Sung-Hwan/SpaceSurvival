@@ -19,7 +19,12 @@ public class Alien : Enemy
 
     void Update()
     {
+        Move();
+    }
 
+    public override void Move()
+    {
+        base.Move();
     }
 
     public override void DataInPut()

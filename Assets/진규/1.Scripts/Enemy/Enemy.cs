@@ -41,7 +41,10 @@ public abstract class Enemy : MonoBehaviour
 {
     public EnemyData ed = new EnemyData();
 
-    [SerializeField]List<Sprite> walkSp = new List<Sprite>();
+    [SerializeField] private List<Sprite> idleSp = new List<Sprite>();
+    [SerializeField] private List<Sprite> walkSp = new List<Sprite>();
+    [SerializeField] private List<Sprite> deadSp = new List<Sprite>();
+
     protected Animator anim;
     protected EnemyType enemyT = EnemyType.None;
     protected DefineEnemyData defineData;
@@ -50,16 +53,11 @@ public abstract class Enemy : MonoBehaviour
 
     public abstract void Init();
 
-
-    void Update()
-    {
-        Move();
-    }
-
     public virtual void Move()
     {
         PlayerTest player = FindObjectOfType<PlayerTest>();
         Vector3 distance = player.transform.position - transform.position;
+        anim = transform.GetComponent<Animator>();
 
         transform.Translate(Time.deltaTime * ed.speed * distance.normalized);
         if (distance.normalized.x < 0)
@@ -70,7 +68,7 @@ public abstract class Enemy : MonoBehaviour
         if(ed.enemyState != EnemyState.Walk)
         {
             ed.enemyState = EnemyState.Walk;
-            
+            anim.SetTrigger("run");
         }
     }
 
