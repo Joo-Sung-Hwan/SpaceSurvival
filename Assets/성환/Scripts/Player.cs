@@ -15,23 +15,20 @@ public class Player : MonoBehaviour
     [HideInInspector] public float Speed { get; set; }
 
     [HideInInspector] Weapon weapon;
+    public List<GameObject> weapon_list = new List<GameObject>();
 
-    public Bullet[] bullets;
-    public Transform bullet_parent;
-    float fire_time = 1f;
-    float time_D = 0f;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         Init();
+        Instantiate(weapon_list[1], transform);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        // FireBullet();
 
     }
 
@@ -75,13 +72,5 @@ public class Player : MonoBehaviour
         SetSpeed(2);
     }
 
-    public void FireBullet()
-    {
-        time_D += Time.deltaTime;
-        if (time_D > fire_time)
-        {
-            GameManager.instance.pollingsystem.PollingBullet(bullets[0], bullet_parent);
-            time_D = 0f;
-        }
-    }
+    
 }
