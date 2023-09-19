@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public float Speed { get; set; }
 
     [HideInInspector] Weapon weapon;
+    [HideInInspector] PlayerState ps;
     public List<GameObject> weapon_list = new List<GameObject>();
 
     
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ps = PlayerState.Idle;
         Init();
         Instantiate(weapon_list[1], transform);
     }
