@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Bullet : MonoBehaviour
 {
     public float Speed { get; set; }
-    float destroy_time = 0f;
+    protected float destroy_time = 0f;
     bool dir;
     public abstract void init();
 

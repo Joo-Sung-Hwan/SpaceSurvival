@@ -14,7 +14,16 @@ public class Laser : Bullet
         base.SetDir();
     }
 
-    
+    public override void DestroyBullet()
+    {
+        destroy_time += Time.deltaTime;
+        if (destroy_time > 1f)
+        {
+            gameObject.SetActive(false);
+            destroy_time = 0f;
+        }
+    }
+
 
     void Start()
     {
@@ -27,7 +36,7 @@ public class Laser : Bullet
     }
     private void Update()
     {
-        
+        DestroyBullet();
     }
     
 }

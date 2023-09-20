@@ -5,19 +5,23 @@ using UnityEngine;
 public class PollingSystem : MonoBehaviour
 {
     Queue<Bullet> b_queue;
+    Queue<Bullet> l_queue;
     Queue<Enemy> e_queue;
+    Queue<Bomb> bo_queue;
     
     // Start is called before the first frame update
     void Start()
     {
         b_queue = new Queue<Bullet>();
+        l_queue = new Queue<Bullet>();
         e_queue = new Queue<Enemy>();
+        bo_queue = new Queue<Bomb>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(b_queue.Count);
+        
     }
 
     // 총알 오브젝트 풀링
@@ -52,6 +56,63 @@ public class PollingSystem : MonoBehaviour
         return bullet;
     }
 
+    public Bullet PollingLaser(Bullet bullet, Transform parent)
+    {
+        Bullet l = null;
+        if (l_queue.Count == 0)
+        {
+            Bullet bul = Instantiate(bullet, parent);
+            l_queue.Enqueue(bul);
+            bul.gameObject.SetActive(false);
+        }
+        foreach (Bullet item in l_queue)
+        {
+            if (!item.gameObject.activeSelf)
+            {
+                l = item;
+                l.transform.position = parent.position;
+                l.gameObject.SetActive(true);
+                break;
+            }
+        }
+        if (l == null)
+        {
+            l = Instantiate(bullet, parent);
+            l_queue.Enqueue(l);
+        }
+        l.gameObject.SetActive(true);
+        return bullet;
+    }
+    public Bomb PollingBomb(Bomb bomb, Transform parent, Vector2 pv)
+    {
+        Bomb b = null;
+        if (bo_queue.Count == 0)
+        {
+            Bomb bul = Instantiate(bomb, pv, Quaternion.identity);
+            bo_queue.Enqueue(bul);
+            bul.gameObject.SetActive(false);
+            bul.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bomb_parent);
+        }
+        foreach (Bomb item in bo_queue)
+        {
+            if (!item.gameObject.activeSelf)
+            {
+                b = item;
+                b.transform.position = pv;
+                b.gameObject.SetActive(true);
+                break;
+            }
+        }
+        if (b == null)
+        {
+            b = Instantiate(bomb, pv, Quaternion.identity);
+            b.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bomb_parent);
+            bo_queue.Enqueue(b);
+        }
+
+        b.gameObject.SetActive(true);
+        return bomb;
+    }
     public Enemy PollingEnemy(Enemy enemy, Transform parent)
     {
         Enemy e = null;

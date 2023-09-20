@@ -16,9 +16,3 @@ public enum Monster
     three
 }
 
-public enum Weapon
-{
-    Sword,
-    Rifle,
-    Hammer
-}

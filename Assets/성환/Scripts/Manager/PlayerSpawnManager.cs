@@ -7,6 +7,7 @@ public class PlayerSpawnManager : MonoBehaviour
     public Player player_prefab;
     public Transform parent;
     public Transform tmp_bullet_parent;
+    public Transform tmp_bomb_parent;
     [HideInInspector] public Player player;
     // Start is called before the first frame update
     void Start()
