@@ -83,29 +83,30 @@ public class PollingSystem : MonoBehaviour
         l.gameObject.SetActive(true);
         return bullet;
     }
-    public Bomb PollingBomb(Bomb bomb, Transform parent, Vector2 pv)
+    public Bomb PollingBomb(Bomb bomb, Transform parent)
     {
         Bomb b = null;
         if (bo_queue.Count == 0)
         {
-            Bomb bul = Instantiate(bomb, pv, Quaternion.identity);
+            Bomb bul = Instantiate(bomb, parent);
             bo_queue.Enqueue(bul);
             bul.gameObject.SetActive(false);
             bul.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bomb_parent);
+            return bul;
         }
         foreach (Bomb item in bo_queue)
         {
             if (!item.gameObject.activeSelf)
             {
                 b = item;
-                b.transform.position = pv;
+                b.transform.position = parent.position;
                 b.gameObject.SetActive(true);
                 break;
             }
         }
         if (b == null)
         {
-            b = Instantiate(bomb, pv, Quaternion.identity);
+            b = Instantiate(bomb, parent);
             b.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bomb_parent);
             bo_queue.Enqueue(b);
         }
