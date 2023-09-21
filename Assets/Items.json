@@ -1,0 +1,12 @@
+[
+  {
+    "name": "폭탄",
+    "spriteName": "Bomb_Sprite",
+    "description": "주변으로 날아가 폭발합니다."
+  },
+  {
+    "name": "광선검",
+    "spriteName": "Sword_Sprite",
+    "description": "위용위용"
+  }
+]
