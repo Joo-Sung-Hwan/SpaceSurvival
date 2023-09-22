@@ -23,15 +23,15 @@ public class ItemManager : MonoBehaviour
 {
     public TextAsset jsonFile;
 
-    List<ItemData> inventoryItems = new List<ItemData>();
+    [HideInInspector] public List<ItemData> items = new List<ItemData>();
 
     // Start is called before the first frame update
     void Start()
     {
-        inventoryItems.Add(new ItemData("폭탄", "Bomb_Sprite", "주변으로 날아가 폭발합니다."));
-        inventoryItems.Add(new ItemData("광선검", "Sword_Sprite", "위용위용"));
+        items.Add(new ItemData("폭탄", "Bomb_Sprite", "주변으로 날아가 폭발합니다."));
+        items.Add(new ItemData("광선검", "Sword_Sprite", "위용위용"));
 
-        string jItems = JsonConvert.SerializeObject(inventoryItems);
+        string jItems = JsonConvert.SerializeObject(items);
         Debug.Log(jItems);
     }
 
@@ -49,7 +49,7 @@ public class ItemManager : MonoBehaviour
 
     public void SaveItem()
     {
-        string jitems = JsonConvert.SerializeObject(inventoryItems , Formatting.Indented);
+        string jitems = JsonConvert.SerializeObject(items , Formatting.Indented);
         File.WriteAllText(Application.dataPath + "/Items.json" , jitems);
         //File.WriteAllText(jsonFile.text, jitems);
     }
