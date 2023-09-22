@@ -37,7 +37,9 @@ public class Player : MonoBehaviour
         }
     }
 
-    float delayTime = 0f;
+    float delayTimeL = 0f;
+    float delayTimeB = 0f;
+
 
 
     // Start is called before the first frame update
@@ -111,11 +113,11 @@ public class Player : MonoBehaviour
 
     public void LaserFire()
     {
-        delayTime += Time.deltaTime;
-        if (delayTime > 2f)
+        delayTimeL += Time.deltaTime;
+        if (delayTimeL > 2f)
         {
             GameManager.instance.pollingsystem.PollingLaser(laser, laser_parent);
-            delayTime = 0f;
+            delayTimeL = 0f;
         }
     }
     public void SetAreaSize()
@@ -137,15 +139,15 @@ public class Player : MonoBehaviour
     
     public void CreateBomb()
     {
-        delayTime += Time.deltaTime;
-        Debug.Log(delayTime);
-        if (delayTime > 2f)
+        delayTimeB += Time.deltaTime;
+        Debug.Log(delayTimeB);
+        if (delayTimeB > 2f)
         {
             Bomb bul = GameManager.instance.pollingsystem.PollingBomb(bomb, area.transform);
             //bul.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bomb_parent);
-            Debug.Log("持失");
+            //Debug.Log("持失");
 
-            delayTime = 0f;
+            delayTimeB = 0f;
         }
     }
 }

@@ -90,7 +90,6 @@ public class PollingSystem : MonoBehaviour
         {
             Bomb bul = Instantiate(bomb, parent);
             bo_queue.Enqueue(bul);
-            bul.gameObject.SetActive(false);
             bul.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bomb_parent);
             return bul;
         }
@@ -110,7 +109,7 @@ public class PollingSystem : MonoBehaviour
             b.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bomb_parent);
             bo_queue.Enqueue(b);
         }
-
+        Debug.Log("»ý¼º");
         b.gameObject.SetActive(true);
         return bomb;
     }

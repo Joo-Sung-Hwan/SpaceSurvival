@@ -1,7 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
+public enum BombState
+{
+    Idle,
+    Explosion
+}
 public class Bomb : MonoBehaviour
 {
     float desTime = 0f;
@@ -21,12 +26,20 @@ public class Bomb : MonoBehaviour
     public Transform sprite;
     public Transform shadow;
 
+    public GameObject explosion;
     Player player;
-    // Start is called before the first frame update
+
+
+    Animator ani;
+    BombState bs;
 
     
+
     void OnEnable()
     {
+        bs = BombState.Idle;
+        ani = GetComponent<Animator>();
+        B_State(bs);
         player = GameManager.instance.playerSpawnManager.player;
         start_pos = player.area.bounds.center;
         destination = player.GetRandomPosition();
@@ -55,7 +68,7 @@ public class Bomb : MonoBehaviour
     public void DestroyBomb()
     {
         desTime += Time.deltaTime;
-        if(desTime > 3f)
+        if(desTime > 10f)
         {
             gameObject.SetActive(false);
             desTime = 0f;
@@ -83,23 +96,29 @@ public class Bomb : MonoBehaviour
         }
         else
         {
-            //Debug.Log("½ºÅ¾");
-            sprite.position = shadow.position;
+            bs = BombState.Explosion;
+            Vector3 tmp = shadow.position;
+            tmp.y = tmp.y + 0.04f;
+            sprite.position = tmp;
             isGrounded = true;
+            B_State(bs);
         }
-        /*
-        if(sprite.position.y < shadow.position.y)
+    }
+
+    public void B_State(BombState bs)
+    {
+        if(bs == BombState.Idle)
         {
-            sprite.position = shadow.position;
-            if(curBounce < maxBounce)
-            {
-                Init(dir);
-            }
-            else
-            {
-                isGrounded = true;
-            }
+            ani.SetTrigger("idle");
+            ani.ResetTrigger("explosion");
+            explosion.SetActive(false);
         }
-        */
+        else
+        {
+            ani.ResetTrigger("idle");
+            ani.SetTrigger("explosion");
+            explosion.SetActive(true);
+            GetComponent<Animator>().Play("BombExplosion");
+        }
     }
 }
