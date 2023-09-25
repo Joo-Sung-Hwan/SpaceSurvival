@@ -20,7 +20,7 @@ public class Spon : MonoBehaviour
     IEnumerator MonsterSpawn()
     {
         yield return new WaitForSeconds(4f);
-        Enemy enemy = Instantiate(obj, trans);
-        enemy.Init();
+        //Enemy enemy = Instantiate(obj, trans);
+        //enemy.Init();
     }
 }

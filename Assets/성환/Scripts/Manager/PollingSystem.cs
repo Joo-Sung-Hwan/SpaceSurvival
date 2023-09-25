@@ -121,7 +121,7 @@ public class PollingSystem : MonoBehaviour
             Enemy em = Instantiate(enemy, parent);
             e_queue.Enqueue(em);
             em.gameObject.SetActive(false);
-            em.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bullet_parent);
+            em.transform.SetParent(SpawnManager.Instance.trans);
         }
         foreach (Enemy item in e_queue)
         {
@@ -136,7 +136,7 @@ public class PollingSystem : MonoBehaviour
         if (e == null)
         {
             e = Instantiate(enemy, parent);
-            e.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bullet_parent);
+            e.transform.SetParent(SpawnManager.Instance.trans);
             e_queue.Enqueue(e);
         }
         e.gameObject.SetActive(true);
