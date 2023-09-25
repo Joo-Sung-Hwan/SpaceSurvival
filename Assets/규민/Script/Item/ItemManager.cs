@@ -28,8 +28,7 @@ public class ItemManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        items.Add(new ItemData("폭탄", "Bomb_Sprite", "주변으로 날아가 폭발합니다."));
-        items.Add(new ItemData("광선검", "Sword_Sprite", "위용위용"));
+        LoadItem();
 
         string jItems = JsonConvert.SerializeObject(items);
         Debug.Log(jItems);
@@ -37,14 +36,7 @@ public class ItemManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            SaveItem();
-        }
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-            LoadItem();
-        }
+
     }
 
     public void SaveItem()
@@ -61,6 +53,7 @@ public class ItemManager : MonoBehaviour
         foreach (var item in testring)
         {
             Debug.Log($"이름: {item.name}, 스프라이트 이름: {item.spriteName}, 설명: {item.description}");
+            items.Add(new ItemData(item.name, item.spriteName, item.description));
         }
     }
 }

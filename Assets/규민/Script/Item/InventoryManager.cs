@@ -96,5 +96,6 @@ public class InventoryManager : MonoBehaviour
 
 
         inventoryDatas.Add(new InventoryData(newItemData, newRarity, newItemAbs));
+        Debug.Log($"아이템 추가 : {newItemData.name}");
     }
 }

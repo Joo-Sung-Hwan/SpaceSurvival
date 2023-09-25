@@ -9,9 +9,9 @@ public class InventoryCells : MonoBehaviour
 
     public void SetInventory()
     {
+        int index = 0;
         foreach (var ivData in InventoryManager.Instance.inventoryDatas)
-        {
-            int index = 0;
+        { 
             cells[index].cellData = ivData;
             index++;
         }
@@ -20,10 +20,5 @@ public class InventoryCells : MonoBehaviour
         {
             cell.SetImage();
         }
-    }
-
-    private void OnEnable()
-    {
-        SetInventory();
     }
 }
