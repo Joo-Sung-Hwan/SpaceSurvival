@@ -6,7 +6,7 @@ public struct Item_Ability
 {
     public string abilityName;
     public float abilityValue;
-    public string abilityrarity;
+    public Enum_GM.Rarity abilityrarity;
 }
 
 public class PlayerInventoryController : MonoBehaviour

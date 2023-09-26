@@ -8,12 +8,14 @@ using System.IO;
 public class ItemData
 {
     public string name;
+    public string place;
     public string spriteName;
     public string description;
 
-    public ItemData(string name, string spriteName, string description)
+    public ItemData(string name, string place, string spriteName, string description)
     {
         this.name = name;
+        this.place = place;
         this.spriteName = spriteName;
         this.description= description;
     }
@@ -53,7 +55,7 @@ public class ItemManager : MonoBehaviour
         foreach (var item in testring)
         {
             Debug.Log($"이름: {item.name}, 스프라이트 이름: {item.spriteName}, 설명: {item.description}");
-            items.Add(new ItemData(item.name, item.spriteName, item.description));
+            items.Add(new ItemData(item.name, item.place, item.spriteName, item.description));
         }
     }
 }

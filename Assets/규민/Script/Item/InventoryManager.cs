@@ -6,10 +6,10 @@ using UnityEngine;
 public class InventoryData
 {
     public ItemData itemData;
-    public string rarity;
+    public Enum_GM.Rarity rarity;
     public List<Item_Ability> abilities;
 
-    public InventoryData(ItemData itemData, string rarity, List<Item_Ability> abilities)
+    public InventoryData(ItemData itemData, Enum_GM.Rarity rarity, List<Item_Ability> abilities)
     {
         this.itemData = itemData;
         this.rarity = rarity;
@@ -20,6 +20,7 @@ public class InventoryData
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] ItemManager itemManager;
+    public ItemDetail itemDetail;
     [HideInInspector] public List<InventoryData> inventoryDatas = new List<InventoryData>();
 
     #region 싱글톤
@@ -56,10 +57,12 @@ public class InventoryManager : MonoBehaviour
         int rand = Random.Range(0, itemManager.items.Count);
         ItemData newItemData = itemManager.items[rand];
 
-        string newRarity = "노말";
+        //아이템 자체의 희귀도
+        Enum_GM.Rarity newRarity = Enum_GM.Rarity.normal;
 
         List<Item_Ability> newItemAbs = new List<Item_Ability>();
 
+        //랜덤으로 어빌리티의 종류/수치를 결정함
         // i = 최대 ability 개수
         for (int i = 0; i < 5; i++)
         {
@@ -72,30 +75,36 @@ public class InventoryManager : MonoBehaviour
 
             if (rand_Rare < 50)
             {
-                item_Ab.abilityrarity = "노말";
+                item_Ab.abilityrarity = Enum_GM.Rarity.normal;
                 item_Ab.abilityValue = 6;
             }
             else if (rand_Rare < 80)
             {
-                item_Ab.abilityrarity = "레어";
+                item_Ab.abilityrarity = Enum_GM.Rarity.rare;
                 item_Ab.abilityValue = 10;
             }
             else if (rand_Rare < 95)
             {
-                item_Ab.abilityrarity = "유니크";
+                item_Ab.abilityrarity = Enum_GM.Rarity.unique;
                 item_Ab.abilityValue = 13;
             }
             else
             {
-                item_Ab.abilityrarity = "레전더리";
+                item_Ab.abilityrarity = Enum_GM.Rarity.legendary;
                 item_Ab.abilityValue = 15;
             }
 
             item_Ab.abilityValue += Random.Range(0, 4);
+            newItemAbs.Add(item_Ab);
+            //인수에 들어있는 람다식에 따라 리스트를 정렬
+            //-> abilityValue값이 크면 앞으로 정렬
+            newItemAbs.Sort((Item_Ability ab_A, Item_Ability ab_B) => ab_B.abilityValue.CompareTo(ab_A.abilityValue));
         }
 
 
         inventoryDatas.Add(new InventoryData(newItemData, newRarity, newItemAbs));
         Debug.Log($"아이템 추가 : {newItemData.name}");
     }
+
+
 }
