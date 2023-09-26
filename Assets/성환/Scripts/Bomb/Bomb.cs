@@ -37,12 +37,14 @@ public class Bomb : MonoBehaviour
 
     void OnEnable()
     {
+        sprite.gameObject.SetActive(true);
+        shadow.gameObject.SetActive(true);
         bs = BombState.Idle;
         ani = GetComponent<Animator>();
         B_State(bs);
         player = GameManager.instance.playerSpawnManager.player;
         start_pos = player.area.bounds.center;
-        destination = player.GetRandomPosition();
+        destination = GameManager.instance.GetRandomPosition(player.transform,player.area);
         maxdis = Vector3.Distance(player.area.bounds.center, destination);
         Debug.Log(player.area.bounds.center);
         curheight = 1f;
@@ -53,7 +55,6 @@ public class Bomb : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DestroyBomb();
         if (!isGrounded)
         {
             curheight += -gravity * Time.deltaTime;
@@ -92,7 +93,6 @@ public class Bomb : MonoBehaviour
                 sprite.position = shadow.position;
                 Init(dir);
             }
-            
         }
         else
         {
@@ -117,8 +117,17 @@ public class Bomb : MonoBehaviour
         {
             ani.ResetTrigger("idle");
             ani.SetTrigger("explosion");
+            sprite.gameObject.SetActive(false);
+            shadow.gameObject.SetActive(false);
             explosion.SetActive(true);
             GetComponent<Animator>().Play("BombExplosion");
         }
+    }
+
+    public void ExplosionFinish()
+    {
+        explosion.SetActive(false);
+        bs = BombState.Idle;
+        gameObject.SetActive(false);
     }
 }

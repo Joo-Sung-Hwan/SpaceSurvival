@@ -194,6 +194,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 119679879}
+  - component: {fileID: 119679880}
   - component: {fileID: 119679878}
   - component: {fileID: 119679877}
   m_Layer: 0
@@ -269,6 +270,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &119679880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119679876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e545efed78904e74e9a30b6bd074bd00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &667116251
 GameObject:
   m_ObjectHideFlags: 0
@@ -10314,7 +10327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpawnManager: {fileID: 915089227}
   pollingsystem: {fileID: 1036591272}
-  spawnManager: {fileID: 0}
+  spawnManager: {fileID: 1633387431}
 --- !u!1 &1257465727
 GameObject:
   m_ObjectHideFlags: 0
