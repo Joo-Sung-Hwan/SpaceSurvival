@@ -60,11 +60,11 @@ public class JoyStick : MonoBehaviour, IBeginDragHandler,IEndDragHandler,IDragHa
         {
             if(input_vector.x > 0)
             {
-                p.GetComponent<Transform>().localScale = new Vector3(-1f, 1f, 1f);
+                p.GetComponent<SpriteRenderer>().flipX = true;
             }
             else
             {
-                p.GetComponent<Transform>().localScale = new Vector3(1f, 1f, 1f);
+                p.GetComponent<SpriteRenderer>().flipX = false;
             }
             p.GetComponent<CharacterController>().Move(new Vector2(input_vector.x, input_vector.y) * Time.deltaTime * Speed);
             p.ps = PlayerState.Walk;
