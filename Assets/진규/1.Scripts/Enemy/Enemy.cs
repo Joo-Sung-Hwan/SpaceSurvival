@@ -55,7 +55,7 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void Move()
     {
-        PlayerTest player = FindObjectOfType<PlayerTest>();
+        Player player = FindObjectOfType<Player>();
         Vector3 distance = player.transform.position - transform.position;
         anim = transform.GetComponent<Animator>();
 
@@ -68,7 +68,7 @@ public abstract class Enemy : MonoBehaviour
         if(ed.enemyState != EnemyState.Walk)
         {
             ed.enemyState = EnemyState.Walk;
-            anim.SetTrigger("run");
+            anim.SetTrigger("Walk");
         }
     }
 

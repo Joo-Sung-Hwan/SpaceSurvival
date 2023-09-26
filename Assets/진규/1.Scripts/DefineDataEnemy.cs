@@ -17,10 +17,8 @@ public class EData
 public class DefineDataEnemy : MonoBehaviour
 {
     public static DefineDataEnemy Instance;
-    public List<Enemy> enemys = new List<Enemy>();
     public List<EData> eDataList = new List<EData>();
 
-    public TextAsset text;
 
     void Awake() => Instance = this;
 

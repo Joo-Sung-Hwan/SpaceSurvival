@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public static SpawnManager Instance;
-    public PlayerTest player;
     public Enemy enemy;
-    public Transform[] spawnPoint;
-    public Transform trans;
+    //public Transform trans;
+    private Transform[] spawnPoint;
     private float spawnTime;
-
-
-    void Awake() => Instance = this;
+    Player player;
 
     void Start()
     {
+        player = GameManager.instance.playerSpawnManager.player;
         spawnPoint = player.transform.GetChild(0).GetComponentsInChildren<Transform>();
     }
 
@@ -23,7 +20,7 @@ public class SpawnManager : MonoBehaviour
     {
         spawnTime += Time.deltaTime;
 
-        if(spawnTime > 0.2f)
+        if(spawnTime > 0.4f)
         {
             spawnTime = 0;
             Spawn();
@@ -32,8 +29,7 @@ public class SpawnManager : MonoBehaviour
 
     void Spawn()
     {
-        int rand = Random.Range(0, spawnPoint.Length);
-        //GameManager.instance.pollingsystem.PollingEnemy(enemy, spawnPoint[rand]);
-        Instantiate(enemy, spawnPoint[rand]);
+        int rand = Random.Range(1, spawnPoint.Length);
+        GameManager.instance.pollingsystem.PollingEnemy(enemy, spawnPoint[rand]);
     }
 }
