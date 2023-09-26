@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Astronaut : Enemy
 {
-
     public override void Init()
     {
         ed.name = EnemyType.Astronaut.ToString();
@@ -13,17 +12,18 @@ public class Astronaut : Enemy
         ed.attack = (int)DefineEnemyData.Attack;
         ed.defence = (int)DefineEnemyData.Defence;
         ed.speed = (int)DefineEnemyData.Speed;
-    }
-
-    void Start()
-    {
-        Init();
+        player = GameManager.instance.playerSpawnManager.player;
         DataInPut();
-        Debug.Log(ed.exp);
     }
 
     void Update()
     {
+        Debug.Log(player);
+        if(player == null)
+        {
+            player = GameManager.instance.playerSpawnManager.player;
+            return;
+        }
         Move();
     }
 
@@ -32,8 +32,5 @@ public class Astronaut : Enemy
         base.Move();
     }
 
-    public override void DataInPut()
-    {
-        base.DataInPut();
-    }
+    public override void DataInPut() => base.DataInPut();
 }

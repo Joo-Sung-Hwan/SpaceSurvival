@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public PlayerSpawnManager playerSpawnManager;
     public PollingSystem pollingsystem;
     public SpawnManager spawnManager;
+    public PlayerCamera playerCamera;
 
     private void Awake()
     {

@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 3953778415427760373}
   - component: {fileID: -2243018945179211920}
   - component: {fileID: 5823191300511609777}
+  - component: {fileID: 172040211456582219}
+  - component: {fileID: 7905061842275661981}
   m_Layer: 0
   m_Name: Astronaut
   m_TagString: Untagged
@@ -28,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4585585803880917806}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -116,6 +118,7 @@ MonoBehaviour:
   - {fileID: 3477101644308552507, guid: 37db6fd26ee44919bffee8a330bd9f5d, type: 3}
   - {fileID: -275543275449285507, guid: 37db6fd26ee44919bffee8a330bd9f5d, type: 3}
   - {fileID: 3946212249003284976, guid: 37db6fd26ee44919bffee8a330bd9f5d, type: 3}
+  player: {fileID: 9200852978905411386, guid: 906a758d83eb2ec49acae96176111a95, type: 3}
 --- !u!212 &-2243018945179211920
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -189,3 +192,84 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!60 &172040211456582219
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4585585803880917806}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.1}
+    oldSize: {x: 1.8947369, y: 1.5789474}
+    newSize: {x: 2.7692308, y: 2.3076923}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.1263158, y: 0.010526316}
+      - {x: 0.18947369, y: 0.010526316}
+      - {x: 0.20526317, y: 0.015789475}
+      - {x: 0.21578948, y: 0.15789475}
+      - {x: 0.30526316, y: 0.23157896}
+      - {x: 0.3263158, y: 0.32105264}
+      - {x: 0.3157895, y: 0.45789474}
+      - {x: 0.29473686, y: 0.54210526}
+      - {x: 0.33684212, y: 0.5894737}
+      - {x: 0.33684212, y: 0.6684211}
+      - {x: 0.33157897, y: 0.6947369}
+      - {x: 0.25789475, y: 0.8210527}
+      - {x: 0.17894737, y: 0.8842106}
+      - {x: 0.13684212, y: 0.9421053}
+      - {x: 0.11578948, y: 0.9526316}
+      - {x: 0.07894737, y: 0.9526316}
+      - {x: 0.073684216, y: 0.94736844}
+      - {x: 0.0631579, y: 0.91052634}
+      - {x: -0.08947369, y: 0.9052632}
+      - {x: -0.2, y: 0.8789474}
+      - {x: -0.26842105, y: 0.8210527}
+      - {x: -0.34210527, y: 0.70000005}
+      - {x: -0.34736845, y: 0.6789474}
+      - {x: -0.34736845, y: 0.57894737}
+      - {x: -0.3157895, y: 0.5052632}
+      - {x: -0.34210527, y: 0.3526316}
+      - {x: -0.30526316, y: 0.2526316}
+      - {x: -0.27368423, y: 0.21052632}
+      - {x: -0.22105265, y: 0.21052632}
+      - {x: -0.21578948, y: 0.047368422}
+      - {x: -0.18421054, y: 0.010526316}
+      - {x: -0.13684212, y: 0.010526316}
+      - {x: -0.11578948, y: 0.036842108}
+      - {x: -0.11578948, y: 0.08421053}
+      - {x: 0.11052632, y: 0.07894737}
+--- !u!50 &7905061842275661981
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4585585803880917806}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

@@ -40,11 +40,11 @@ public enum DefineEnemyData
 public abstract class Enemy : MonoBehaviour
 {
     public EnemyData ed = new EnemyData();
-
     [SerializeField] private List<Sprite> idleSp = new List<Sprite>();
     [SerializeField] private List<Sprite> walkSp = new List<Sprite>();
     [SerializeField] private List<Sprite> deadSp = new List<Sprite>();
 
+    public Player player;
     protected Animator anim;
     protected EnemyType enemyT = EnemyType.None;
     protected DefineEnemyData defineData;
@@ -55,7 +55,6 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void Move()
     {
-        Player player = FindObjectOfType<Player>();
         Vector3 distance = player.transform.position - transform.position;
         anim = transform.GetComponent<Animator>();
 

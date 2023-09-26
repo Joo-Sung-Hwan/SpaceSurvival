@@ -113,12 +113,13 @@ public class PollingSystem : MonoBehaviour
         b.gameObject.SetActive(true);
         return bomb;
     }
-    public Enemy PollingEnemy(Enemy enemy, Transform parent)
+    public Enemy PollingEnemy(Enemy enemy, Vector2 parent)
     {
         Enemy e = null;
         if (e_queue.Count == 0)
         {
-            Enemy em = Instantiate(enemy, parent);
+            Enemy em = Instantiate(enemy, parent, Quaternion.identity);
+            em.Init();
             e_queue.Enqueue(em);
             em.gameObject.SetActive(false);
             em.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_enemy_parent);
@@ -128,14 +129,16 @@ public class PollingSystem : MonoBehaviour
             if (!item.gameObject.activeSelf)
             {
                 e = item;
-                e.transform.position = parent.position;
+                e.Init();
+                e.transform.position = parent;
                 e.gameObject.SetActive(true);
                 break;
             }
         }
         if (e == null)
         {
-            e = Instantiate(enemy, parent);
+            e = Instantiate(enemy, parent, Quaternion.identity);
+            e.Init();
             e.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_enemy_parent);
             e_queue.Enqueue(e);
         }

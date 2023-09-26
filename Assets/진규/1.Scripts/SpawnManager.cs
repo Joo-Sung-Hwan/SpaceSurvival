@@ -6,14 +6,15 @@ public class SpawnManager : MonoBehaviour
 {
     public Enemy enemy;
     //public Transform trans;
-    private Transform[] spawnPoint;
+    private BoxCollider2D[] spawnPoint;
     private float spawnTime;
-    Player player;
+    PlayerCamera playerCamera;
+    Vector2 spawnspot;
 
     void Start()
     {
-        player = GameManager.instance.playerSpawnManager.player;
-        spawnPoint = player.transform.GetChild(0).GetComponentsInChildren<Transform>();
+        playerCamera = GameManager.instance.playerCamera;
+        spawnPoint = playerCamera.GetComponentsInChildren<BoxCollider2D>();
     }
 
     void Update()
@@ -29,7 +30,8 @@ public class SpawnManager : MonoBehaviour
 
     void Spawn()
     {
-        int rand = Random.Range(1, spawnPoint.Length);
-        GameManager.instance.pollingsystem.PollingEnemy(enemy, spawnPoint[rand]);
+        int rand = Random.Range(0, spawnPoint.Length);
+        spawnspot = GameManager.instance.GetRandomPosition(spawnPoint[rand].transform, spawnPoint[rand]);
+        GameManager.instance.pollingsystem.PollingEnemy(enemy, spawnspot);
     }
 }

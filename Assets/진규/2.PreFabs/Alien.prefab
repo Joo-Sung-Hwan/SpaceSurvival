@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a69cc718ae13efb4b93e58925d28883f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 9200852978905411386, guid: 906a758d83eb2ec49acae96176111a95, type: 3}
   idleSp:
   - {fileID: -3655621501393774895, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
   - {fileID: -3185995270805410201, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
