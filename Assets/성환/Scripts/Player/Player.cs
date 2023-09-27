@@ -49,6 +49,7 @@ public class Player : MonoBehaviour
         SetAreaSize();
         ps = PlayerState.Idle;
         ani = GetComponent<Animator>();
+        HP = 100;
         Init();
     }
 
@@ -76,9 +77,9 @@ public class Player : MonoBehaviour
         Level = level;
     }
 
-    public void SetHP(int hp)
+    public void SetHP(int damage)
     {
-        HP = hp;
+        HP -= damage;
     }
 
     public void SetAttack(float attack)
