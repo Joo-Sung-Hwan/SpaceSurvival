@@ -109,7 +109,7 @@ public class PollingSystem : MonoBehaviour
             b.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bomb_parent);
             bo_queue.Enqueue(b);
         }
-        Debug.Log("持失");
+        //Debug.Log("持失");
         b.gameObject.SetActive(true);
         return bomb;
     }

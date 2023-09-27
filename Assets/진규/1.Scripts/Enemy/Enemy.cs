@@ -53,6 +53,19 @@ public abstract class Enemy : MonoBehaviour
 
     public abstract void Init();
 
+    public float Hp
+    {
+        get { return ed.hp; }
+        set 
+        { 
+            ed.hp = value;
+            if(ed.hp == 0)
+            {
+                StartCoroutine(Dead());
+            }
+        }
+    }
+
     public virtual void Move()
     {
         Vector3 distance = player.transform.position - transform.position;
@@ -88,6 +101,29 @@ public abstract class Enemy : MonoBehaviour
                 ed.speed = define.eDataList[count].speed;
                 break;
             }
+        }
+    }
+
+    IEnumerator Dead()
+    {
+        anim.SetTrigger("Dead");
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        string str = collision.tag;
+        switch(str)
+        {
+            case "Player":
+                GameManager.instance.playerSpawnManager.player.SetHP(ed.attack);
+                //Debug.Log(GameManager.instance.playerSpawnManager.player.HP);
+                break;
+            case "Bomb":
+                ed.hp -= collision.transform.parent.GetComponent<Bomb>().BombAttack;
+                Debug.Log(ed.hp);
+                break;
         }
     }
 }

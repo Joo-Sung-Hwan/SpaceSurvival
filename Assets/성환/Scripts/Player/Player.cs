@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
 {
 
     [HideInInspector] public int Level { get; set; }
-    [HideInInspector] public int HP { get; set; }
+    [HideInInspector] public float HP { get; set; }
     [HideInInspector] public float Attack { get; set; }
     [HideInInspector] public float Defense { get; set; }
     [HideInInspector] public float AttackSpeed { get; set; }
@@ -77,7 +77,7 @@ public class Player : MonoBehaviour
         Level = level;
     }
 
-    public void SetHP(int damage)
+    public void SetHP(float damage)
     {
         HP -= damage;
     }
@@ -105,7 +105,6 @@ public class Player : MonoBehaviour
     public void Init()
     {
         SetLevel(1);
-        SetHP(100);
         SetAttack(10);
         SetDefense(5);
         SetAttackSpeed(1);
@@ -129,11 +128,9 @@ public class Player : MonoBehaviour
     public void CreateBomb()
     {
         delayTimeB += Time.deltaTime;
-        Debug.Log(delayTimeB);
-        if (delayTimeB > 2f)
+        if (delayTimeB > 0.5f)
         {
-            Bomb bul = GameManager.instance.pollingsystem.PollingBomb(bomb, area.transform);
-
+            GameManager.instance.pollingsystem.PollingBomb(bomb, area.transform);
             delayTimeB = 0f;
         }
     }

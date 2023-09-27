@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 3789514527835393894}
   m_Layer: 0
   m_Name: Explosion
-  m_TagString: Untagged
+  m_TagString: Bomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -186,7 +186,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.3}
-    oldSize: {x: 1.585, y: 1.58}
+    oldSize: {x: 1.268, y: 1.264}
     newSize: {x: 2.4384615, y: 2.4307692}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

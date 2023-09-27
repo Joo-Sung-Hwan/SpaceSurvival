@@ -37,8 +37,8 @@ public class Bomb : MonoBehaviour
 
     void OnEnable()
     {
-        SetBombAttack(10);
-        Debug.Log(BombAttack);
+        SetBombAttack(50);
+        //Debug.Log(BombAttack);
         sprite.gameObject.SetActive(true);
         shadow.gameObject.SetActive(true);
         bs = BombState.Idle;
@@ -48,7 +48,7 @@ public class Bomb : MonoBehaviour
         start_pos = player.area.bounds.center;
         destination = GameManager.instance.GetRandomPosition(player.transform,player.area);
         maxdis = Vector3.Distance(player.area.bounds.center, destination);
-        Debug.Log(player.area.bounds.center);
+        //Debug.Log(player.area.bounds.center);
         curheight = 1f;
         maxheight = curheight;
         Init(destination);

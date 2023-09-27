@@ -18,7 +18,6 @@ public class Astronaut : Enemy
 
     void Update()
     {
-        Debug.Log(player);
         if(player == null)
         {
             player = GameManager.instance.playerSpawnManager.player;
