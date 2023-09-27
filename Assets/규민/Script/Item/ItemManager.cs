@@ -4,15 +4,18 @@ using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
 
+/// <summary>
+/// Item의 변하지 않는 데이터(이름, 장착부위 등등)
+/// </summary>
 [System.Serializable]
-public class ItemData
+public class ItemStaticData
 {
     public string name;
     public string place;
     public string spriteName;
     public string description;
 
-    public ItemData(string name, string place, string spriteName, string description)
+    public ItemStaticData(string name, string place, string spriteName, string description)
     {
         this.name = name;
         this.place = place;
@@ -25,7 +28,7 @@ public class ItemManager : MonoBehaviour
 {
     public TextAsset jsonFile;
 
-    [HideInInspector] public List<ItemData> items = new List<ItemData>();
+    [HideInInspector] public List<ItemStaticData> items = new List<ItemStaticData>();
 
     // Start is called before the first frame update
     void Start()
@@ -51,11 +54,11 @@ public class ItemManager : MonoBehaviour
     public void LoadItem()
     { 
         //string jitem = File.ReadAllText(Application.dataPath + "/Items.json");
-        List <ItemData> testring = JsonConvert.DeserializeObject<List<ItemData>>(jsonFile.text);
-        foreach (var item in testring)
+        List <ItemStaticData> itemDatas_json = JsonConvert.DeserializeObject<List<ItemStaticData>>(jsonFile.text);
+        foreach (var item in itemDatas_json)
         {
             Debug.Log($"이름: {item.name}, 스프라이트 이름: {item.spriteName}, 설명: {item.description}");
-            items.Add(new ItemData(item.name, item.place, item.spriteName, item.description));
+            items.Add(new ItemStaticData(item.name, item.place, item.spriteName, item.description));
         }
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class InventoryCells : MonoBehaviour
 {
     [SerializeField] List<InventoryCell> cells;
+    [SerializeField] bool isEquip;
 
     public void SetInventory()
     {

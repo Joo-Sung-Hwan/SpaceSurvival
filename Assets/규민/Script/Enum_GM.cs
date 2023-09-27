@@ -12,4 +12,14 @@ public class Enum_GM:MonoBehaviour
         rare,
         normal
     }
+
+    public enum ItemPlace
+    {
+        weapon,
+        clothes,
+        shoes,
+        earring,
+        ring,
+        pet
+    }
 }

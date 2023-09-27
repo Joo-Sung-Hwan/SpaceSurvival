@@ -5,17 +5,22 @@ using UnityEngine.UI;
 
 public class InventoryCell : MonoBehaviour
 {
-    [HideInInspector] public InventoryData cellData;
+    [HideInInspector] public ItemData cellData;
     public Image itemImage;
     [SerializeField] GameObject itemButton;
-
+    [Header("장비창의 Cell에서만 사용")]
+    [SerializeField] GameObject icon;
+    
     /// <summary>
     /// 인벤토리 칸에서의 이미지를 변경하는 함수
     /// </summary>
     public void SetImage()
     {
-        itemButton.SetActive(cellData.itemData.name != "");
-        itemImage.sprite = Resources.Load<Sprite>("ItemIcons/" + cellData.itemData.spriteName);
+        bool isData = cellData.itemStaticData.name != "";
+        itemButton.SetActive(cellData.itemStaticData.name != "");
+        if (icon)
+            icon.SetActive(!isData);
+        itemImage.sprite = Resources.Load<Sprite>("ItemIcons/" + cellData.itemStaticData.spriteName);
     }
 
     /// <summary>

@@ -25,42 +25,42 @@ public class ItemDetail : MonoBehaviour
     /// 상세 설명을 바꿔주는 함수
     /// </summary>
     /// <param name="ivd"></param>
-    public void SetDetails(InventoryData ivd)
+    public void SetDetails(ItemData ivd)
     {
-        itemPlace_Txt.text = ivd.itemData.place;
-        itemName_Txt.text = ivd.itemData.name;
-        itemDesc_Txt.text = ivd.itemData.description;
+        itemPlace_Txt.text = ivd.itemStaticData.place;
+        itemName_Txt.text = ivd.itemStaticData.name;
+        SetColor(ivd.rarity, itemName_Txt);
+
+        itemDesc_Txt.text = ivd.itemStaticData.description;
 
         int index = 0;
         foreach (var abil in ivd.abilities)
         {
             ability_Txt[index].text = abil.abilityName + " + " + abil.abilityValue + "%";
-            SetAbColor(abil, ability_Txt[index++]);
+            SetColor(abil.abilityrarity, ability_Txt[index++]);
         }
 
-        itemImage.sprite = Resources.Load<Sprite>("ItemIcons/" + ivd.itemData.spriteName);
+        itemImage.sprite = Resources.Load<Sprite>("ItemIcons/" + ivd.itemStaticData.spriteName);
     }
 
     /// <summary>
-    /// 어빌리티 등급에 따라 텍스트 색깔을 변경하는 함수
+    /// 등급에 따라 텍스트 색깔을 변경하는 함수
     /// </summary>
-    /// <param name="ab"></param>
-    /// <param name="ab_Txt"></param>
-    void SetAbColor(Item_Ability ab, TMP_Text ab_Txt)
+    void SetColor(Enum_GM.Rarity rarity, TMP_Text Txt)
     {
-        switch (ab.abilityrarity)
+        switch (rarity)
         {
             case Enum_GM.Rarity.legendary:
-                ab_Txt.color = new Color(1, 1, (74f / 255f));
+                Txt.color = new Color(1, 1, (74f / 255f));
                 break;
             case Enum_GM.Rarity.unique:
-                ab_Txt.color = new Color((195f / 255f), 0, 255);
+                Txt.color = new Color((195f / 255f), 0, 255);
                 break;
             case Enum_GM.Rarity.rare:
-                ab_Txt.color = new Color((61f / 255f), (167f / 255f), 1);
+                Txt.color = new Color((61f / 255f), (167f / 255f), 1);
                 break;
             case Enum_GM.Rarity.normal:
-                ab_Txt.color = Color.white;
+                Txt.color = Color.white;
                 break;
             default:
                 break;

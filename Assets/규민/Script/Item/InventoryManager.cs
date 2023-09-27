@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class InventoryData
+public class ItemData
 {
-    public ItemData itemData;
+    public ItemStaticData itemStaticData;
     public Enum_GM.Rarity rarity;
     public List<Item_Ability> abilities;
 
-    public InventoryData(ItemData itemData, Enum_GM.Rarity rarity, List<Item_Ability> abilities)
+    public ItemData(ItemStaticData itemStaticData, Enum_GM.Rarity rarity, List<Item_Ability> abilities)
     {
-        this.itemData = itemData;
+        this.itemStaticData = itemStaticData;
         this.rarity = rarity;
         this.abilities = abilities;
     }
@@ -21,7 +21,8 @@ public class InventoryManager : MonoBehaviour
 {
     [SerializeField] ItemManager itemManager;
     public ItemDetail itemDetail;
-    [HideInInspector] public List<InventoryData> inventoryDatas = new List<InventoryData>();
+    [HideInInspector] public List<ItemData> inventoryDatas = new List<ItemData>();
+    [HideInInspector] public List<ItemData> equipDatas= new List<ItemData>();
 
     #region 싱글톤
     public static InventoryManager instance;
@@ -48,17 +49,21 @@ public class InventoryManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            AddItem();
+            AddItem(inventoryDatas);
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            AddItem(equipDatas);
         }
     }
 
-    void AddItem()
+    void AddItem(List<ItemData> itemDatas)
     {
         int rand = Random.Range(0, itemManager.items.Count);
-        ItemData newItemData = itemManager.items[rand];
+        ItemStaticData newIsData = itemManager.items[rand];
 
         //아이템 자체의 희귀도
-        Enum_GM.Rarity newRarity = Enum_GM.Rarity.normal;
+        Enum_GM.Rarity newRarity = Enum_GM.Rarity.rare;
 
         List<Item_Ability> newItemAbs = new List<Item_Ability>();
 
@@ -102,8 +107,8 @@ public class InventoryManager : MonoBehaviour
         }
 
 
-        inventoryDatas.Add(new InventoryData(newItemData, newRarity, newItemAbs));
-        Debug.Log($"아이템 추가 : {newItemData.name}");
+        itemDatas.Add(new ItemData(newIsData, newRarity, newItemAbs));
+        Debug.Log($"아이템 추가 : {newIsData.name}");
     }
 
 
