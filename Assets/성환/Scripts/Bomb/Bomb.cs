@@ -15,7 +15,7 @@ public class Bomb : MonoBehaviour
     Vector2 destination;
     float maxdis;
     float gravity = 10f;
-
+    [HideInInspector] public float BombAttack { get; set; }
     Vector2 dir;
     
     bool isGrounded = true;
@@ -37,6 +37,8 @@ public class Bomb : MonoBehaviour
 
     void OnEnable()
     {
+        SetBombAttack(10);
+        Debug.Log(BombAttack);
         sprite.gameObject.SetActive(true);
         shadow.gameObject.SetActive(true);
         bs = BombState.Idle;
@@ -129,5 +131,10 @@ public class Bomb : MonoBehaviour
         explosion.SetActive(false);
         bs = BombState.Idle;
         gameObject.SetActive(false);
+    }
+
+    public void SetBombAttack(float bombattack)
+    {
+        BombAttack = bombattack;
     }
 }
