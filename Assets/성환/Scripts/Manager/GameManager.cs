@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
     public Vector2 GetRandomPosition(Transform trans, BoxCollider2D area)
     {
 
-        Vector2 pos = trans.localPosition;
+        Vector2 pos = trans.position;
         Vector2 size = area.bounds.size;
 
         float posX = pos.x + UnityEngine.Random.Range(-size.x / 2f, size.x / 2f);

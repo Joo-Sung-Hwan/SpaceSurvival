@@ -45,21 +45,21 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] private List<Sprite> deadSp = new List<Sprite>();
 
     public Player player;
-    protected Animator anim;
     protected EnemyType enemyT = EnemyType.None;
+    protected Animator anim;
     protected DefineEnemyData defineData;
     //protected DefineEnemyData defineD = DefineEnemyData.None;
 
 
     public abstract void Init();
-
+    public bool IsDead { get; set; }
     public float Hp
     {
         get { return ed.hp; }
         set 
         { 
             ed.hp = value;
-            if(ed.hp == 0)
+            if(ed.hp <= 0)
             {
                 StartCoroutine(Dead());
             }
@@ -106,9 +106,11 @@ public abstract class Enemy : MonoBehaviour
 
     IEnumerator Dead()
     {
+        IsDead = true;
+        ed.enemyState = EnemyState.Dead;
         anim.SetTrigger("Dead");
-        yield return new WaitForSeconds(1f);
-        Destroy(gameObject);
+        yield return new WaitForSeconds(2.05f);
+        gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -121,8 +123,7 @@ public abstract class Enemy : MonoBehaviour
                 //Debug.Log(GameManager.instance.playerSpawnManager.player.HP);
                 break;
             case "Bomb":
-                ed.hp -= collision.transform.parent.GetComponent<Bomb>().BombAttack;
-                Debug.Log(ed.hp);
+                Hp -= collision.transform.parent.GetComponent<Bomb>().BombAttack;
                 break;
         }
     }

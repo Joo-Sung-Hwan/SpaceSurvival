@@ -133,6 +133,7 @@ public class PollingSystem : MonoBehaviour
             {
                 e = item;
                 e.Init();
+                e.IsDead = false;
                 e.transform.position = parent;
                 e.gameObject.SetActive(true);
                 break;

@@ -4,16 +4,43 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] public Transform playerTransform;
+    [SerializeField] Vector3 cameraP;
+    [SerializeField] Vector2 center;
+    [SerializeField] Vector2 mapSize;
+    [SerializeField] float cameraMoveSpeed;
+    float height;
+    float width;
+
     void Start()
     {
-        
+        height = Camera.main.orthographicSize;
+        width = height * Screen.width / Screen.height;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        transform.position = new Vector3(GameManager.instance.playerSpawnManager.player.transform.position.x, GameManager.instance.playerSpawnManager.player.transform.position.y, -10f);
-        
+        LimitCameraArea();
+    }
+
+    void LimitCameraArea()
+    {
+        playerTransform = GameManager.instance.playerSpawnManager.player.transform;
+
+        transform.position = Vector3.Lerp(transform.position, playerTransform.position + cameraP, Time.deltaTime * cameraMoveSpeed);
+
+        float lx = mapSize.x - width;
+        float clampX = Mathf.Clamp(transform.position.x, -lx + center.x, lx + center.x);
+
+        float ly = mapSize.y - height;
+        float clampY = Mathf.Clamp(transform.position.y, -ly + center.y, ly + center.y);
+
+        transform.position = new Vector3(clampX, clampY, -10f);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(center, mapSize * 2);
     }
 }

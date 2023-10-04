@@ -5,8 +5,7 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public Enemy enemy;
-    //public Transform trans;
-    private BoxCollider2D[] spawnPoint;
+    public BoxCollider2D[] spawnPoint;
     private float spawnTime;
     PlayerCamera playerCamera;
     Vector2 spawnspot;
@@ -21,7 +20,7 @@ public class SpawnManager : MonoBehaviour
     {
         spawnTime += Time.deltaTime;
 
-        if(spawnTime > 3f)
+        if(spawnTime > 0.4f)
         {
             spawnTime = 0;
             Spawn();
@@ -29,7 +28,7 @@ public class SpawnManager : MonoBehaviour
     }
 
     void Spawn()
-    {
+    {   
         int rand = Random.Range(0, spawnPoint.Length);
         spawnspot = GameManager.instance.GetRandomPosition(spawnPoint[rand].transform, spawnPoint[rand]);
         GameManager.instance.pollingsystem.PollingEnemy(enemy, spawnspot);
