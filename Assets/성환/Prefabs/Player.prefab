@@ -224,7 +224,6 @@ MonoBehaviour:
   laser_parent: {fileID: 3695146227546126354}
   bomb: {fileID: -4346942405506297916, guid: 923d33ba1f700b6469791209c95b6d7f, type: 3}
   area: {fileID: 722039230206204245}
-  size: 0
 --- !u!95 &939897147032476912
 Animator:
   serializedVersion: 5
@@ -376,7 +375,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8127772687008416582}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6, y: 1.8, z: 0}
+  m_LocalPosition: {x: -6, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
