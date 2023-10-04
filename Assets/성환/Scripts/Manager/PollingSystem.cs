@@ -34,6 +34,7 @@ public class PollingSystem : MonoBehaviour
             b_queue.Enqueue(bul);
             bul.gameObject.SetActive(false);
             bul.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bullet_parent);
+            return bul;
         }
         foreach (Bullet item in b_queue)
         {
@@ -64,6 +65,7 @@ public class PollingSystem : MonoBehaviour
             Bullet bul = Instantiate(bullet, parent);
             l_queue.Enqueue(bul);
             bul.gameObject.SetActive(false);
+            return bul;
         }
         foreach (Bullet item in l_queue)
         {
@@ -98,6 +100,7 @@ public class PollingSystem : MonoBehaviour
             if (!item.gameObject.activeSelf)
             {
                 b = item;
+                b.ResetData();
                 b.transform.position = parent.position;
                 b.gameObject.SetActive(true);
                 break;
@@ -121,8 +124,8 @@ public class PollingSystem : MonoBehaviour
             Enemy em = Instantiate(enemy, parent, Quaternion.identity);
             em.Init();
             e_queue.Enqueue(em);
-            em.gameObject.SetActive(false);
             em.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_enemy_parent);
+            return em;
         }
         foreach (Enemy item in e_queue)
         {

@@ -24,33 +24,23 @@ public class Player : MonoBehaviour
     [Header("ÆøÅº")]
     public Bomb bomb;
     public BoxCollider2D area;
-    [HideInInspector] public int size;
-    public int Size
-    {
-        get
-        {
-            return size;
-        }
-        set
-        {
-            size = value;
-        }
-    }
+    [HideInInspector] public int Size { get; set; }
+    
 
     float delayTimeL = 0f;
     float delayTimeB = 0f;
+    [HideInInspector] public float BombCTime { get; set; }
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        Size = 5;
-        SetAreaSize();
         ps = PlayerState.Idle;
         ani = GetComponent<Animator>();
         HP = 100;
         Init();
+        SetBombCtime(3f);
     }
 
     // Update is called once per frame
@@ -120,18 +110,24 @@ public class Player : MonoBehaviour
             delayTimeL = 0f;
         }
     }
-    public void SetAreaSize()
+    public void SetAreaSize(int size)
     {
+        Size = size;
         area.size = new Vector3(Size, Size, Size);
     }
     
     public void CreateBomb()
     {
         delayTimeB += Time.deltaTime;
-        if (delayTimeB > 0.5f)
+        if (delayTimeB > BombCTime)
         {
             GameManager.instance.pollingsystem.PollingBomb(bomb, area.transform);
             delayTimeB = 0f;
         }
+    }
+
+    public void SetBombCtime(float time)
+    {
+        BombCTime = time;
     }
 }

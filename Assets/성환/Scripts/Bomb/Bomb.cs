@@ -9,19 +9,19 @@ public enum BombState
 }
 public class Bomb : MonoBehaviour
 {
-    float desTime = 0f;
     Vector3 start_pos;
-    float dis;
+    Vector2 dir;
     Vector2 destination;
+    float dis;
     float maxdis;
     float gravity = 10f;
-    [HideInInspector] public float BombAttack { get; set; }
-    Vector2 dir;
-    
     bool isGrounded = true;
-
-    float maxheight;
+    int maxbounce = 5;
+    int curbounce;
     float curheight;
+
+    [HideInInspector] public float BombAttack { get; set; }
+    [HideInInspector] public float BombSize { get; set; }
 
     public Transform sprite;
     public Transform shadow;
@@ -29,29 +29,30 @@ public class Bomb : MonoBehaviour
     public GameObject explosion;
     Player player;
 
-
     Animator ani;
     BombState bs;
 
-    
-
-    void OnEnable()
+    void Start()
     {
+        ResetData();
         SetBombAttack(50);
-        //Debug.Log(BombAttack);
-        sprite.gameObject.SetActive(true);
-        shadow.gameObject.SetActive(true);
-        bs = BombState.Idle;
+        SetBombSize(1);
+    }
+    public void ResetData()
+    {
+        SetBombAttack(BombAttack);
+        SetBombSize(BombSize);
+        curbounce = 0;
+        curheight = 1f;
+        SettingActive(true);
         ani = GetComponent<Animator>();
-        B_State(bs);
         player = GameManager.instance.playerSpawnManager.player;
         start_pos = player.area.bounds.center;
-        destination = GameManager.instance.GetRandomPosition(player.transform,player.area);
-        maxdis = Vector3.Distance(player.area.bounds.center, destination);
-        //Debug.Log(player.area.bounds.center);
-        curheight = 1f;
-        maxheight = curheight;
+        destination = GameManager.instance.GetRandomPosition(player.transform, player.area);
+        maxdis = Vector3.Distance(start_pos, destination);
         Init(destination);
+        bs = BombState.Idle;
+        B_State(bs);
     }
 
     // Update is called once per frame
@@ -60,40 +61,34 @@ public class Bomb : MonoBehaviour
         if (!isGrounded)
         {
             curheight += -gravity * Time.deltaTime;
+
+            // 폭탄 이미지 위아래로 바운드
             sprite.position += new Vector3(0, curheight, 0) * Time.deltaTime;
             transform.position += (Vector3)dir * Time.deltaTime;
 
             CheckGroundHit();
         }
     }
-
-
-    public void DestroyBomb()
-    {
-        desTime += Time.deltaTime;
-        if(desTime > 10f)
-        {
-            gameObject.SetActive(false);
-            desTime = 0f;
-        }
-    } 
+    
     public void Init(Vector2 dir)
     {
         isGrounded = false;
-        maxheight = 1.5f;
-        this.dir = dir / 1.2f;
-        curheight = maxheight;
+        this.dir = dir;
+        curheight = 1.5f;
+        curbounce++;
     }
 
     public void CheckGroundHit()
     {
         dis = Vector3.Distance(this.transform.position, start_pos);
-        if(dis < maxdis)
+
+        // 최대거리이거나 3번 바운드하면 터짐
+        if(dis < maxdis && curbounce < maxbounce)
         {
             if (sprite.position.y < shadow.position.y)
             {
                 sprite.position = shadow.position;
-                Init(dir);
+                Init(dir / 1.5f);
             }
         }
         else
@@ -107,6 +102,7 @@ public class Bomb : MonoBehaviour
         }
     }
 
+    // 폭탄 터지는 애니메이션
     public void B_State(BombState bs)
     {
         if(bs == BombState.Idle)
@@ -119,13 +115,13 @@ public class Bomb : MonoBehaviour
         {
             ani.ResetTrigger("idle");
             ani.SetTrigger("explosion");
-            sprite.gameObject.SetActive(false);
-            shadow.gameObject.SetActive(false);
+            SettingActive(false);
             explosion.SetActive(true);
             GetComponent<Animator>().Play("BombExplosion");
         }
     }
 
+    // 폭탄 터지는 애니메이션 끝났을 때 호출
     public void ExplosionFinish()
     {
         explosion.SetActive(false);
@@ -133,8 +129,22 @@ public class Bomb : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public void SettingActive(bool active)
+    {
+        sprite.gameObject.SetActive(active);
+        shadow.gameObject.SetActive(active);
+    }
+
+    // 폭탄 공격력 설정
     public void SetBombAttack(float bombattack)
     {
         BombAttack = bombattack;
+    }
+
+    // 폭탄 터지는 범위 설정
+    public void SetBombSize(float size)
+    {
+        BombSize = size;
+        GetComponent<Transform>().localScale = new Vector3(BombSize, BombSize, 0f);
     }
 }
