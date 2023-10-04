@@ -6,21 +6,25 @@ using UnityEngine.UI;
 public class InventoryCell : MonoBehaviour
 {
     [HideInInspector] public ItemData cellData;
+
     public Image itemImage;
+
     [SerializeField] GameObject itemButton;
     [Header("장비창의 Cell에서만 사용")]
     [SerializeField] GameObject icon;
-    
+
     /// <summary>
     /// 인벤토리 칸에서의 이미지를 변경하는 함수
     /// </summary>
     public void SetImage()
     {
-        bool isData = cellData.itemStaticData.name != "";
-        itemButton.SetActive(cellData.itemStaticData.name != "");
+        bool isData = cellData == null || cellData.itemStaticData.name == "";
+        itemButton.SetActive(!isData);
         if (icon)
-            icon.SetActive(!isData);
-        itemImage.sprite = Resources.Load<Sprite>("ItemIcons/" + cellData.itemStaticData.spriteName);
+            icon.SetActive(isData);
+        
+        if (!isData)
+            itemImage.sprite = Resources.Load<Sprite>("ItemIcons/" + cellData.itemStaticData.spriteName);
     }
 
     /// <summary>
@@ -28,6 +32,6 @@ public class InventoryCell : MonoBehaviour
     /// </summary>
     public void OnSetDetail()
     {
-        InventoryManager.Instance.itemDetail.SetDetails(cellData);
+        InventoryManager.Instance.SelectedItem = cellData;
     }
 }

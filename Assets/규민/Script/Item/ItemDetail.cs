@@ -12,6 +12,9 @@ public class ItemDetail : MonoBehaviour
     [SerializeField] List<TMP_Text> ability_Txt;
     [SerializeField] Image itemImage;
 
+    [HideInInspector] public ItemData itemdata;
+    [HideInInspector] public int cellIndex;
+
     private void Start()
     {
         //d_Color.Add(Enum_GM.Color.yellow, new Color(1, 1, (74f / 255f)));
@@ -27,7 +30,8 @@ public class ItemDetail : MonoBehaviour
     /// <param name="ivd"></param>
     public void SetDetails(ItemData ivd)
     {
-        itemPlace_Txt.text = ivd.itemStaticData.place;
+        itemdata = ivd;
+        itemPlace_Txt.text = ivd.itemStaticData.place.ToString();
         itemName_Txt.text = ivd.itemStaticData.name;
         SetColor(ivd.rarity, itemName_Txt);
 

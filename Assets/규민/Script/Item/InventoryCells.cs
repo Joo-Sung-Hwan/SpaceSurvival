@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class InventoryCells : MonoBehaviour
 {
     [SerializeField] List<InventoryCell> cells;
-    [SerializeField] bool isEquip;
 
     public void SetInventory()
     {
@@ -14,12 +13,15 @@ public class InventoryCells : MonoBehaviour
         foreach (var ivData in InventoryManager.Instance.inventoryDatas)
         { 
             cells[index].cellData = ivData;
+            cells[index].SetImage();
             index++;
         }
 
-        foreach (var cell in cells)
+
+        for (int i = index; i < cells.Count; i++)
         {
-            cell.SetImage();
-        }
+            cells[i].cellData = null;
+            cells[i].SetImage();
+        } 
     }
 }

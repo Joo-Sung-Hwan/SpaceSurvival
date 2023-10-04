@@ -5,11 +5,11 @@ using UnityEngine;
 public class Inventory_UI : MonoBehaviour
 {
     public InventoryCells cells;
-    public InventoryCells equips;
+    public Equipments equipments;
 
     public void OnCellsEnable()
     {
         cells.SetInventory();
-        equips.SetInventory();
+        equipments.SetEquipments();
     }
 }

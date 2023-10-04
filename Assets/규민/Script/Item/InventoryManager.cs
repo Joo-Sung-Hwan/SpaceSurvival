@@ -20,9 +20,20 @@ public class ItemData
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] ItemManager itemManager;
+    public Inventory_UI inventory_UI;
     public ItemDetail itemDetail;
     [HideInInspector] public List<ItemData> inventoryDatas = new List<ItemData>();
-    [HideInInspector] public List<ItemData> equipDatas= new List<ItemData>();
+    [HideInInspector] public Dictionary<Enum_GM.ItemPlace , ItemData> equipDatas= new Dictionary<Enum_GM.ItemPlace, ItemData>();
+    public ItemData SelectedItem 
+    { 
+        get { return selectedItem; } 
+        set 
+        {
+            itemDetail.SetDetails(value);
+            selectedItem = value;
+        } 
+    }
+    private ItemData selectedItem;
 
     #region ΩÃ±€≈Ê
     public static InventoryManager instance;
@@ -50,10 +61,6 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F1))
         {
             AddItem(inventoryDatas);
-        }
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-            AddItem(equipDatas);
         }
     }
 
@@ -108,8 +115,7 @@ public class InventoryManager : MonoBehaviour
 
 
         itemDatas.Add(new ItemData(newIsData, newRarity, newItemAbs));
+        inventory_UI?.OnCellsEnable();
         Debug.Log($"æ∆¿Ã≈€ √ﬂ∞° : {newIsData.name}");
     }
-
-
 }
