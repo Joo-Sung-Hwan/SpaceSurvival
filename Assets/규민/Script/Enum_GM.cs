@@ -22,4 +22,10 @@ public class Enum_GM:MonoBehaviour
         ring,
         pet
     }
+
+    public enum SortBy
+    {
+        name,
+        rare
+    }
 }

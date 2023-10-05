@@ -5,13 +5,18 @@ using UnityEngine.UI;
 
 public class InventoryCell : MonoBehaviour
 {
-    [HideInInspector] public ItemData cellData;
+    [HideInInspector] public ItemData cellData = null;
 
     public Image itemImage;
 
     [SerializeField] GameObject itemButton;
-    [Header("장비창의 Cell에서만 사용")]
+    [Header("장비창의 Cell에서만 사용")] 
     [SerializeField] GameObject icon;
+
+    private void Start()
+    {
+        cellData = null;
+    }
 
     /// <summary>
     /// 인벤토리 칸에서의 이미지를 변경하는 함수

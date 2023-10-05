@@ -34,9 +34,6 @@ public class ItemManager : MonoBehaviour
     void Start()
     {
         LoadItem();
-
-        string jItems = JsonConvert.SerializeObject(items);
-        Debug.Log(jItems);
     }
 
     private void Update()
@@ -57,7 +54,6 @@ public class ItemManager : MonoBehaviour
         List <ItemStaticData> itemDatas_json = JsonConvert.DeserializeObject<List<ItemStaticData>>(jsonFile.text);
         foreach (var item in itemDatas_json)
         {
-            Debug.Log($"이름: {item.name}, 스프라이트 이름: {item.spriteName}, 설명: {item.description}");
             items.Add(new ItemStaticData(item.name, item.place, item.spriteName, item.description));
         }
     }

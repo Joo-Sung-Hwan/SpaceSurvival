@@ -10,5 +10,11 @@
     "place": "무기",
     "spriteName": "LightSaber_Icon",
     "description": "위용위용"
+  },
+  {
+    "name": "광선 갑옷",
+    "place": "옷",
+    "spriteName": "LightSaber_Icon",
+    "description": "광선검으로 위장한 갑옷"
   }
 ]

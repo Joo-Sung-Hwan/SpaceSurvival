@@ -22,14 +22,26 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] ItemManager itemManager;
     public Inventory_UI inventory_UI;
     public ItemDetail itemDetail;
+    public ItemDetail equipmentDetail;
     [HideInInspector] public List<ItemData> inventoryDatas = new List<ItemData>();
     [HideInInspector] public Dictionary<Enum_GM.ItemPlace , ItemData> equipDatas= new Dictionary<Enum_GM.ItemPlace, ItemData>();
+
+    #region 정렬
+    [SerializeField] UnityEngine.UI.Dropdown dropdown;
+
+    Enum_GM.SortBy sortBy = Enum_GM.SortBy.name;
+    #endregion
+
     public ItemData SelectedItem 
     { 
-        get { return selectedItem; } 
+        get 
+        { 
+            return selectedItem; 
+        } 
         set 
         {
             itemDetail.SetDetails(value);
+            equipmentDetail.SetDetails(value);
             selectedItem = value;
         } 
     }
@@ -64,6 +76,10 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 아이템 추가 함수(테스트)
+    /// </summary>
+    /// <param name="itemDatas"></param>
     void AddItem(List<ItemData> itemDatas)
     {
         int rand = Random.Range(0, itemManager.items.Count);
@@ -117,5 +133,48 @@ public class InventoryManager : MonoBehaviour
         itemDatas.Add(new ItemData(newIsData, newRarity, newItemAbs));
         inventory_UI?.OnCellsEnable();
         Debug.Log($"아이템 추가 : {newIsData.name}");
+    }
+
+    void SortItemByName()
+    {
+        inventoryDatas.Sort((ItemData id_A , ItemData id_B) => id_A.itemStaticData.name.CompareTo(id_B.itemStaticData.name));
+        inventory_UI.OnCellsEnable();
+    }
+
+    void SortItemByRare()
+    {
+        inventoryDatas.Sort((ItemData id_A, ItemData id_B) => id_A.rarity.CompareTo(id_B.rarity));
+        inventory_UI.OnCellsEnable();
+    }
+
+    public void OnSortBy()
+    {
+        switch (dropdown.value)
+        {
+            case 0:
+                sortBy = Enum_GM.SortBy.name;
+                break;
+            case 1:
+                sortBy = Enum_GM.SortBy.rare;
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void OnSort()
+    {
+        switch (sortBy)
+        {
+            case Enum_GM.SortBy.name:
+                SortItemByName();
+                break;
+            case Enum_GM.SortBy.rare:
+                SortItemByRare();
+                break;
+            default:
+                break;
+        }
+        
     }
 }
