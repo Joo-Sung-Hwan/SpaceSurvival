@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a69cc718ae13efb4b93e58925d28883f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 9200852978905411386, guid: 906a758d83eb2ec49acae96176111a95, type: 3}
   idleSp:
   - {fileID: -3655621501393774895, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
   - {fileID: -3185995270805410201, guid: a3f43d5323b34d1ca7f46383ee75db77, type: 3}
@@ -117,6 +116,10 @@ MonoBehaviour:
   - {fileID: 3477101644308552507, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
   - {fileID: -275543275449285507, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
   - {fileID: 3946212249003284976, guid: ed03da9cc8214f71b2abe3be5dcacfd7, type: 3}
+  items:
+  - {fileID: 4819316638390071840, guid: 150fa057f58bdfb42ab9e65e8650479f, type: 3}
+  - {fileID: 7093794893088856794, guid: 5c3b89d0bfb40134d9508ea2b4b2541f, type: 3}
+  player: {fileID: 9200852978905411386, guid: 906a758d83eb2ec49acae96176111a95, type: 3}
 --- !u!212 &200129810344162430
 SpriteRenderer:
   m_ObjectHideFlags: 0

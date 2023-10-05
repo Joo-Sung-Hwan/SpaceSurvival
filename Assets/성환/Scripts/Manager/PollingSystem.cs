@@ -8,6 +8,7 @@ public class PollingSystem : MonoBehaviour
     Queue<Laser> l_queue;
     Queue<Enemy> e_queue;
     Queue<Bomb> bo_queue;
+    Queue<Item> item_queue;
     
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,7 @@ public class PollingSystem : MonoBehaviour
         l_queue = new Queue<Laser>();
         e_queue = new Queue<Enemy>();
         bo_queue = new Queue<Bomb>();
+        item_queue = new Queue<Item>();
     }
 
     // Update is called once per frame
@@ -149,5 +151,38 @@ public class PollingSystem : MonoBehaviour
         }
         e.gameObject.SetActive(true);
         return enemy;
+    }
+
+    public Item PollingItem(Item item, Transform parent)
+    {
+        Item i = null;
+        if(item_queue.Count == 0)
+        {
+            Item it = Instantiate(item, parent);
+            it.Init();
+            item_queue.Enqueue(it);
+            it.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_item_parent);
+            return it;
+        }
+        foreach(Item items in item_queue)
+        {
+            if(!items.gameObject.activeSelf)
+            {
+                i = items;
+                i.Init();
+                i.transform.parent = parent;
+                i.gameObject.SetActive(true);
+                break;
+            }
+        }
+        if(i == null)
+        {
+            i = Instantiate(item, parent);
+            i.Init();
+            i.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_item_parent);
+            item_queue.Enqueue(i);
+        }
+        i.gameObject.SetActive(true);
+        return i;
     }
 }

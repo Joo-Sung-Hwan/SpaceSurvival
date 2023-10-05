@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
-using System;
 
 public struct EnemyData
 {
@@ -43,8 +41,9 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] private List<Sprite> idleSp = new List<Sprite>();
     [SerializeField] private List<Sprite> walkSp = new List<Sprite>();
     [SerializeField] private List<Sprite> deadSp = new List<Sprite>();
+    public List<Item> items = new List<Item>();
 
-    public Player player;
+    protected Player player;
     protected EnemyType enemyT = EnemyType.None;
     protected Animator anim;
     protected DefineEnemyData defineData;
@@ -61,7 +60,7 @@ public abstract class Enemy : MonoBehaviour
             ed.hp = value;
             if(ed.hp <= 0)
             {
-                StartCoroutine(Dead());
+                Dead();
             }
         }
     }
@@ -104,13 +103,11 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    IEnumerator Dead()
+    public void Dead()
     {
         IsDead = true;
         ed.enemyState = EnemyState.Dead;
         anim.SetTrigger("Dead");
-        yield return new WaitForSeconds(2.05f);
-        gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -126,5 +123,16 @@ public abstract class Enemy : MonoBehaviour
                 Hp -= collision.transform.parent.GetComponent<Bomb>().BombAttack;
                 break;
         }
+    }
+
+    public void ExpCreate()
+    {
+        Debug.Log("아이템생성");
+        int rand = Random.Range (0, 100);
+        if(rand < 33)
+            GameManager.instance.pollingsystem.PollingItem(items[1], transform);
+        else
+            GameManager.instance.pollingsystem.PollingItem(items[0], transform);
+        gameObject.SetActive(false);
     }
 }

@@ -118,7 +118,9 @@ MonoBehaviour:
   - {fileID: 3477101644308552507, guid: 37db6fd26ee44919bffee8a330bd9f5d, type: 3}
   - {fileID: -275543275449285507, guid: 37db6fd26ee44919bffee8a330bd9f5d, type: 3}
   - {fileID: 3946212249003284976, guid: 37db6fd26ee44919bffee8a330bd9f5d, type: 3}
-  player: {fileID: 9200852978905411386, guid: 906a758d83eb2ec49acae96176111a95, type: 3}
+  items:
+  - {fileID: 4819316638390071840, guid: 150fa057f58bdfb42ab9e65e8650479f, type: 3}
+  - {fileID: 7093794893088856794, guid: 5c3b89d0bfb40134d9508ea2b4b2541f, type: 3}
 --- !u!212 &-2243018945179211920
 SpriteRenderer:
   m_ObjectHideFlags: 0
