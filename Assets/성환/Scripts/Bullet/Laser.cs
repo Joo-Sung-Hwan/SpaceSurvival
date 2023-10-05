@@ -11,7 +11,7 @@ public class Laser : MonoBehaviour
     public void Start()
     {
         SetData();
-        ReflectMaxCount = 2;
+        ReflectMaxCount = 5;
     }
 
     public void Update()
@@ -29,9 +29,10 @@ public class Laser : MonoBehaviour
     
     public void SetData()
     {
+        
         int rand = Random.Range(0, 4);
         reflectcount = 0;
-        nextDir = GameManager.instance.GetRandomPosition(GameManager.instance.spawnManager.spawnPoint[rand].transform, GameManager.instance.spawnManager.spawnPoint[rand]);
+        nextDir = GameManager.instance.GetRandomPosition(GameManager.instance.spawnManager.spawnPoint[rand].transform, GameManager.instance.spawnManager.spawnPoint[rand]).normalized;
         roZ = GetAngle(GameManager.instance.playerSpawnManager.player.transform.position, nextDir);
         transform.rotation = Quaternion.Euler(0, 0, roZ);
     }
@@ -41,7 +42,6 @@ public class Laser : MonoBehaviour
         if (collision.gameObject.CompareTag("CameraWall"))
         {
             reflectcount++;
-            Debug.Log(reflectcount);
         }
         else
         {
@@ -51,7 +51,7 @@ public class Laser : MonoBehaviour
 
     public void LaserMove(Vector2 direction)
     {
-        transform.position += (Vector3)direction * Time.deltaTime;
+        GetComponent<Rigidbody2D>().AddForce(nextDir * Time.deltaTime * 10f);
         
     }
 
