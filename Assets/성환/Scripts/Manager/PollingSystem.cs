@@ -5,7 +5,7 @@ using UnityEngine;
 public class PollingSystem : MonoBehaviour
 {
     Queue<Bullet> b_queue;
-    Queue<Bullet> l_queue;
+    Queue<Laser> l_queue;
     Queue<Enemy> e_queue;
     Queue<Bomb> bo_queue;
     
@@ -13,7 +13,7 @@ public class PollingSystem : MonoBehaviour
     void Start()
     {
         b_queue = new Queue<Bullet>();
-        l_queue = new Queue<Bullet>();
+        l_queue = new Queue<Laser>();
         e_queue = new Queue<Enemy>();
         bo_queue = new Queue<Bomb>();
     }
@@ -57,21 +57,22 @@ public class PollingSystem : MonoBehaviour
         return bullet;
     }
 
-    public Bullet PollingLaser(Bullet bullet, Transform parent)
+    public Laser PollingLaser(Laser laser, Transform parent)
     {
-        Bullet l = null;
+        Laser l = null;
         if (l_queue.Count == 0)
         {
-            Bullet bul = Instantiate(bullet, parent);
-            l_queue.Enqueue(bul);
-            bul.gameObject.SetActive(false);
-            return bul;
+            Laser la = Instantiate(laser, parent);
+            l_queue.Enqueue(la);
+            la.gameObject.SetActive(false);
+            return la;
         }
-        foreach (Bullet item in l_queue)
+        foreach (Laser item in l_queue)
         {
             if (!item.gameObject.activeSelf)
             {
                 l = item;
+                l.SetData();
                 l.transform.position = parent.position;
                 l.gameObject.SetActive(true);
                 break;
@@ -79,11 +80,11 @@ public class PollingSystem : MonoBehaviour
         }
         if (l == null)
         {
-            l = Instantiate(bullet, parent);
+            l = Instantiate(laser, parent);
             l_queue.Enqueue(l);
         }
         l.gameObject.SetActive(true);
-        return bullet;
+        return laser;
     }
     public Bomb PollingBomb(Bomb bomb, Transform parent)
     {

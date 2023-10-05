@@ -2,41 +2,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Laser : Bullet
+public class Laser : MonoBehaviour
 {
-    
-    public override void init()
+    [HideInInspector] public int ReflectMaxCount { get; set; }
+    int reflectcount;
+    public void Start()
     {
-        Speed = 2f;
-    }
-    public override void SetDir()
-    {
-        base.SetDir();
+        SetData();
+        ReflectMaxCount = 2;
     }
 
-    public override void DestroyBullet()
+    public void Update()
     {
-        destroy_time += Time.deltaTime;
-        if (destroy_time > 1f)
+        DestroyLaser();
+    }
+    public void DestroyLaser()
+    {
+        if(reflectcount >= ReflectMaxCount)
         {
             gameObject.SetActive(false);
-            destroy_time = 0f;
         }
     }
-
-
-    void Start()
-    {
-        init();
-    }
-
-    private void OnEnable()
-    {
-        SetDir();
-    }
-    private void Update()
-    {
-        DestroyBullet();
-    }
     
+    public void SetData()
+    {
+        reflectcount = 0;
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("CameraWall"))
+        {
+            reflectcount++;
+            Debug.Log(reflectcount);
+        }
+        else
+        {
+            return;
+        }
+    }
 }
