@@ -6,8 +6,11 @@ public class Laser : MonoBehaviour
 {
     [HideInInspector] public int ReflectMaxCount { get; set; }
     int reflectcount;
+    Vector2 triggerVec;
     Vector2 nextDir;
     float roZ;
+
+    RaycastHit2D hit;
     public void Start()
     {
         SetData();
@@ -35,6 +38,7 @@ public class Laser : MonoBehaviour
         nextDir = GameManager.instance.GetRandomPosition(GameManager.instance.spawnManager.spawnPoint[rand].transform, GameManager.instance.spawnManager.spawnPoint[rand]).normalized;
         roZ = GetAngle(GameManager.instance.playerSpawnManager.player.transform.position, nextDir);
         transform.rotation = Quaternion.Euler(0, 0, roZ);
+        GetRayPosition();
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -43,10 +47,7 @@ public class Laser : MonoBehaviour
         {
             reflectcount++;
         }
-        else
-        {
-            return;
-        }
+        
     }
 
     public void LaserMove(Vector2 direction)
@@ -59,5 +60,14 @@ public class Laser : MonoBehaviour
     {
         Vector2 v = a_dir - b_dir;
         return Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+    }
+
+    public void GetRayPosition()
+    {
+        hit = Physics2D.Raycast(transform.position, nextDir);
+        if (hit.collider.gameObject.CompareTag("CameraWall"))
+        {
+            Debug.Log(hit.point);
+        }
     }
 }
