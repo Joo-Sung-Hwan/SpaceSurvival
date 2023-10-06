@@ -11,5 +11,6 @@ public class Inventory_UI : MonoBehaviour
     {
         cells.SetInventory();
         equipments.SetEquipments();
+        InventoryManager.Instance.SaveInventory();
     }
 }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
+using System.IO;
 
 [System.Serializable]
 public class ItemData
@@ -26,8 +28,10 @@ public class InventoryManager : MonoBehaviour
     [HideInInspector] public List<ItemData> inventoryDatas = new List<ItemData>();
     [HideInInspector] public Dictionary<Enum_GM.ItemPlace , ItemData> equipDatas= new Dictionary<Enum_GM.ItemPlace, ItemData>();
 
-    #region 정렬
-    [SerializeField] UnityEngine.UI.Dropdown dropdown;
+    public TextAsset jsonFile;
+
+    #region 정렬 - 선언
+    [SerializeField] TMPro.TMP_Dropdown dropdown;
 
     Enum_GM.SortBy sortBy = Enum_GM.SortBy.name;
     #endregion
@@ -86,7 +90,11 @@ public class InventoryManager : MonoBehaviour
         ItemStaticData newIsData = itemManager.items[rand];
 
         //아이템 자체의 희귀도
-        Enum_GM.Rarity newRarity = Enum_GM.Rarity.rare;
+
+        //임시
+        int randRarity = Random.Range(1, 4);
+
+        Enum_GM.Rarity newRarity = (Enum_GM.Rarity)randRarity;
 
         List<Item_Ability> newItemAbs = new List<Item_Ability>();
 
@@ -135,19 +143,38 @@ public class InventoryManager : MonoBehaviour
         Debug.Log($"아이템 추가 : {newIsData.name}");
     }
 
-    void SortItemByName()
+    public void SaveInventory()
     {
-        inventoryDatas.Sort((ItemData id_A , ItemData id_B) => id_A.itemStaticData.name.CompareTo(id_B.itemStaticData.name));
-        inventory_UI.OnCellsEnable();
+        string jitems = JsonConvert.SerializeObject(inventoryDatas, Formatting.Indented);
+        File.WriteAllText(Application.dataPath + "/Inventory.json", jitems);
     }
 
-    void SortItemByRare()
+    /*
+    void LoadInventory()
     {
-        inventoryDatas.Sort((ItemData id_A, ItemData id_B) => id_A.rarity.CompareTo(id_B.rarity));
-        inventory_UI.OnCellsEnable();
+        List<ItemStaticData> itemDatas_json = JsonConvert.DeserializeObject<List<ItemStaticData>>(jsonFile.text);
+        foreach (var item in itemDatas_json)
+        {
+            inventoryDatas.Add(new ItemStaticData(item.name, item.place, item.spriteName, item.description));
+        }
+    }
+    */
+
+
+    /// <summary>
+    /// 아이템 삭제 함수(테스트)
+    /// </summary>
+    public void OnRemoveItem()
+    {
+        inventoryDatas.Remove(selectedItem);
+        inventory_UI?.OnCellsEnable();
     }
 
-    public void OnSortBy()
+    #region 정렬
+    /// <summary>
+    /// 정렬 기준을 설정하는 함수 - Sort_Dropdown의 OnValueChange
+    /// </summary>
+    public void OnSetSortBy()
     {
         switch (dropdown.value)
         {
@@ -162,12 +189,16 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 정렬 기준(sortBy)에 따라 정렬 함수를 호출하는 함수 - Sort_Button의 OnClick
+    /// </summary>
     public void OnSort()
     {
         switch (sortBy)
         {
             case Enum_GM.SortBy.name:
                 SortItemByName();
+                Debug.Log("Name");
                 break;
             case Enum_GM.SortBy.rare:
                 SortItemByRare();
@@ -175,6 +206,25 @@ public class InventoryManager : MonoBehaviour
             default:
                 break;
         }
-        
+
     }
+
+    /// <summary>
+    /// 이름순으로 정렬하는 함수
+    /// </summary>
+    void SortItemByName()
+    {
+        inventoryDatas.Sort((ItemData id_A , ItemData id_B) => id_A.itemStaticData.name.CompareTo(id_B.itemStaticData.name));
+        inventory_UI.OnCellsEnable();
+    }
+
+    /// <summary>
+    /// 레어도순으로 정렬하는 함수
+    /// </summary>
+    void SortItemByRare()
+    {
+        inventoryDatas.Sort((ItemData id_A, ItemData id_B) => id_A.rarity.CompareTo(id_B.rarity));
+        inventory_UI.OnCellsEnable();
+    } 
+    #endregion
 }

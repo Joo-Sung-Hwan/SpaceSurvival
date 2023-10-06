@@ -11,11 +11,11 @@ using System.IO;
 public class ItemStaticData
 {
     public string name;
-    public string place;
+    public Enum_GM.ItemPlace place;
     public string spriteName;
     public string description;
 
-    public ItemStaticData(string name, string place, string spriteName, string description)
+    public ItemStaticData(string name, Enum_GM.ItemPlace place, string spriteName, string description)
     {
         this.name = name;
         this.place = place;

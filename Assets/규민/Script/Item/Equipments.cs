@@ -36,11 +36,11 @@ public class Equipments : MonoBehaviour
         ItemData id = InventoryManager.Instance.SelectedItem;
 
         //장착중인 아이템이 있다면 해제
-        if (d_equipments[StringToItemPlace(id.itemStaticData.place)].cellData != null)
+        if (d_equipments[id.itemStaticData.place].cellData != null)
             OnTakeOff();
         
         //장착
-        d_equipments[StringToItemPlace(id.itemStaticData.place)].cellData = id;
+        d_equipments[id.itemStaticData.place].cellData = id;
         InventoryManager.Instance.inventoryDatas.Remove(id);
         InventoryManager.Instance.inventory_UI.OnCellsEnable();
     }
@@ -52,38 +52,11 @@ public class Equipments : MonoBehaviour
     {
         //간략화
         ItemData id = InventoryManager.Instance.SelectedItem;
-        Enum_GM.ItemPlace place = StringToItemPlace(id.itemStaticData.place);
+        Enum_GM.ItemPlace place = id.itemStaticData.place;
 
         //장착 해제
         InventoryManager.Instance.inventoryDatas.Add(d_equipments[place].cellData);
         d_equipments[place].cellData = null;
         InventoryManager.Instance.inventory_UI.OnCellsEnable();
-    }
-
-    /// <summary>
-    /// json에 저장된 string값 -> Enum값 변경(장착 부위)
-    /// </summary>
-    /// <param name="str">Enum으로 변환할 부위</param>
-    Enum_GM.ItemPlace StringToItemPlace(string str)
-    {
-        switch (str)
-        {
-            case "무기":
-                return Enum_GM.ItemPlace.weapon;
-            case "옷":
-                return Enum_GM.ItemPlace.clothes;
-            case "신발":
-                return Enum_GM.ItemPlace.shoes;
-            case "귀고리":
-                return Enum_GM.ItemPlace.earring;
-            case "반지":
-                return Enum_GM.ItemPlace.ring;
-            case "펫":
-                return Enum_GM.ItemPlace.pet;
-
-            default:
-                Debug.LogError("str 변환 불가");
-                return Enum_GM.ItemPlace.weapon;
-        }
     }
 }
