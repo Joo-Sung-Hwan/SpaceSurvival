@@ -66,7 +66,6 @@ public class PollingSystem : MonoBehaviour
         {
             Laser la = Instantiate(laser, parent);
             l_queue.Enqueue(la);
-            la.gameObject.SetActive(false);
             la.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_laser_parent);
             return la;
         }
