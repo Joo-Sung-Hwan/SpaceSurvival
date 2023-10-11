@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+public struct DefinePlayerData
+{
+    public int Level { get; set; }
+    public float CurHp { get; set; }
+    public float MaxHp { get; set; }
+    public float Attack { get; set; }
+    public float Defense { get; set; }
+    public float AttackSpeed { get; set; }
+    public float Speed { get; set; }
+    public float CurExp { get; set; }
+    public float MaxExp { get; set; }
+}
 
 public class Player : MonoBehaviour
 {
-
-    [HideInInspector] public int Level { get; set; }
-    [HideInInspector] public float HP { get; set; }
-    [HideInInspector] public float Attack { get; set; }
-    [HideInInspector] public float Defense { get; set; }
-    [HideInInspector] public float AttackSpeed { get; set; }
-    [HideInInspector] public float Speed { get; set; }
+    public DefinePlayerData definePD = new DefinePlayerData();
 
     [HideInInspector] public PlayerState ps;
     Animator ani;
@@ -38,7 +44,9 @@ public class Player : MonoBehaviour
     {
         ps = PlayerState.Idle;
         ani = GetComponent<Animator>();
-        HP = 100;
+        definePD.MaxHp = 100;
+        definePD.CurHp = definePD.MaxHp;
+        definePD.MaxExp = 200f;
         Init();
         SetBombCtime(3f);
     }
@@ -64,32 +72,32 @@ public class Player : MonoBehaviour
 
     public void SetLevel(int level)
     {
-        Level = level;
+        definePD.Level = level;
     }
 
     public void SetHP(float damage)
     {
-        HP -= damage;
+        definePD.CurHp -= damage;
     }
 
     public void SetAttack(float attack)
     {
-        Attack = attack;
+        definePD.Attack = attack;
     }
 
     public void SetDefense(float defense)
     {
-        Defense = defense;
+        definePD.Defense = defense;
     }
 
     public void SetAttackSpeed(float attackspeed)
     {
-        AttackSpeed = attackspeed;
+        definePD.AttackSpeed = attackspeed;
     }
 
     public void SetSpeed(float speed)
     {
-        Speed = speed;
+        definePD.Speed = speed;
     }
 
     public void Init()

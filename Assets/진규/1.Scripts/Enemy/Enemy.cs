@@ -117,7 +117,7 @@ public abstract class Enemy : MonoBehaviour
         {
             case "Player":
                 GameManager.instance.playerSpawnManager.player.SetHP(ed.attack);
-                //Debug.Log(GameManager.instance.playerSpawnManager.player.HP);
+                //Debug.Log(GameManager.instance.playerSpawnManager.player.definePD.CurHp);
                 break;
             case "Bomb":
                 Hp -= collision.transform.parent.GetComponent<Bomb>().BombAttack;

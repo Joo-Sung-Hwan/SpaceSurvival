@@ -27,6 +27,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    // PollingSystem을 이용한 Enemy Spawn
     void Spawn()
     {   
         int rand = Random.Range(0, spawnPoint.Length);

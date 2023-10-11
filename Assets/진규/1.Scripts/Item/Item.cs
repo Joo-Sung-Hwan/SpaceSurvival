@@ -16,7 +16,8 @@ public abstract class Item : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            Debug.Log("ªË¡¶");
+            GameManager.instance.playerSpawnManager.player.definePD.CurExp += info.exp;
+            Debug.Log(GameManager.instance.playerSpawnManager.player.definePD.CurExp);
             gameObject.SetActive(false);
         }
     }
