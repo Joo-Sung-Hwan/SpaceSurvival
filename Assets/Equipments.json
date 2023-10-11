@@ -1,0 +1,38 @@
+{
+  "weapon": {
+    "itemStaticData": {
+      "name": "광선검",
+      "place": 0,
+      "spriteName": "LightSaber_Icon",
+      "description": "위용위용"
+    },
+    "rarity": 2,
+    "abilities": [
+      {
+        "abilityName": "공격력",
+        "abilityValue": 15.0,
+        "abilityrarity": 1
+      },
+      {
+        "abilityName": "공격 범위",
+        "abilityValue": 11.0,
+        "abilityrarity": 2
+      },
+      {
+        "abilityName": "공격 범위",
+        "abilityValue": 11.0,
+        "abilityrarity": 2
+      },
+      {
+        "abilityName": "공격력",
+        "abilityValue": 10.0,
+        "abilityrarity": 2
+      },
+      {
+        "abilityName": "공격력",
+        "abilityValue": 9.0,
+        "abilityrarity": 3
+      }
+    ]
+  }
+}

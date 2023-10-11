@@ -26,9 +26,7 @@ public class InventoryManager : MonoBehaviour
     public ItemDetail itemDetail;
     public ItemDetail equipmentDetail;
     [HideInInspector] public List<ItemData> inventoryDatas = new List<ItemData>();
-    [HideInInspector] public Dictionary<Enum_GM.ItemPlace , ItemData> equipDatas= new Dictionary<Enum_GM.ItemPlace, ItemData>();
-
-    public TextAsset jsonFile;
+    [HideInInspector] public Dictionary<Enum_GM.ItemPlace , ItemData> d_equipments= new Dictionary<Enum_GM.ItemPlace, ItemData>();
 
     #region 정렬 - 선언
     [SerializeField] TMPro.TMP_Dropdown dropdown;
@@ -51,7 +49,7 @@ public class InventoryManager : MonoBehaviour
     }
     private ItemData selectedItem;
 
-    #region 싱글톤
+    #region 싱글톤(Awake 포함)
     public static InventoryManager instance;
 
     private void Awake()
@@ -70,6 +68,12 @@ public class InventoryManager : MonoBehaviour
         get { return instance; }
     }
     #endregion
+
+    private void Start()
+    {
+        LoadInventory();
+        LoadEquipment();
+    }
 
     // Update is called once per frame
     void Update()
@@ -149,20 +153,68 @@ public class InventoryManager : MonoBehaviour
         File.WriteAllText(Application.dataPath + "/Inventory.json", jitems);
     }
 
-    /*
     void LoadInventory()
     {
-        List<ItemStaticData> itemDatas_json = JsonConvert.DeserializeObject<List<ItemStaticData>>(jsonFile.text);
+        string str = File.ReadAllText(Application.dataPath + "/Inventory.json");
+        List<ItemData> itemDatas_json = JsonConvert.DeserializeObject<List<ItemData>>(str);
         foreach (var item in itemDatas_json)
         {
-            inventoryDatas.Add(new ItemStaticData(item.name, item.place, item.spriteName, item.description));
+            inventoryDatas.Add(new ItemData(item.itemStaticData , item.rarity, item.abilities));
         }
     }
-    */
 
+    public void SaveEquipment()
+    {
+        string jEquipments = JsonConvert.SerializeObject(d_equipments, Formatting.Indented);
+        File.WriteAllText(Application.dataPath + "/Equipments.json", jEquipments);
+    }
+
+    private void LoadEquipment()
+    {
+        string str = File.ReadAllText(Application.dataPath + "/Equipments.json");
+        Dictionary<Enum_GM.ItemPlace, ItemData> equipmentDatas_json = JsonConvert.DeserializeObject<Dictionary<Enum_GM.ItemPlace, ItemData>>(str);
+        foreach (var item in equipmentDatas_json)
+        {
+            d_equipments.Add(item.Key ,(new ItemData(item.Value.itemStaticData, item.Value.rarity, item.Value.abilities)));
+        }
+    }
 
     /// <summary>
-    /// 아이템 삭제 함수(테스트)
+    /// 장비 장착(버튼)
+    /// </summary>
+    public void OnEquip()
+    {
+        //간략화
+        ItemData id = SelectedItem;
+
+        //장착중인 아이템이 있다면 해제
+        if (d_equipments.ContainsKey(id.itemStaticData.place) && d_equipments[id.itemStaticData.place] != null)
+            OnTakeOff();
+
+
+        //장착
+        d_equipments[id.itemStaticData.place] = id;
+        inventoryDatas.Remove(id);
+        inventory_UI.OnCellsEnable();
+    }
+
+    /// <summary>
+    /// 장비 장착 해제(버튼)
+    /// </summary>
+    public void OnTakeOff()
+    {
+        //간략화
+        ItemData id = InventoryManager.Instance.SelectedItem;
+        Enum_GM.ItemPlace place = id.itemStaticData.place;
+
+        //장착 해제
+        inventoryDatas.Add(d_equipments[place]);
+        d_equipments[place] = null;
+        inventory_UI.OnCellsEnable();
+    }
+
+    /// <summary>
+    /// 아이템 삭제 함수(ItemDetail - ItemDestroy 버튼)
     /// </summary>
     public void OnRemoveItem()
     {
@@ -198,7 +250,6 @@ public class InventoryManager : MonoBehaviour
         {
             case Enum_GM.SortBy.name:
                 SortItemByName();
-                Debug.Log("Name");
                 break;
             case Enum_GM.SortBy.rare:
                 SortItemByRare();

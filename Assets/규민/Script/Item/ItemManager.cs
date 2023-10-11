@@ -44,8 +44,8 @@ public class ItemManager : MonoBehaviour
     public void SaveItem()
     {
         string jitems = JsonConvert.SerializeObject(items , Formatting.Indented);
-        File.WriteAllText(Application.dataPath + "/Items.json" , jitems);
-        //File.WriteAllText(jsonFile.text, jitems);
+        //File.WriteAllText(Application.dataPath + "/Items.json" , jitems);
+        File.WriteAllText(jsonFile.text, jitems);
     }
 
     public void LoadItem()
