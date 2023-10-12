@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public PollingSystem pollingsystem;
     public SpawnManager spawnManager;
     public PlayerCamera playerCamera;
+    public InGameUI gameUI;
     public bool isPause = false;
 
     private void Awake()

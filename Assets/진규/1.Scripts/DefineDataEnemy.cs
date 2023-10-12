@@ -22,9 +22,9 @@ public class DefineDataEnemy : MonoBehaviour
 
     void Awake() => Instance = this;
 
+    // EData에 EnemyData.csv파일 데이터 입히기
     public void DataSet()
     {
-        // EData에 EnemyData.csv파일 데이터 입히기
         List<Dictionary<string, object>> data = CSVReader.Read("EnemyData");
         for (int i = 0; i < data.Count; i++)
         {

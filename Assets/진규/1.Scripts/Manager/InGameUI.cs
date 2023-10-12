@@ -10,7 +10,8 @@ public class InGameUI : MonoBehaviour
     [SerializeField] private TMP_Text timer;
     [SerializeField] private Image exp_Bar;
     [SerializeField] private Image hp_Bar;
-    [SerializeField] private Button pauseButton;
+    [SerializeField] public Button pauseButton;
+    [SerializeField] public Material material;
     public Player player;
     int min;
     float sec;
@@ -32,6 +33,7 @@ public class InGameUI : MonoBehaviour
         CalculationBar(hp_Bar, player.definePD.CurHp, player.definePD.MaxHp, 193, 32f);
     }
 
+    // 타이머 적용
     void Timer()
     {
         sec += Time.deltaTime;

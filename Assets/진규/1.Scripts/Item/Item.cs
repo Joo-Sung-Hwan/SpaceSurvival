@@ -12,6 +12,7 @@ public abstract class Item : MonoBehaviour
 
     public abstract void Init();
 
+    // 플레이어와 Trigger 적용
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))

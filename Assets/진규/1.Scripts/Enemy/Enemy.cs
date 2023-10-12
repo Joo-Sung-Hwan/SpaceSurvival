@@ -65,6 +65,7 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    // 플레이어가 바라보는 방향에 몬스터가 플레이어 바라보기
     public virtual void Move()
     {
         Vector3 distance = player.transform.position - transform.position;
@@ -83,6 +84,7 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    // CSV파일에서 받아온 데이터를 몬스터 이름에 따라 수치 적용하기
     public virtual void DataInPut()
     {
         DefineDataEnemy define = DefineDataEnemy.Instance;
@@ -103,6 +105,7 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    // 몬스터 죽었을시 Event 적용
     public void Dead()
     {
         IsDead = true;
@@ -110,6 +113,7 @@ public abstract class Enemy : MonoBehaviour
         anim.SetTrigger("Dead");
     }
 
+    // 오브젝트 Tag에 따라 Trigger 적용 구현
     private void OnTriggerEnter2D(Collider2D collision)
     {
         string str = collision.tag;
@@ -125,6 +129,7 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    // 몬스터가 죽을시 생성되는 아이템
     public void ExpCreate()
     {
         Debug.Log("아이템생성");
