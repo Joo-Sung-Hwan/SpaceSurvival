@@ -23,12 +23,12 @@ public class InventoryCell : MonoBehaviour
     /// </summary>
     public void SetImage()
     {
-        bool isData = cellData == null || cellData.itemStaticData.name == "";
-        itemButton.SetActive(!isData);
+        bool isNoData = cellData == null || cellData.itemStaticData.name == "";
+        itemButton.SetActive(!isNoData);
         if (icon)
-            icon.SetActive(isData);
+            icon.SetActive(isNoData);
         
-        if (!isData)
+        if (!isNoData)
             itemImage.sprite = Resources.Load<Sprite>("ItemIcons/" + cellData.itemStaticData.spriteName);
     }
 

@@ -6,7 +6,10 @@ public class Inventory_UI : MonoBehaviour
 {
     public InventoryCells cells;
     public Equipments equipments;
-
+    
+    /// <summary>
+    /// 아이템 표시하는 함수
+    /// </summary>
     public void OnCellsEnable()
     {
         cells.SetInventory();
