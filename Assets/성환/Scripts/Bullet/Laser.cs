@@ -9,18 +9,23 @@ public class Laser : MonoBehaviour
     Vector2 nextDir;
     float roZ;
     RaycastHit2D ray;
-    float maxDistance;
-     int layermask;
+    public LayerMask layermask;
+    LineRenderer lr;
     public void Start()
     {
-        layermask = 1 << 9;
-        SetData();
+        lr = GetComponent<LineRenderer>();
+        lr.startColor = Color.blue;
+        lr.endColor = Color.blue;
+        lr.startWidth = 0.1f;
+        lr.endWidth = 0.1f;
         ReflectMaxCount = 5;
+        SetData();
+        
     }
 
     void Update()
     {
-        Debug.DrawRay(transform.position, nextDir * 100f, Color.blue);
+       // Debug.DrawRay(transform.position, nextDir, Color.blue);
         transform.position += (Vector3)nextDir * Time.deltaTime * 3f;
         DestroyLaser();
     }
@@ -39,23 +44,27 @@ public class Laser : MonoBehaviour
         nextDir = GameManager.instance.GetRandomPosition(GameManager.instance.spawnManager.spawnPoint[rand].transform, GameManager.instance.spawnManager.spawnPoint[rand]).normalized;
         roZ = GetAngle(GameManager.instance.playerSpawnManager.player.transform.position, nextDir);
         transform.rotation = Quaternion.Euler(0, 0, roZ);
-        ray = Physics2D.Raycast(transform.position, nextDir, maxDistance, layermask);
+        ShootRay();
     }
-
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("CameraWall"))
-        {
-            Vector2 income = nextDir;
-            Vector2 normal = collision.contacts[0].normal;
-            nextDir = Vector2.Reflect(income, normal).normalized;
-            roZ = 180 - roZ;
-            transform.rotation = Quaternion.Euler(0, 0, roZ);
-            reflectcount++;
-        }        
-    }
-
     
+    public void ShootRay()
+    {
+        Vector2 newposition = transform.position; ;
+        Vector2 newDir = nextDir;
+        
+        lr.positionCount = ReflectMaxCount;
+        lr.SetPosition(0, new Vector3(transform.position.x, transform.position.y, -1f));
+        for(int i = 1; i < lr.positionCount; i++)
+        {
+            ray = Physics2D.Raycast(newposition, newDir, 100f, layermask);
+            lr.SetPosition(i, new Vector3(ray.point.x, ray.point.y, -1f));
+            newposition = ray.point;
+            newDir = Vector2.Reflect(newDir, ray.normal);
+        }
+    }
+    
+
+
     public float GetAngle(Vector2 b_dir, Vector2 a_dir)
     {
         Vector2 v = a_dir - b_dir;
