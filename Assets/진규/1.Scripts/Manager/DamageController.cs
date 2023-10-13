@@ -10,13 +10,13 @@ public class DamageController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += Vector3.up;
+        
     }
 
     public void CreateDmgTxt(Vector3 hitPoint, float damage)
@@ -24,4 +24,6 @@ public class DamageController : MonoBehaviour
         GameObject damagerText = Instantiate(dmgTxt, hitPoint, Quaternion.identity, canvas.transform);
         damagerText.GetComponent<TMP_Text>().text = damage.ToString();
     }
+
+    public void DestroyEvent() => Destroy(gameObject);
 }

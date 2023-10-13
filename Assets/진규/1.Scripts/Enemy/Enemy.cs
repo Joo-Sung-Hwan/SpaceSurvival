@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public struct EnemyData
 {
@@ -41,8 +42,9 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] private List<Sprite> idleSp = new List<Sprite>();
     [SerializeField] private List<Sprite> walkSp = new List<Sprite>();
     [SerializeField] private List<Sprite> deadSp = new List<Sprite>();
+    [SerializeField] TMP_Text damageTxt;
     public List<Item> items = new List<Item>();
-
+    public Canvas canvas;
     protected Player player;
     protected EnemyType enemyT = EnemyType.None;
     protected Animator anim;
@@ -121,18 +123,31 @@ public abstract class Enemy : MonoBehaviour
         {
             case "Player":
                 GameManager.instance.playerSpawnManager.player.SetHP(ed.attack);
+                //GameManager.instance.spawnManager.CreateDamageTxt(10, transform.GetComponent<PolygonCollider2D>());
+                //CreateDamageTxt(ed.attack);
                 //Debug.Log(GameManager.instance.playerSpawnManager.player.definePD.CurHp);
                 break;
             case "Bomb":
                 Hp -= collision.transform.parent.GetComponent<Bomb>().BombAttack;
+                CreateDamageTxt(10);
+
                 break;
         }
+    }
+
+    void CreateDamageTxt(float damage)
+    {
+        PolygonCollider2D collider2D = transform.GetComponent<PolygonCollider2D>();
+        Vector3 pos = transform.position + (Vector3.up * 0.5f);
+        TMP_Text damageT = Instantiate(damageTxt, pos, Quaternion.identity, canvas.transform);
+        //damageT.transform.position = transform.position;
+        damageT.text = damage.ToString();
     }
 
     // 몬스터가 죽을시 생성되는 아이템
     public void ExpCreate()
     {
-        Debug.Log("아이템생성");
+        //Debug.Log("아이템생성");
         int rand = Random.Range (0, 100);
         if(rand < 33)
             GameManager.instance.pollingsystem.PollingItem(items[1], transform);
