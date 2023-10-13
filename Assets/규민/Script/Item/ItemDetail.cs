@@ -12,6 +12,13 @@ public class ItemDetail : MonoBehaviour
     [SerializeField] List<TMP_Text> ability_Txt;
     [SerializeField] Image itemImage;
 
+    [SerializeField] GameObject mask;
+
+    [Header("DestroyCheck")]
+    [SerializeField] GameObject dc;
+    [SerializeField] Image dc_itemImage;
+    [SerializeField] List<TMP_Text> dc_ability_Txt;
+
     [HideInInspector] public ItemData itemdata;
     [HideInInspector] public int cellIndex;
 
@@ -69,5 +76,34 @@ public class ItemDetail : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    /// <summary>
+    /// destroyCheck의 정보를 변경하는 함수 (Destroy_Button)
+    /// </summary>
+    public void OnDestroyCheck()
+    {
+        dc_itemImage.sprite = itemImage.sprite;
+        for (int i = 0; i < ability_Txt.Count; i++)
+        {
+            dc_ability_Txt[i].text = ability_Txt[i].text;
+            dc_ability_Txt[i].color = ability_Txt[i].color;
+        }
+    }
+
+    /// <summary>
+    /// mask가 대상을 비활성화하는 함수(Item_Mask)
+    /// -> 확인창이 켜져있을 경우 확인창 비활성화 후 다시 마스크 활성화, 확인창이 꺼져있을 경우 정보창 비활성화
+    /// </summary>
+    public void OnMask()
+    {
+        if (dc.activeInHierarchy)
+        {
+            dc.SetActive(false);
+            mask.SetActive(true);
+        }
+        else
+            gameObject.SetActive(false);
+            
     }
 }

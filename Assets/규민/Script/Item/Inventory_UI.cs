@@ -13,7 +13,7 @@ public class Inventory_UI : MonoBehaviour
     public void OnCellsEnable()
     {
         cells.SetInventory();
-        equipments.SetEquipments();
+        InventoryManager.Instance.SetEquipments();
         InventoryManager.Instance.SaveInventory();
         InventoryManager.Instance.SaveEquipment();
     }

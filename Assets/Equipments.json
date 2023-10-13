@@ -1,4 +1,40 @@
 {
+  "clothes": {
+    "itemStaticData": {
+      "name": "광선 갑옷",
+      "place": 1,
+      "spriteName": "LightSaber_Icon",
+      "description": "광선검으로 위장한 갑옷"
+    },
+    "rarity": 1,
+    "abilities": [
+      {
+        "abilityName": "공격 범위",
+        "abilityValue": 18.0,
+        "abilityrarity": 0
+      },
+      {
+        "abilityName": "공격력",
+        "abilityValue": 16.0,
+        "abilityrarity": 1
+      },
+      {
+        "abilityName": "공격력",
+        "abilityValue": 14.0,
+        "abilityrarity": 1
+      },
+      {
+        "abilityName": "공격력",
+        "abilityValue": 12.0,
+        "abilityrarity": 2
+      },
+      {
+        "abilityName": "공격 범위",
+        "abilityValue": 7.0,
+        "abilityrarity": 3
+      }
+    ]
+  },
   "weapon": {
     "itemStaticData": {
       "name": "광선검",
@@ -6,31 +42,31 @@
       "spriteName": "LightSaber_Icon",
       "description": "위용위용"
     },
-    "rarity": 2,
+    "rarity": 1,
     "abilities": [
       {
         "abilityName": "공격력",
-        "abilityValue": 15.0,
-        "abilityrarity": 1
-      },
-      {
-        "abilityName": "공격 범위",
-        "abilityValue": 11.0,
+        "abilityValue": 13.0,
         "abilityrarity": 2
       },
       {
         "abilityName": "공격 범위",
-        "abilityValue": 11.0,
-        "abilityrarity": 2
-      },
-      {
-        "abilityName": "공격력",
-        "abilityValue": 10.0,
+        "abilityValue": 12.0,
         "abilityrarity": 2
       },
       {
         "abilityName": "공격력",
         "abilityValue": 9.0,
+        "abilityrarity": 3
+      },
+      {
+        "abilityName": "공격력",
+        "abilityValue": 8.0,
+        "abilityrarity": 3
+      },
+      {
+        "abilityName": "공격력",
+        "abilityValue": 7.0,
         "abilityrarity": 3
       }
     ]

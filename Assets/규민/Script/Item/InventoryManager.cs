@@ -28,6 +28,10 @@ public class InventoryManager : MonoBehaviour
     [HideInInspector] public List<ItemData> inventoryDatas = new List<ItemData>();
     [HideInInspector] public Dictionary<Enum_GM.ItemPlace , ItemData> d_equipments= new Dictionary<Enum_GM.ItemPlace, ItemData>();
 
+
+    [Header("장비칸 (순서-무기,옷,신발,귀고리,반지,펫)")]
+    public List<InventoryCell> equipCells = new List<InventoryCell>();
+
     #region 정렬 - 선언
     [SerializeField] TMPro.TMP_Dropdown dropdown;
 
@@ -81,6 +85,10 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F1))
         {
             AddItem(inventoryDatas);
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            Debug.Log(equipCells[0].cellData.itemStaticData.name);
         }
     }
 
@@ -144,7 +152,6 @@ public class InventoryManager : MonoBehaviour
 
         itemDatas.Add(new ItemData(newIsData, newRarity, newItemAbs));
         inventory_UI?.OnCellsEnable();
-        Debug.Log($"아이템 추가 : {newIsData.name}");
     }
 
     public void SaveInventory()
@@ -176,6 +183,7 @@ public class InventoryManager : MonoBehaviour
         foreach (var item in equipmentDatas_json)
         {
             d_equipments.Add(item.Key ,(new ItemData(item.Value.itemStaticData, item.Value.rarity, item.Value.abilities)));
+            PutCellData(item.Key);
         }
     }
 
@@ -184,17 +192,15 @@ public class InventoryManager : MonoBehaviour
     /// </summary>
     public void OnEquip()
     {
-        //간략화
-        ItemData id = SelectedItem;
-
         //장착중인 아이템이 있다면 해제
-        if (d_equipments.ContainsKey(id.itemStaticData.place) && d_equipments[id.itemStaticData.place] != null)
+        if (d_equipments.ContainsKey(SelectedItem.itemStaticData.place))
             OnTakeOff();
 
-
         //장착
-        d_equipments[id.itemStaticData.place] = id;
-        inventoryDatas.Remove(id);
+        //d_equipments[SelectedItem.itemStaticData.place] = SelectedItem;
+        d_equipments.Add(SelectedItem.itemStaticData.place, SelectedItem);
+        PutCellData(SelectedItem.itemStaticData.place);
+        inventoryDatas.Remove(SelectedItem);
         inventory_UI.OnCellsEnable();
     }
 
@@ -204,12 +210,12 @@ public class InventoryManager : MonoBehaviour
     public void OnTakeOff()
     {
         //간략화
-        ItemData id = InventoryManager.Instance.SelectedItem;
-        Enum_GM.ItemPlace place = id.itemStaticData.place;
+        Enum_GM.ItemPlace place = SelectedItem.itemStaticData.place;
 
         //장착 해제
         inventoryDatas.Add(d_equipments[place]);
-        d_equipments[place] = null;
+        d_equipments.Remove(place);
+        PutCellData(place);
         inventory_UI.OnCellsEnable();
     }
 
@@ -222,6 +228,22 @@ public class InventoryManager : MonoBehaviour
         inventory_UI?.OnCellsEnable();
     }
 
+    /// <summary>
+    /// 장비창 새로고침
+    /// </summary>
+    public void SetEquipments()
+    {
+        foreach (var item in equipCells)
+            item.SetImage();
+    }
+
+    /// <summary>
+    /// 장비 셀에 장비 정보를 넣어주는 함수
+    /// </summary>
+    void PutCellData(Enum_GM.ItemPlace place)
+    {
+        equipCells[(int)place].cellData = d_equipments.ContainsKey(place) ? d_equipments[place] : null;
+    }
     #region 정렬
     /// <summary>
     /// 정렬 기준을 설정하는 함수 - Sort_Dropdown의 OnValueChange
