@@ -63,11 +63,11 @@ public class Laser : MonoBehaviour
             Debug.DrawRay(newposition, newDir, Color.blue);
             lr.SetPosition(i, new Vector3(ray.point.x, ray.point.y, -1f));
             newposition = ray.point;
-            Debug.Log($"newDir = {newDir}, ray.nomral = {ray.normal}");
+            //Debug.Log($"newDir = {newDir}, ray.nomral = {ray.normal}");
 
 
             newDir = Vector2.Reflect(newDir, ray.normal);
-            Debug.Log(newDir);
+            //Debug.Log(newDir);
 
             ray.collider.gameObject.SetActive(false);
         }

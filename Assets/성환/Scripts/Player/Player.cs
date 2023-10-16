@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
     float delayTimeB = 0f;
     [HideInInspector] public float BombCTime { get; set; }
 
+    public float radius;
 
 
     // Start is called before the first frame update

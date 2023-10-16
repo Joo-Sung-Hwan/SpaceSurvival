@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-
+using UnityEngine.SceneManagement;
 namespace Singleton
 {
     public class PauseManager : MonoBehaviour
@@ -55,7 +55,8 @@ namespace Singleton
         // 다시하기 누르면 게임 처음부터 다시 진행
         public void EnterReset()
         {
-
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            GameManager.instance.ReStart();
         }
 
         // 나가기 누르면 로비로 Scene전환

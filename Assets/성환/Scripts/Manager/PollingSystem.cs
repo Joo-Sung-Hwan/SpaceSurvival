@@ -157,7 +157,7 @@ public class PollingSystem : MonoBehaviour
     public Item PollingItem(Item item, Transform parent)
     {
         Item i = null;
-        if(item_queue.Count == 0)
+        if (item_queue.Count == 0)
         {
             Item it = Instantiate(item, parent);
             it.Init();
@@ -165,18 +165,18 @@ public class PollingSystem : MonoBehaviour
             it.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_item_parent);
             return it;
         }
-        foreach(Item items in item_queue)
+        foreach (Item items in item_queue)
         {
-            if(!items.gameObject.activeSelf)
+            if (!items.gameObject.activeSelf)
             {
                 i = items;
                 i.Init();
-                i.transform.parent = parent;
+                i.transform.position = parent.position;
                 i.gameObject.SetActive(true);
                 break;
             }
         }
-        if(i == null)
+        if (i == null)
         {
             i = Instantiate(item, parent);
             i.Init();

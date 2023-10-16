@@ -35,4 +35,12 @@ public class GameManager : MonoBehaviour
         Vector3 spawnPos = new Vector2(posX, posY);
         return spawnPos;
     }
+
+    public void ReStart()
+    {
+        isPause = false;
+        Time.timeScale = 1;
+        Destroy(playerSpawnManager.player);
+        playerSpawnManager.Create_Player();
+    }
 }

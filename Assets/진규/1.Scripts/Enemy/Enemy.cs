@@ -123,21 +123,18 @@ public abstract class Enemy : MonoBehaviour
         {
             case "Player":
                 GameManager.instance.playerSpawnManager.player.SetHP(ed.attack);
-                //GameManager.instance.spawnManager.CreateDamageTxt(10, transform.GetComponent<PolygonCollider2D>());
-                //CreateDamageTxt(ed.attack);
                 //Debug.Log(GameManager.instance.playerSpawnManager.player.definePD.CurHp);
                 break;
             case "Bomb":
                 Hp -= collision.transform.parent.GetComponent<Bomb>().BombAttack;
-                CreateDamageTxt(10);
-
+                CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().BombAttack);
                 break;
         }
     }
 
+    // 데미지 텍스트 구현
     void CreateDamageTxt(float damage)
     {
-        PolygonCollider2D collider2D = transform.GetComponent<PolygonCollider2D>();
         Vector3 pos = transform.position + (Vector3.up * 0.5f);
         TMP_Text damageT = Instantiate(damageTxt, pos, Quaternion.identity, canvas.transform);
         //damageT.transform.position = transform.position;
@@ -149,7 +146,7 @@ public abstract class Enemy : MonoBehaviour
     {
         //Debug.Log("아이템생성");
         int rand = Random.Range (0, 100);
-        if(rand < 33)
+        if (rand < 33)
             GameManager.instance.pollingsystem.PollingItem(items[1], transform);
         else
             GameManager.instance.pollingsystem.PollingItem(items[0], transform);

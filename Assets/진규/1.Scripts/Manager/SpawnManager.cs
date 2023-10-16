@@ -21,7 +21,7 @@ public class SpawnManager : MonoBehaviour
     {
         spawnTime += Time.deltaTime;
 
-        if(spawnTime > 0.4f)
+        if(spawnTime > 1f)
         {
             spawnTime = 0;
             Spawn();

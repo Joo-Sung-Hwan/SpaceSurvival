@@ -8,14 +8,4 @@ public class Exp1 : Item
     {
         info.exp = 10;
     }
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 }

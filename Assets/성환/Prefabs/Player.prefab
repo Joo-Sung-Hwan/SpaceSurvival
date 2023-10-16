@@ -224,6 +224,7 @@ MonoBehaviour:
   laser_parent: {fileID: 3695146227546126354}
   bomb: {fileID: -4346942405506297916, guid: 923d33ba1f700b6469791209c95b6d7f, type: 3}
   area: {fileID: 722039230206204245}
+  radius: 0
 --- !u!95 &939897147032476912
 Animator:
   serializedVersion: 5
