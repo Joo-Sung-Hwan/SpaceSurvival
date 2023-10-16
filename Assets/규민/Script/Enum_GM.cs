@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Enum_GM:MonoBehaviour
 {
+    //Èñ±Íµµ
     public enum Rarity
     {
         legendary,
@@ -13,6 +14,7 @@ public class Enum_GM:MonoBehaviour
         normal
     }
 
+    //ÀåÂøºÎÀ§
     public enum ItemPlace
     {
         weapon,
@@ -23,9 +25,18 @@ public class Enum_GM:MonoBehaviour
         pet
     }
 
+    //Á¤·Ä ±âÁØ
     public enum SortBy
     {
         name,
         rare
+    }
+
+    public enum abilityName
+    {
+        damage,
+        range,
+        attackSpeed,
+        speed
     }
 }
