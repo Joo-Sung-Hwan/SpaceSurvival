@@ -37,7 +37,7 @@ public class InventoryManager : MonoBehaviour
     [HideInInspector] public Dictionary<Enum_GM.ItemPlace, ItemData> d_equipments = new Dictionary<Enum_GM.ItemPlace, ItemData>();
     [HideInInspector] public Dictionary<Enum_GM.abilityName, float> d_totalAb = new Dictionary<Enum_GM.abilityName, float>();
     [HideInInspector] public bool isSelectMode = false;
-    [HideInInspector] public List<ItemData> selectedItems = new List<ItemData>();
+    [HideInInspector] public List<InventoryCell> selectedCells = new List<InventoryCell>();
 
     [Header("장비칸 (순서-무기,옷,신발,귀고리,반지,펫)")]
     public List<InventoryCell> equipCells = new List<InventoryCell>();
@@ -299,12 +299,27 @@ public class InventoryManager : MonoBehaviour
     /// <summary>
     /// 선택모드에서 선택한 아이템 일괄 삭제
     /// </summary>
-    void OnRemoveSeletedItem()
+    public void OnRemoveSeletedItem()
     {
-        foreach (var item in selectedItems)
-            inventoryDatas.Remove(item);
+        foreach (var item in selectedCells)
+        {
+            inventoryDatas.Remove(item.cellData);
+            item.IsSelected = false;
+        }
 
+        selectedCells.Clear();
         inventory_UI.OnCellsEnable();
+    }
+
+    /// <summary>
+    /// 선택된 아이템 리스트 삭제
+    /// </summary>
+    public void SelectModeOff()
+    {
+        foreach (var item in selectedCells)
+            item.IsSelected = false;
+
+        selectedCells.Clear();
     }
 
     #region 정렬

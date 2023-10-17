@@ -64,13 +64,13 @@ public class InventoryCell : MonoBehaviour
                 //선택되지 않았다면 선택된 아이템에 추가
                 if (!IsSelected)
                 {
-                    InventoryManager.Instance.selectedItems.Add(cellData);
+                    InventoryManager.Instance.selectedCells.Add(this);
                     IsSelected = true;
                 }
                 //이미 선택되어있다면 선택된 아이템에서 제거
                 else
                 {
-                    InventoryManager.Instance.selectedItems.Remove(cellData);
+                    InventoryManager.Instance.selectedCells.Remove(this);
                     IsSelected = false;
                 }
             }
@@ -82,6 +82,11 @@ public class InventoryCell : MonoBehaviour
             InventoryManager.Instance.itemDetail.mask.SetActive(true);
             InventoryManager.Instance.SelectedItem = cellData;
         }
+    }
+
+    public void OnSetDetail()
+    {
+        InventoryManager.Instance.SelectedItem = cellData;
     }
 
     /// <summary>

@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class InventoryCells : MonoBehaviour
 {
-    [SerializeField] List<InventoryCell> cells;
+    [SerializeField] InventoryCell cellPrf;
+    [SerializeField] int cell_Count = 36;
+    List<InventoryCell> cells = new List<InventoryCell>();
 
     /// <summary>
     /// 인벤토리 시각화
@@ -25,5 +27,13 @@ public class InventoryCells : MonoBehaviour
             cells[i].cellData = null;
             cells[i].SetImage();
         } 
+    }
+
+    private void Start()
+    {
+        for (int i = 0; i < cell_Count; i++)
+        {
+            cells.Add(Instantiate(cellPrf, transform));
+        }
     }
 }
