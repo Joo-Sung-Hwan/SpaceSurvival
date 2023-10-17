@@ -12,15 +12,18 @@ public abstract class Pet : MonoBehaviour
     public PetData petData = new();
     public Animator anim;
     protected Player player;
+    Rigidbody2D rigid;
 
     public abstract void Init();
 
     void Update()
     {
         player = GameManager.instance.playerSpawnManager.player;
+        rigid = GetComponent<Rigidbody2D>();
         Move();
     }
 
+    // 플레이어를 적당한 거리선에서 따라다니기
     void Move()
     {
         Vector3 dir = player.transform.position - transform.position;
@@ -34,6 +37,16 @@ public abstract class Pet : MonoBehaviour
         if (distance > 0.5f)
         {
             transform.Translate(dir.normalized * Time.deltaTime * petData.speed);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Exp"))
+        {
+            Item item = collision.GetComponent<Item>();
+            GameManager.instance.playerSpawnManager.player.definePD.CurExp += item.info.exp;
+            collision.gameObject.SetActive(false);
         }
     }
 }

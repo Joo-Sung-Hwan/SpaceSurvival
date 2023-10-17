@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 4819316638390071840}
   - component: {fileID: 8269010143502598018}
   - component: {fileID: 1839140889952218537}
-  - component: {fileID: 4353428489257603129}
+  - component: {fileID: 7402395272248697291}
   m_Layer: 0
   m_Name: Exp1
-  m_TagString: Untagged
+  m_TagString: Exp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,6 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57d86fd291337ff4682137199e0f2aa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  magnetStrength: 2
+  distance: 10
+  magnetDir: 1
+  looseMaget: 1
+  magnetZone: 0
 --- !u!212 &8269010143502598018
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -120,7 +125,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &4353428489257603129
+--- !u!58 &7402395272248697291
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -9,13 +9,13 @@ public class Exp2 : Item
         info.exp = 20;
     }
 
-    void Start()
+    void FixedUpdate()
     {
-
+        base.Magnet();
     }
 
-    void Update()
+    public override void Magnet()
     {
-
+        base.Magnet();
     }
 }
