@@ -34,7 +34,6 @@ public class PollingSystem : MonoBehaviour
         {
             Bullet bul = Instantiate(bullet, parent);
             b_queue.Enqueue(bul);
-            bul.gameObject.SetActive(false);
             bul.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bullet_parent);
             return bul;
         }
@@ -56,7 +55,7 @@ public class PollingSystem : MonoBehaviour
         }
         
         b.gameObject.SetActive(true);
-        return bullet;
+        return b;
     }
 
     public Laser PollingLaser(Laser laser, Transform parent)
@@ -87,7 +86,7 @@ public class PollingSystem : MonoBehaviour
             l_queue.Enqueue(l);
         }
         l.gameObject.SetActive(true);
-        return laser;
+        return l;
     }
     public Bomb PollingBomb(Bomb bomb, Transform parent)
     {
@@ -118,7 +117,7 @@ public class PollingSystem : MonoBehaviour
         }
         //Debug.Log("»ý¼º");
         b.gameObject.SetActive(true);
-        return bomb;
+        return b;
     }
     public Enemy PollingEnemy(Enemy enemy, Vector2 parent)
     {
@@ -151,7 +150,7 @@ public class PollingSystem : MonoBehaviour
             e_queue.Enqueue(e);
         }
         e.gameObject.SetActive(true);
-        return enemy;
+        return e;
     }
 
     public Item PollingItem(Item item, Transform parent)

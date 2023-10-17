@@ -10,7 +10,7 @@ public class JoyStick : MonoBehaviour, IBeginDragHandler,IEndDragHandler,IDragHa
     [SerializeField] private RectTransform lever;
     // lever 최대범위 - 조이스틱 밖으로 나가지 않게 하는 범위
     float lever_range = 100f;
-    Vector2 input_vector;
+    [HideInInspector] public Vector2 input_vector;
 
     // Player 속성 값
     Player player;
@@ -67,6 +67,8 @@ public class JoyStick : MonoBehaviour, IBeginDragHandler,IEndDragHandler,IDragHa
                 p.GetComponent<SpriteRenderer>().flipX = false;
             }
             p.transform.Translate(new Vector2(input_vector.x, input_vector.y) * Time.deltaTime * Speed);
+            // 움직일때 레이저 좌표도 같이 움직임
+            GameManager.instance.playerSpawnManager.tmp_laser_parent.transform.Translate(new Vector2(input_vector.x, input_vector.y) * Time.deltaTime * Speed);
             p.ps = PlayerState.Walk;
         }
     }

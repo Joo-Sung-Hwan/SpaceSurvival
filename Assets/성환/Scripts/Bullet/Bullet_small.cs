@@ -6,36 +6,14 @@ public class Bullet_small : Bullet
 {
     public override void init()
     {
-        Speed = 2f;
-    }
-
-    public override void Move()
-    {
-        base.Move();
-    }
-
-    public override void SetDir()
-    {
-        base.SetDir();
-    }
-
-    public override void DestroyBullet()
-    {
-        base.DestroyBullet();
-    }
-
-    void Start()
-    {
-        init();
-    }
-
-    private void OnEnable()
-    {
+        Speed = 5f;
+        Attack = 10f;
         SetDir();
     }
-    private void Update()
+
+    
+    public void OnEnable()
     {
-        Move();
-        DestroyBullet();
+        init();
     }
 }

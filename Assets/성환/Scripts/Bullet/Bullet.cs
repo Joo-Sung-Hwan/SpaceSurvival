@@ -5,11 +5,12 @@ using UnityEngine;
 public abstract class Bullet : MonoBehaviour
 {
     public float Speed { get; set; }
-    protected float destroy_time = 0f;
-    bool dir;
+    public float Attack { get; set; }
+    float destroy_time = 0f;
+    protected bool dir;
     public abstract void init();
 
-    public virtual void Move()
+    public void Move()
     {
         if (dir)
         {
@@ -21,25 +22,31 @@ public abstract class Bullet : MonoBehaviour
         }
     }
 
-    public virtual void SetDir()
+    public void SetDir()
     {
-        if (GameManager.instance.playerSpawnManager.player.GetComponent<Transform>().localScale.x > 0)
-        {
-            dir = true;
-        }
-        else
+        if (GameManager.instance.playerSpawnManager.player.GetComponent<SpriteRenderer>().flipX)
         {
             dir = false;
         }
+        else
+        {
+            dir = true;
+        }
     }
 
-    public virtual void DestroyBullet()
+    public void DestroyBullet()
     {
         destroy_time += Time.deltaTime;
-        if(destroy_time > 3f)
+        if(destroy_time > 5f)
         {
             gameObject.SetActive(false);
             destroy_time = 0f;
         }
+    }
+    
+    public void Update()
+    {
+        Move();
+        DestroyBullet();
     }
 }

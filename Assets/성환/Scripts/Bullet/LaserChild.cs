@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class LaserChild : MonoBehaviour
 {
+    [HideInInspector] public float Attack { get; set; }
+
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Attack = 10f;
     }
 }

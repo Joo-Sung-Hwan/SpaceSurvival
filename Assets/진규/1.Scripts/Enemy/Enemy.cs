@@ -129,6 +129,14 @@ public abstract class Enemy : MonoBehaviour
                 Hp -= collision.transform.parent.GetComponent<Bomb>().BombAttack;
                 CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().BombAttack);
                 break;
+            case "Laser":
+                Hp -= collision.GetComponent<LaserChild>().Attack;
+                CreateDamageTxt(collision.GetComponent<LaserChild>().Attack);
+                break;
+            case "Bullet":
+                Hp -= collision.GetComponent<Bullet>().Attack;
+                CreateDamageTxt(collision.GetComponent<Bullet>().Attack);
+                break;
         }
     }
 

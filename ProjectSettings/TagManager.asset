@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Bomb
   - CameraWall
+  - Laser
+  - Bullet
   layers:
   - Default
   - TransparentFX

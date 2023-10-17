@@ -30,14 +30,19 @@ public class Player : MonoBehaviour
     [Header("ÆøÅº")]
     public Bomb bomb;
     public BoxCollider2D area;
+
+    [Header("ÃÑ¾Ë")]
+    public Bullet bullet;
+    public Transform[] bullet_parent;
     [HideInInspector] public int Size { get; set; }
     
 
     float delayTimeL = 0f;
     float delayTimeB = 0f;
+    float delayTimeBullet = 0f;
     [HideInInspector] public float BombCTime { get; set; }
 
-    public float radius;
+   
 
 
     // Start is called before the first frame update
@@ -55,6 +60,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        BulletFire();
         LaserFire();
         CreateBomb();
         if (ps == PlayerState.Walk)
@@ -108,6 +114,23 @@ public class Player : MonoBehaviour
         SetDefense(5);
         SetAttackSpeed(1);
         SetSpeed(2);
+    }
+
+    public void BulletFire()
+    {
+        delayTimeBullet += Time.deltaTime;
+        if(delayTimeBullet > 1f)
+        {
+            if (GetComponent<SpriteRenderer>().flipX)
+            {
+                GameManager.instance.pollingsystem.PollingBullet(bullet, bullet_parent[1]);
+            }
+            else
+            {
+                GameManager.instance.pollingsystem.PollingBullet(bullet, bullet_parent[0]);
+            }
+            delayTimeBullet = 0f;
+        }
     }
 
     public void LaserFire()

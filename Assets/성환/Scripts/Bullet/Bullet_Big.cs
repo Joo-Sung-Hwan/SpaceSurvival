@@ -8,11 +8,6 @@ public class Bullet_Big : Bullet
     {
         Speed = 1f;
     }
-
-    public override void Move()
-    {
-        base.Move();
-    }
     void Start()
     {
         init();
