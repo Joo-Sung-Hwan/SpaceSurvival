@@ -63,6 +63,7 @@ public class Laser : MonoBehaviour
         {
             if (i == 0)
             {
+                
                 lr.SetPosition(0, new Vector3(transform.position.x, transform.position.y, 0f));
                 continue;
             }

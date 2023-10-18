@@ -35,6 +35,9 @@ public class Player : MonoBehaviour
     public Bullet bullet;
     public Transform[] bullet_parent;
     [HideInInspector] public int Size { get; set; }
+
+    [Header("UFO")]
+    public GameObject ufo;
     
 
     float delayTimeL = 0f;
@@ -115,7 +118,6 @@ public class Player : MonoBehaviour
         SetAttackSpeed(1);
         SetSpeed(2);
     }
-
     public void BulletFire()
     {
         delayTimeBullet += Time.deltaTime;
@@ -124,10 +126,12 @@ public class Player : MonoBehaviour
             if (GetComponent<SpriteRenderer>().flipX)
             {
                 GameManager.instance.pollingsystem.PollingBullet(bullet, bullet_parent[1]);
+                
             }
             else
             {
                 GameManager.instance.pollingsystem.PollingBullet(bullet, bullet_parent[0]);
+                
             }
             delayTimeBullet = 0f;
         }
@@ -161,5 +165,10 @@ public class Player : MonoBehaviour
     public void SetBombCtime(float time)
     {
         BombCTime = time;
+    }
+
+    public void ChainLighningFire()
+    {
+        
     }
 }
