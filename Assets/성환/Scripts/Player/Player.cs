@@ -162,7 +162,6 @@ public class Player : MonoBehaviour
             delayTimeB = 0f;
         }
     }
-
     public void EnegyBolt()
     {
         if(Input.GetKeyDown(KeyCode.F1))
@@ -181,14 +180,16 @@ public class Player : MonoBehaviour
             for(int i = 0; i < index; i++)
             {
                 enegyTrans[i].gameObject.SetActive(true);
-                enegyTrans[i].rotation = Quaternion.Euler(new Vector3(0f, 0f, temVal));
+                enegyTrans[i].transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, temVal));
                 temVal += val;
             }
-            enegy.rotation = Quaternion.Euler(Vector3.zero);
+
+            enegy.rotation = Quaternion.Euler(new Vector3(0f, 0f, -temVal));
         }
-        if (index > 0)
-            enegy.Rotate(Vector3.forward * Time.deltaTime * 150);
+
+        enegy.Rotate(Vector3.forward * Time.deltaTime * 150);
     }
+
     public void SetBombCtime(float time)
     {
         BombCTime = time;
