@@ -9,6 +9,7 @@ public class PollingSystem : MonoBehaviour
     Queue<Enemy> e_queue;
     Queue<Bomb> bo_queue;
     Queue<Item> item_queue;
+    Queue<SelectCard> s_queue;
     
     // Start is called before the first frame update
     void Start()
@@ -18,6 +19,7 @@ public class PollingSystem : MonoBehaviour
         e_queue = new Queue<Enemy>();
         bo_queue = new Queue<Bomb>();
         item_queue = new Queue<Item>();
+        s_queue = new Queue<SelectCard>();
     }
 
     // Update is called once per frame
@@ -185,4 +187,38 @@ public class PollingSystem : MonoBehaviour
         i.gameObject.SetActive(true);
         return i;
     }
+    /*
+    public SelectCard PoolingSelectCard(SelectCard card, Transform parent)
+    {
+        SelectCard s = null;
+        if (s_queue.Count == 0)
+        {
+            SelectCard sc = Instantiate(card, parent);
+            s_queue.Enqueue(sc);
+            sc.transform.SetParent(GameManager.instance.selectCardManager.selectcard_parent);
+            return sc;
+        }
+        foreach (SelectCard item in s_queue)
+        {
+            if (!item.gameObject.activeSelf)
+            {
+                s = item;
+                s.init();
+                s.transform.position = parent.position;
+                s.gameObject.SetActive(true);
+                break;
+            }
+        }
+        if (s == null)
+        {
+            s = Instantiate(card, parent);
+            s.transform.SetParent(GameManager.instance.selectCardManager.selectcard_parent);
+            s_queue.Enqueue(s);
+        }
+        //Debug.Log("»ý¼º");
+        s.gameObject.SetActive(true);
+        return s;
+    }
+    */
+    
 }

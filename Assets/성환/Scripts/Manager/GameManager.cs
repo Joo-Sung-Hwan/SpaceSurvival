@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public InGameUI gameUI;
     public bool isPause = false;
     public Player player;
+    public SelectCardManager selectCardManager;
 
     private void Awake()
     {
