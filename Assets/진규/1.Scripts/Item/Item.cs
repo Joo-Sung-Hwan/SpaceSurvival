@@ -25,18 +25,6 @@ public abstract class Item : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
     }
 
-    public virtual void Magnet11()
-    {
-        if (magnetZone)
-        {
-            Vector2 dirMagnet = magnetTrans.position - transform.position;
-            float distance = Vector2.Distance(magnetTrans.position, transform.position);
-            float magnetDisStr = (this.distance / distance) * magnetStrength;
-            rigid.AddForce(magnetDisStr * (dirMagnet * magnetDir), ForceMode2D.Force);
-            Debug.Log(dirMagnet.normalized.x);
-        }
-    }
-
     public virtual void Magnet()
     {
         if (magnetZone)
@@ -45,9 +33,9 @@ public abstract class Item : MonoBehaviour
             float distance = Vector2.Distance(magnetTrans.position, transform.position);
             float magnetDisStr = (this.distance / distance) * magnetStrength;
             rigid.AddForce(magnetDisStr * (dirMagnet * magnetDir), ForceMode2D.Force);
-            Debug.Log(dirMagnet.normalized.x);
         }
     }
+
     // 플레이어와 Trigger 적용
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -29,13 +29,13 @@ public class SpriteAnimation : MonoBehaviour
         delayTime += Time.deltaTime;
         if(delayTime > spriteDelayTime)
         {
+            delayTime = 0;
             sr.sprite = sprites[spriteIndex];
             spriteIndex++;
             if(spriteIndex > sprites.Count - 1)
             {
                 spriteIndex = 0;
-
-                if(action != null)
+                if (action != null)
                 {
                     sprites.Clear();
                     action();

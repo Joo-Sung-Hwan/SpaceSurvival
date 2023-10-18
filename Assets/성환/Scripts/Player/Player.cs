@@ -36,9 +36,10 @@ public class Player : MonoBehaviour
     public Transform[] bullet_parent;
     [HideInInspector] public int Size { get; set; }
 
-    [Header("UFO")]
-    public GameObject ufo;
-    
+    [Header("에너지볼트")]
+    public List<Transform> enegyTrans;
+    public Transform enegy;
+    public int index;
 
     float delayTimeL = 0f;
     float delayTimeB = 0f;
@@ -77,7 +78,7 @@ public class Player : MonoBehaviour
             ani.ResetTrigger("Walk");
             ani.SetTrigger("Idle");
         }
-        
+        EnegyBolt();
     }
 
     public void SetLevel(int level)
@@ -162,6 +163,32 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void EnegyBolt()
+    {
+        if(Input.GetKeyDown(KeyCode.F1))
+        {
+            index++;
+            if(index >= enegyTrans.Count)
+            {
+                index = enegyTrans.Count;
+            }
+
+            foreach (var trans in enegyTrans)
+                trans.gameObject.SetActive(false);
+
+            int val = 360 / index;
+            int temVal = val;
+            for(int i = 0; i < index; i++)
+            {
+                enegyTrans[i].gameObject.SetActive(true);
+                enegyTrans[i].rotation = Quaternion.Euler(new Vector3(0f, 0f, temVal));
+                temVal += val;
+            }
+            enegy.rotation = Quaternion.Euler(Vector3.zero);
+        }
+        if (index > 0)
+            enegy.Rotate(Vector3.forward * Time.deltaTime * 150);
+    }
     public void SetBombCtime(float time)
     {
         BombCTime = time;
