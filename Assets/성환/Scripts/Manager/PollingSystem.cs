@@ -187,7 +187,7 @@ public class PollingSystem : MonoBehaviour
         i.gameObject.SetActive(true);
         return i;
     }
-    /*
+    
     public SelectCard PoolingSelectCard(SelectCard card, Transform parent)
     {
         SelectCard s = null;
@@ -202,11 +202,14 @@ public class PollingSystem : MonoBehaviour
         {
             if (!item.gameObject.activeSelf)
             {
-                s = item;
-                s.init();
-                s.transform.position = parent.position;
-                s.gameObject.SetActive(true);
-                break;
+                if (item.gr.ToString() == card.gr.ToString())
+                {
+                    s = item;
+                    s.Init();
+                    s.transform.position = parent.position;
+                    s.gameObject.SetActive(true);
+                    return s;
+                }
             }
         }
         if (s == null)
@@ -219,6 +222,6 @@ public class PollingSystem : MonoBehaviour
         s.gameObject.SetActive(true);
         return s;
     }
-    */
+    
     
 }

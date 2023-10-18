@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class SelectCardRare : SelectCard
 {
-    public override void init()
+    public override void Init()
     {
         gr = Grade.Rare;
     }
 
     private void Start()
     {
-        init();
+        Init();
     }
 }

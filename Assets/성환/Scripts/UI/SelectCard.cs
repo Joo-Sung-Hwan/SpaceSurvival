@@ -10,6 +10,14 @@ public enum Grade
 }
 public abstract class SelectCard : MonoBehaviour
 {
-    protected Grade gr;
-    public abstract void init();
+    [HideInInspector] public Grade gr;
+    public abstract void Init();
+
+    public virtual void OnclickCard()
+    {
+        foreach(var item in GameManager.instance.selectCardManager.sc_list)
+        {
+            item.gameObject.SetActive(false);
+        }
+    }
 }

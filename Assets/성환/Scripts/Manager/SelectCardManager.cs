@@ -6,11 +6,12 @@ public class SelectCardManager : MonoBehaviour
 {
     public SelectCard[] selectcard;
     public Transform selectcard_parent;
+    [HideInInspector] public List<SelectCard> sc_list = new List<SelectCard>();
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine("DelayCardTime");
+        
     }
 
     // Update is called once per frame
@@ -25,8 +26,9 @@ public class SelectCardManager : MonoBehaviour
     public void CreateSelectCard()
     {
         int rand = Random.Range(0, 100);
-        int card_index = rand < 70 ? 0 : 1;
-        //GameManager.instance.pollingsystem.PoolingSelectCard(selectcard[card_index], selectcard_parent);
+        int card_index = rand < 60 ? 0 : 1;
+        SelectCard sc = GameManager.instance.pollingsystem.PoolingSelectCard(selectcard[card_index], selectcard_parent);
+        sc_list.Add(sc);
         //Instantiate(selectcard[card_index], selectcard_parent);
     }
 
