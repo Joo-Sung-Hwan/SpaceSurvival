@@ -7,7 +7,7 @@ public class Barrier : MonoBehaviour
     public List<Sprite> barrier = new();
     void Start()
     {
-        transform.GetComponent<SpriteAnimation>().SetSprite(barrier, 1f);
+        transform.GetComponent<SpriteAnimation>().SetSprite(barrier, 0.2f);
     }
 
     // Update is called once per frame

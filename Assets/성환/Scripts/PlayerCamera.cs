@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    [SerializeField] public Transform playerTransform;
     [SerializeField] Vector3 cameraP;
     [SerializeField] Vector2 center;
     [SerializeField] Vector2 mapSize;
@@ -25,9 +24,7 @@ public class PlayerCamera : MonoBehaviour
 
     void LimitCameraArea()
     {
-        playerTransform = GameManager.instance.playerSpawnManager.player.transform;
-
-        transform.position = Vector3.Lerp(transform.position, playerTransform.position + cameraP, Time.deltaTime * cameraMoveSpeed);
+        transform.position = Vector3.Lerp(transform.position, GameManager.instance.player.transform.position + cameraP, Time.deltaTime * cameraMoveSpeed);
 
         float lx = mapSize.x - width;
         float clampX = Mathf.Clamp(transform.position.x, -lx + center.x, lx + center.x);

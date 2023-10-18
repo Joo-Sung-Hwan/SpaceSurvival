@@ -47,6 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c8ca554f2b6e1c4da0c535ddc553d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  magnetStrength: 2
+  distance: 10
+  magnetDir: 1
+  looseMaget: 1
+  magnetZone: 0
 --- !u!212 &1484266864039547124
 SpriteRenderer:
   m_ObjectHideFlags: 0

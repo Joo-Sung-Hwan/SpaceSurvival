@@ -18,7 +18,7 @@ public abstract class Pet : MonoBehaviour
 
     void Update()
     {
-        player = GameManager.instance.playerSpawnManager.player;
+        player = GameManager.instance.player;
         rigid = GetComponent<Rigidbody2D>();
         Move();
     }
@@ -45,7 +45,7 @@ public abstract class Pet : MonoBehaviour
         if (collision.CompareTag("Exp"))
         {
             Item item = collision.GetComponent<Item>();
-            GameManager.instance.playerSpawnManager.player.definePD.CurExp += item.info.exp;
+            GameManager.instance.player.definePD.CurExp += item.info.exp;
             collision.gameObject.SetActive(false);
         }
     }

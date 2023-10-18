@@ -8,6 +8,9 @@ TagManager:
   - CameraWall
   - Laser
   - Bullet
+  - Exp
+  - Pet
+  - Magnet
   layers:
   - Default
   - TransparentFX

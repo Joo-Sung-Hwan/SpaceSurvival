@@ -12,7 +12,7 @@ public class Astronaut : Enemy
        //ed.attack = (int)DefineEnemyData.Attack;
        //ed.defence = (int)DefineEnemyData.Defence;
        //ed.speed = (int)DefineEnemyData.Speed;
-        player = GameManager.instance.playerSpawnManager.player;
+        player = GameManager.instance.player;
         DataInPut();
     }
 
@@ -20,7 +20,7 @@ public class Astronaut : Enemy
     {
         if(player == null)
         {
-            player = GameManager.instance.playerSpawnManager.player;
+            player = GameManager.instance.player;
             return;
         }
         if(!IsDead)

@@ -7,7 +7,7 @@ public class Ghost : Pet
     public override void Init()
     {
         petData.speed = 2f;
-        player = GameManager.instance.playerSpawnManager.player;
+        player = GameManager.instance.player;
     }
 
     // Start is called before the first frame update

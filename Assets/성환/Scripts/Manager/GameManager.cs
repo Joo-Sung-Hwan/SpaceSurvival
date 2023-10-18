@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public PlayerCamera playerCamera;
     public InGameUI gameUI;
     public bool isPause = false;
+    public Player player;
 
     private void Awake()
     {
@@ -40,7 +41,5 @@ public class GameManager : MonoBehaviour
     {
         isPause = false;
         Time.timeScale = 1;
-        Destroy(playerSpawnManager.player);
-        playerSpawnManager.Create_Player();
     }
 }

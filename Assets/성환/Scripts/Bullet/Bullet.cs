@@ -24,7 +24,7 @@ public abstract class Bullet : MonoBehaviour
 
     public void SetDir()
     {
-        if (GameManager.instance.playerSpawnManager.player.GetComponent<SpriteRenderer>().flipX)
+        if (GameManager.instance.player.GetComponent<SpriteRenderer>().flipX)
         {
             dir = false;
         }

@@ -46,7 +46,7 @@ public class Bomb : MonoBehaviour
         curheight = 1f;
         SettingActive(true);
         ani = GetComponent<Animator>();
-        player = GameManager.instance.playerSpawnManager.player;
+        player = GameManager.instance.player;
         start_pos = player.area.bounds.center;
         destination = GameManager.instance.GetRandomPosition(player.transform, player.area);
         maxdis = Vector3.Distance(start_pos, destination);

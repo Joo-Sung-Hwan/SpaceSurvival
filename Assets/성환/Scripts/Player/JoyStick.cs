@@ -13,7 +13,7 @@ public class JoyStick : MonoBehaviour, IBeginDragHandler,IEndDragHandler,IDragHa
     [HideInInspector] public Vector2 input_vector;
 
     // Player 속성 값
-    Player player;
+    public Player player;
     bool isDrag;
 
     // Player 움직이는 속도
@@ -21,7 +21,6 @@ public class JoyStick : MonoBehaviour, IBeginDragHandler,IEndDragHandler,IDragHa
 
     void Start()
     {
-        player = GameManager.instance.playerSpawnManager.player;
         Speed = 2f;
     }
 
@@ -42,7 +41,7 @@ public class JoyStick : MonoBehaviour, IBeginDragHandler,IEndDragHandler,IDragHa
     {
         isDrag = false;
         lever.anchoredPosition = Vector2.zero;
-        GameManager.instance.playerSpawnManager.player.ps = PlayerState.Idle;
+        GameManager.instance.player.ps = PlayerState.Idle;
     }
 
     void DragEvent(PointerEventData eventData)

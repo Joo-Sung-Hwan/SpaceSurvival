@@ -24,8 +24,6 @@ public class InGameUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        player = GameManager.instance.playerSpawnManager.player;
-
         Timer();
         if (exp_Bar.GetComponent<RectTransform>().rect.width >= 1041 || hp_Bar.GetComponent<RectTransform>().rect.width <= 0)
             return;
