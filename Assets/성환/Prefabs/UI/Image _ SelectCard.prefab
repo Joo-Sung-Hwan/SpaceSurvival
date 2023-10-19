@@ -9,13 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5736850467546917878}
-  - component: {fileID: 1912609901063300642}
   - component: {fileID: 5736850467546917876}
+  - component: {fileID: 2556643976974604873}
   - component: {fileID: 5736850467546917879}
   - component: {fileID: 4581373446631765074}
-  - component: {fileID: 2641824870263003762}
+  - component: {fileID: 3764009695647425551}
   m_Layer: 5
-  m_Name: Image _ SelectCardUnique
+  m_Name: Image _ SelectCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,19 +41,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1912609901063300642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5736850467546917873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3b5d79206b88ad47959e98253e7fb0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gr: 2
 --- !u!222 &5736850467546917876
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -62,6 +49,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5736850467546917873}
   m_CullTransparentMesh: 1
+--- !u!114 &2556643976974604873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5736850467546917873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6931714b5f2d744dad67da6f0e65030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gr: 0
+  sprite_list:
+  - {fileID: 21300000, guid: 2ce04efc8d44e9343be4632d18d688bf, type: 3}
+  - {fileID: 21300000, guid: e2dbad3b493225b4e9484df7d1fc6df5, type: 3}
 --- !u!114 &5736850467546917879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,14 +78,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8347093, g: 0.48406905, b: 0.9245283, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e2dbad3b493225b4e9484df7d1fc6df5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2ce04efc8d44e9343be4632d18d688bf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -113,7 +116,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2641824870263003762
+--- !u!114 &3764009695647425551
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -157,7 +160,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1912609901063300642}
+      - m_Target: {fileID: 2556643976974604873}
         m_TargetAssemblyTypeName: SelectCard, Assembly-CSharp
         m_MethodName: OnclickCard
         m_Mode: 1

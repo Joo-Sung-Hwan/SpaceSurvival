@@ -195,6 +195,7 @@ public class PollingSystem : MonoBehaviour
         {
             SelectCard sc = Instantiate(card, parent);
             s_queue.Enqueue(sc);
+            sc.Init();
             sc.transform.SetParent(GameManager.instance.selectCardManager.selectcard_parent);
             return sc;
         }
@@ -202,20 +203,17 @@ public class PollingSystem : MonoBehaviour
         {
             if (!item.gameObject.activeSelf)
             {
-                card.Init();
-                if (item.gr.ToString() == card.gr.ToString())
-                {
-                    s = item;
-                    s.Init();
-                    s.transform.position = parent.position;
-                    s.gameObject.SetActive(true);
-                    return s;
-                }
+                s = item;
+                s.Init();
+                s.transform.position = parent.position;
+                s.gameObject.SetActive(true);
+                return s;
             }
         }
         if (s == null)
         {
             s = Instantiate(card, parent);
+            s.Init();
             s.transform.SetParent(GameManager.instance.selectCardManager.selectcard_parent);
             s_queue.Enqueue(s);
         }

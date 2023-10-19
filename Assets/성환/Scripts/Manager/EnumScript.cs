@@ -16,3 +16,10 @@ public enum Monster
     three
 }
 
+public enum PlayerWeapon
+{
+    Bomb,
+    Laser,
+    EnergyBolt
+}
+
