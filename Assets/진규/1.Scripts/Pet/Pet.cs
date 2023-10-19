@@ -11,6 +11,7 @@ public abstract class Pet : MonoBehaviour
 {
     public PetData petData = new();
     public Animator anim;
+    public bool MagnetPet { get; set; }
     protected Player player;
     Rigidbody2D rigid;
 

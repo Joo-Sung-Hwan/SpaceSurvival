@@ -24,7 +24,8 @@ public class InGameUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Timer();
+        if (GameManager.instance.isPause == false)
+            Timer();
         if (exp_Bar.GetComponent<RectTransform>().rect.width >= 1041 || hp_Bar.GetComponent<RectTransform>().rect.width <= 0)
             return;
         CalculationBar(exp_Bar, player.definePD.CurExp, player.definePD.MaxExp, 1041, 56.5f);

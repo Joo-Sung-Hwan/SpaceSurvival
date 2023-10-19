@@ -8,6 +8,7 @@ public class Ghost : Pet
     {
         petData.speed = 2f;
         player = GameManager.instance.player;
+        MagnetPet = true;
     }
 
     // Start is called before the first frame update

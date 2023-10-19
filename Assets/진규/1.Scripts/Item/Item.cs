@@ -39,6 +39,12 @@ public abstract class Item : MonoBehaviour
     // 플레이어와 Trigger 적용
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Pet pet = collision.GetComponent<Pet>();
+        if(collision.CompareTag("Player") && pet == null)
+        {
+            GameManager.instance.player.definePD.CurExp += info.exp;
+            gameObject.SetActive(false);
+        }
         if(collision.CompareTag("Magnet"))
         {
             magnetTrans = collision.transform;

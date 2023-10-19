@@ -188,9 +188,10 @@ public class Player : MonoBehaviour
                 enegyTrans[i].transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, temVal));
                 temVal += val;
             }
-
-            enegy.rotation = Quaternion.Euler(new Vector3(0f, 0f, -temVal));
         }
+
+        foreach (var trans in enegyTrans)
+            trans.GetChild(0).rotation = Quaternion.Euler(Vector3.zero);
 
         enegy.Rotate(Vector3.forward * Time.deltaTime * 70f);
     }

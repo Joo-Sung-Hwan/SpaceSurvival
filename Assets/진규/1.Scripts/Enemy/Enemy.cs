@@ -137,6 +137,10 @@ public abstract class Enemy : MonoBehaviour
                 Hp -= collision.GetComponent<Bullet>().Attack;
                 CreateDamageTxt(collision.GetComponent<Bullet>().Attack);
                 break;
+            case "EnegyBolt":
+                Hp -= collision.GetComponent<FxManager>().fd.Attack;
+                CreateDamageTxt(collision.GetComponent<FxManager>().fd.Attack);
+                break;
         }
     }
 
