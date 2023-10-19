@@ -19,5 +19,7 @@ public abstract class SelectCard : MonoBehaviour
         {
             item.gameObject.SetActive(false);
         }
+        GameManager.instance.selectCardManager.sc_list.Clear();
+        GameManager.instance.isPause = false;
     }
 }

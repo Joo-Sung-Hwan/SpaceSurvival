@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
         ani = GetComponent<Animator>();
         definePD.MaxHp = 100;
         definePD.CurHp = definePD.MaxHp;
-        definePD.MaxExp = 200f;
+        definePD.MaxExp = 20f;
         Init();
         SetBombCtime(3f);
     }
@@ -64,21 +64,26 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        BulletFire();
-        LaserFire();
-        CreateBomb();
-        if (ps == PlayerState.Walk)
+        if (!GameManager.instance.isPause)
         {
-            ani.ResetTrigger("Idle");
-            ani.SetTrigger("Walk");
-            ani.Play("walk_side");
+            BulletFire();
+            LaserFire();
+            CreateBomb();
+            LevelUp();
+            if (ps == PlayerState.Walk)
+            {
+                ani.ResetTrigger("Idle");
+                ani.SetTrigger("Walk");
+                ani.Play("walk_side");
+            }
+            else
+            {
+                ani.ResetTrigger("Walk");
+                ani.SetTrigger("Idle");
+            }
+            EnegyBolt();
         }
-        else
-        {
-            ani.ResetTrigger("Walk");
-            ani.SetTrigger("Idle");
-        }
-        EnegyBolt();
+        
     }
 
     public void SetLevel(int level)
@@ -187,7 +192,7 @@ public class Player : MonoBehaviour
             enegy.rotation = Quaternion.Euler(new Vector3(0f, 0f, -temVal));
         }
 
-        enegy.Rotate(Vector3.forward * Time.deltaTime * 150);
+        enegy.Rotate(Vector3.forward * Time.deltaTime * 70f);
     }
 
     public void SetBombCtime(float time)
@@ -198,5 +203,17 @@ public class Player : MonoBehaviour
     public void ChainLighningFire()
     {
         
+    }
+
+    public void LevelUp()
+    {
+        if(definePD.CurExp >= definePD.MaxExp)
+        {
+            float spareExp = definePD.CurExp - definePD.MaxExp;
+            definePD.MaxExp *= 1.2f;
+            definePD.CurExp = spareExp;
+            GameManager.instance.LevelupPause();
+            GameManager.instance.selectCardManager.StartSelectCard();
+        }
     }
 }

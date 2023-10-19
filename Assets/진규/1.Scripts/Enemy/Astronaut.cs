@@ -18,15 +18,19 @@ public class Astronaut : Enemy
 
     void Update()
     {
-        if(player == null)
+        if (!GameManager.instance.isPause)
         {
-            player = GameManager.instance.player;
-            return;
+            if (player == null)
+            {
+                player = GameManager.instance.player;
+                return;
+            }
+            if (!IsDead)
+            {
+                Move();
+            }
         }
-        if(!IsDead)
-        {
-            Move();
-        }
+            
     }
 
     public override void Move()

@@ -43,4 +43,9 @@ public class GameManager : MonoBehaviour
         isPause = false;
         Time.timeScale = 1;
     }
+
+    public void LevelupPause()
+    {
+        isPause = true;
+    }
 }

@@ -202,6 +202,7 @@ public class PollingSystem : MonoBehaviour
         {
             if (!item.gameObject.activeSelf)
             {
+                card.Init();
                 if (item.gr.ToString() == card.gr.ToString())
                 {
                     s = item;

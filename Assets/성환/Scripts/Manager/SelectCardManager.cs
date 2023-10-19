@@ -19,25 +19,33 @@ public class SelectCardManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            StartCoroutine("DelayCardTime");
+            StartSelectCard();
         }
     }
 
-    public void CreateSelectCard()
+    public GameObject CreateSelectCard()
     {
+        int card_index = 0;
         int rand = Random.Range(0, 100);
-        int card_index = rand < 60 ? 0 : 1;
+        card_index = rand < 60 ? 0 : rand < 90 ? 1 : 2;
+        Debug.Log(rand);
         SelectCard sc = GameManager.instance.pollingsystem.PoolingSelectCard(selectcard[card_index], selectcard_parent);
         sc_list.Add(sc);
         //Instantiate(selectcard[card_index], selectcard_parent);
+        return sc.gameObject;
     }
 
     IEnumerator DelayCardTime()
     {
         for (int i = 0; i < 3; i++)
         {
-            CreateSelectCard();
+            CreateSelectCard().transform.SetAsLastSibling();
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    public void StartSelectCard()
+    {
+        StartCoroutine("DelayCardTime");
     }
 }

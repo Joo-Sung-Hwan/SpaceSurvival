@@ -74,6 +74,9 @@ public class JoyStick : MonoBehaviour, IBeginDragHandler,IEndDragHandler,IDragHa
 
     void Update()
     {
-        PlayerControl(player);
+        if (!GameManager.instance.isPause)
+        {
+            PlayerControl(player);
+        }
     }
 }
