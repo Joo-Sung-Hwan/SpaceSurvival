@@ -2,12 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+
 public enum BombState
 {
     Idle,
     Explosion
 }
-public class Bomb : MonoBehaviour
+
+public enum BombType
+{
+    Nomal,
+    Magnet
+}
+
+public struct BombData
+{
+    public float BombAttack { get; set; }
+    public float BombSize { get; set; }
+}
+
+public abstract class Bomb : MonoBehaviour
 {
     Vector3 start_pos;
     Vector2 dir;
@@ -18,45 +32,37 @@ public class Bomb : MonoBehaviour
     bool isGrounded = true;
     int maxbounce = 5;
     int curbounce;
-    float curheight;
 
-    [HideInInspector] public float BombAttack { get; set; }
-    [HideInInspector] public float BombSize { get; set; }
+    public BombData bd = new();
 
     public Transform sprite;
     public Transform shadow;
+    float curheight;
 
     public GameObject explosion;
     Player player;
 
-    Animator ani;
-    BombState bs;
+    //public Animator ani;
+    //public ParticleSystem particle;
+    protected BombState bs;
+    public BombType bt;
+    public abstract void Init();
 
-    void Start()
+    public virtual void ResetData()
     {
-        ResetData();
-        SetBombAttack(50);
-        SetBombSize(1);
-    }
-    public void ResetData()
-    {
-        SetBombAttack(BombAttack);
-        SetBombSize(BombSize);
+        SetBombAttack(bd.BombAttack);
+        SetBombSize(bd.BombSize);
         curbounce = 0;
-        curheight = 1f;
+        
         SettingActive(true);
-        ani = GetComponent<Animator>();
         player = GameManager.instance.player;
         start_pos = player.area.bounds.center;
         destination = GameManager.instance.GetRandomPosition(player.transform, player.area);
         maxdis = Vector3.Distance(start_pos, destination);
-        Init(destination);
-        bs = BombState.Idle;
-        B_State(bs);
+        DirInit(destination);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (!isGrounded)
         {
@@ -69,8 +75,8 @@ public class Bomb : MonoBehaviour
             CheckGroundHit();
         }
     }
-    
-    public void Init(Vector2 dir)
+
+    void DirInit(Vector2 dir)
     {
         isGrounded = false;
         this.dir = dir;
@@ -88,7 +94,7 @@ public class Bomb : MonoBehaviour
             if (sprite.position.y < shadow.position.y)
             {
                 sprite.position = shadow.position;
-                Init(dir / 1.5f);
+                DirInit(dir / 1.5f);
             }
         }
         else
@@ -98,26 +104,22 @@ public class Bomb : MonoBehaviour
             tmp.y = tmp.y + 0.04f;
             sprite.position = tmp;
             isGrounded = true;
-            B_State(bs);
+            BombEvents();
         }
     }
 
-    // ÆøÅº ÅÍÁö´Â ¾Ö´Ï¸ÞÀÌ¼Ç
-    public void B_State(BombState bs)
+    void BombEvents()
     {
-        if(bs == BombState.Idle)
+        switch(bt)
         {
-            ani.SetTrigger("idle");
-            ani.ResetTrigger("explosion");
-            explosion.SetActive(false);
-        }
-        else
-        {
-            ani.ResetTrigger("idle");
-            ani.SetTrigger("explosion");
-            SettingActive(false);
-            explosion.SetActive(true);
-            GetComponent<Animator>().Play("BombExplosion");
+            case BombType.Nomal:
+                NormalBomb normalBomb = GetComponent<NormalBomb>();
+                normalBomb.B_State(bs);
+                break;
+            case BombType.Magnet:
+                MagnetBomb magnetBomb = GetComponent<MagnetBomb>();
+                magnetBomb.MagnetEvents();
+                break;
         }
     }
 
@@ -138,13 +140,13 @@ public class Bomb : MonoBehaviour
     // ÆøÅº °ø°Ý·Â ¼³Á¤
     public void SetBombAttack(float bombattack)
     {
-        BombAttack = bombattack;
+        bd.BombAttack = bombattack;
     }
 
     // ÆøÅº ÅÍÁö´Â ¹üÀ§ ¼³Á¤
     public void SetBombSize(float size)
     {
-        BombSize = size;
-        GetComponent<Transform>().localScale = new Vector3(BombSize, BombSize, 0f);
+        bd.BombSize = size;
+        GetComponent<Transform>().localScale = new Vector3(bd.BombSize, bd.BombSize, 0f);
     }
 }

@@ -126,8 +126,8 @@ public abstract class Enemy : MonoBehaviour
                 //Debug.Log(GameManager.instance.playerSpawnManager.player.definePD.CurHp);
                 break;
             case "Bomb":
-                Hp -= collision.transform.parent.GetComponent<Bomb>().BombAttack;
-                CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().BombAttack);
+                Hp -= collision.transform.parent.GetComponent<Bomb>().bd.BombAttack;
+                CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
                 break;
             case "Laser":
                 Hp -= collision.GetComponent<LaserChild>().Attack;

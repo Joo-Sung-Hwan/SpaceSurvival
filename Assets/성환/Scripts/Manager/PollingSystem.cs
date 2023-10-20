@@ -96,6 +96,7 @@ public class PollingSystem : MonoBehaviour
         if (bo_queue.Count == 0)
         {
             Bomb bul = Instantiate(bomb, parent);
+            
             bo_queue.Enqueue(bul);
             bul.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bomb_parent);
             return bul;
@@ -105,6 +106,7 @@ public class PollingSystem : MonoBehaviour
             if (!item.gameObject.activeSelf)
             {
                 b = item;
+                b.Init();
                 b.ResetData();
                 b.transform.position = parent.position;
                 b.gameObject.SetActive(true);
