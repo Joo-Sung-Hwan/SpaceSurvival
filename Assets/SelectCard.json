@@ -3,22 +3,214 @@
     {
       "Bomb": [
         {
-          "Normal": [
+          "Damage": [
             {
-              "text": "폭탄을 빠르게 던집니다.",
-              "value": "0.99"
+              "text": "폭탄 데미지 소폭 상승",
+              "value": "1.1",
+              "rare": "Normal"
+            },
+            {
+              "text": "폭탄 데미지 상승",
+              "value": "1.2",
+              "rare": "Rare"
+            },
+            {
+              "text": "폭탄 데미지 대폭 상승",
+              "value": "1.3",
+              "rare": "Unique"
             }
           ],
-          "Rare": [
+          "AttackSpeed": [
             {
-              "text": "폭탄을 더 빠르게 던집니다.",
-              "value": "0.97"
+              "text": "폭탄 던지는 속도 소폭 상승",
+              "value": "0.99",
+              "rare": "Normal"
+            },
+            {
+              "text": "폭탄 던지는 속도 상승",
+              "value": "0.97",
+              "rare": "Rare"
+            },
+            {
+              "text": "폭탄 던지는 속도 대폭 상승",
+              "value": "0.95",
+              "rare": "Unique"
             }
           ],
-          "Unique": [
+          "AttackRange": [
             {
-              "text": "폭탄을 매우 빠르게 던집니다.",
-              "value": "0.95"
+              "text": "폭탄의 폭발 범위 소폭 증가",
+              "value": "1.1",
+              "rare": "Normal"
+            },
+            {
+              "text": "폭탄의 폭발 범위 증가",
+              "value": "1.2",
+              "rare": "Rare"
+            },
+            {
+              "text": "폭탄의 폭발 범위 대폭 증가",
+              "value": "1.3",
+              "rare": "Unique"
+            }
+          ]
+        }
+      ],
+      "Bullet": [
+        {
+          "Damage": [
+            {
+              "text": "총알 데미지 소폭 상승",
+              "value": "1.1",
+              "rare": "Normal"
+            },
+            {
+              "text": "총알 데미지 상승",
+              "value": "1.2",
+              "rare": "Rare"
+            },
+            {
+              "text": "총알 데미지 대폭 상승",
+              "value": "1.3",
+              "rare": "Unique"
+            }
+          ],
+          "AttackSpeed": [
+            {
+              "text": "총알 발사 속도 소폭 상승",
+              "value": "0.99",
+              "rare": "Normal"
+            },
+            {
+              "text": "총알 발사 속도 상승",
+              "value": "0.97",
+              "rare": "Rare"
+            },
+            {
+              "text": "총알 발사 속도 대폭 상승",
+              "value": "0.95",
+              "rare": "Unique"
+            }
+          ],
+          "Penetration": [
+            {
+              "text": "총알 관통 + 1",
+              "value": "1",
+              "rare": "Normal"
+            },
+            {
+              "text": "총알 관통 + 2",
+              "value": "2",
+              "rare": "Rare"
+            },
+            {
+              "text": "총알 관통 + 3",
+              "value": "3",
+              "rare": "Unique"
+            }
+          ]
+        }
+      ],
+      "Lasor": [
+        {
+          "Damage": [
+            {
+              "text": "레이저 데미지 소폭 상승",
+              "value": "1.1",
+              "rare": "Normal"
+            },
+            {
+              "text": "레이저 데미지 상승",
+              "value": "1.2",
+              "rare": "Rare"
+            },
+            {
+              "text": "레이저 데미지 대폭 상승",
+              "value": "1.3",
+              "rare": "Unique"
+            }
+          ],
+          "AttackDuration": [
+            {
+              "text": "레이저 지속시간 소폭 증가",
+              "value": "0.99",
+              "rare": "Normal"
+            },
+            {
+              "text": "레이저 지속시간 증가",
+              "value": "0.97",
+              "rare": "Rare"
+            },
+            {
+              "text": "레이저 지속시간 대폭 증가",
+              "value": "0.95",
+              "rare": "Unique"
+            }
+          ],
+          "Reflection": [
+            {
+              "text": "레이저 반사 횟수 + 1",
+              "value": "1",
+              "rare": "Normal"
+            },
+            {
+              "text": "레이저 반사 횟수 + 2",
+              "value": "2",
+              "rare": "Rare"
+            },
+            {
+              "text": "레이저 반사 횟수 + 3",
+              "value": "3",
+              "rare": "Unique"
+            }
+          ]
+        }
+      ],
+      "EnergyBolt": [
+        {
+          "Damage": [
+            {
+              "text": "에너지 볼트 데미지 소폭 상승",
+              "value": "1.1",
+              "rare": "Normal"
+            },
+            {
+              "text": "에너지 볼트 데미지 소폭 상승",
+              "value": "1.2",
+              "rare": "Rare"
+            },
+            {
+              "text": "에너지 볼트 데미지 소폭 상승",
+              "value": "1.3",
+              "rare": "Unique"
+            }
+          ],
+          "AttackCount": [
+            {
+              "text": "에너지볼트 갯수 +1",
+              "value": "1",
+              "rare": "Unique"
+            }
+          ]
+        }
+      ],
+      "Player": [
+        {
+          "HP": [
+            {
+              "text": "HP 100 증가",
+              "value": "100",
+              "rare": "Normal"
+            },
+            {
+              "text": "HP 200 증가",
+              "value": "100",
+              "rare": "Normal"
+            },
+            {
+              "text": "HP 300 증가",
+              "value": "100",
+              "rare": "Normal"
             }
           ]
         }

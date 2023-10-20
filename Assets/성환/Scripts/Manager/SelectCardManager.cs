@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class SelectCardManager : MonoBehaviour
 {
@@ -8,8 +9,19 @@ public class SelectCardManager : MonoBehaviour
     public Transform selectcard_parent;
     [HideInInspector] public List<SelectCard> sc_list = new List<SelectCard>();
 
-    // Start is called before the first frame update
-    
+
+    public struct CardData
+    {
+        string text;
+        float value;
+        string rare;
+    }
+
+    void Start()
+    {
+        //selectcard = JsonUtility.
+        //CardData cd = JsonUtility.FromJson<CardData>(selectjson);
+    }
 
     // Update is called once per frame
     void Update()
