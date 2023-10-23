@@ -19,6 +19,7 @@ public struct DefinePlayerData
 public class Player : MonoBehaviour
 {
     public DefinePlayerData definePD = new DefinePlayerData();
+    public PlayerWeapon player_weapon = new PlayerWeapon();
 
     [HideInInspector] public PlayerState ps;
     Animator ani;
@@ -52,6 +53,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player_weapon = PlayerWeapon.Laser;
         ps = PlayerState.Idle;
         ani = GetComponent<Animator>();
         definePD.MaxHp = 100;
