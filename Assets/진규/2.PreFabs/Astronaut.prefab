@@ -224,6 +224,9 @@ MonoBehaviour:
   - {fileID: 4819316638390071840, guid: 150fa057f58bdfb42ab9e65e8650479f, type: 3}
   - {fileID: 7093794893088856794, guid: 5c3b89d0bfb40134d9508ea2b4b2541f, type: 3}
   canvas: {fileID: 8530056358130535148}
+  magnetDir: 1
+  looseMagnet: 1
+  magnetBombZone: 0
 --- !u!212 &-2243018945179211920
 SpriteRenderer:
   m_ObjectHideFlags: 0

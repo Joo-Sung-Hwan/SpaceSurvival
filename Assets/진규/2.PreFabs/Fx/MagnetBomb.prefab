@@ -9532,13 +9532,10 @@ MonoBehaviour:
   sprite: {fileID: 4400389479008290}
   shadow: {fileID: 4400389479008290}
   explosion: {fileID: 0}
-  bs: 0
   bt: 1
-  target: {fileID: 0}
-  magnetStrength: 5
-  magnetDistance: 10
-  magnetDir: 1
   magnetBombZone: 0
+  particle: {fileID: 198755127273645396}
+  magnetTrans: {fileID: 1784542388407152547}
 --- !u!212 &7263358943724452393
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10490,7 +10487,7 @@ ParticleSystem:
       repeatInterval: 0.01
       probability: 1
     - serializedVersion: 2
-      time: 0.1
+      time: 0.05
       countCurve:
         serializedVersion: 2
         minMaxState: 0
@@ -10548,7 +10545,7 @@ ParticleSystem:
       repeatInterval: 0.01
       probability: 1
     - serializedVersion: 2
-      time: 0.2
+      time: 0.05
       countCurve:
         serializedVersion: 2
         minMaxState: 0
@@ -10606,7 +10603,7 @@ ParticleSystem:
       repeatInterval: 0.01
       probability: 1
     - serializedVersion: 2
-      time: 0.3
+      time: 0.05
       countCurve:
         serializedVersion: 2
         minMaxState: 0
@@ -24052,7 +24049,7 @@ GameObject:
   - component: {fileID: 5572440300624009197}
   m_Layer: 0
   m_Name: MagnetZone
-  m_TagString: Untagged
+  m_TagString: MagnetBomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24079,10 +24076,10 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1075721589948043418}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

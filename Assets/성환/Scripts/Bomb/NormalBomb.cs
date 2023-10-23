@@ -8,7 +8,7 @@ public class NormalBomb : Bomb
     public override void Init()
     {
         bt = BombType.Nomal;
-        bd.BombAttack = 10f;
+        //bd.BombAttack = 10f;
     }
 
     // Start is called before the first frame update
@@ -24,7 +24,6 @@ public class NormalBomb : Bomb
     {
         base.ResetData();
         ani = GetComponent<Animator>();
-        bs = BombState.Idle;
     }
 
     // 폭탄 터지는 애니메이션

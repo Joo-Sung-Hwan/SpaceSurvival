@@ -244,7 +244,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &99800435
 Transform:
   m_ObjectHideFlags: 0
@@ -14165,6 +14165,7 @@ MonoBehaviour:
   selectcard: {fileID: 2556643976974604873, guid: a59907598b78f9748aaeb823f55f4dbc, type: 3}
   selectcard_parent: {fileID: 923614470}
   sc_list: []
+  jsondata: {fileID: 4900000, guid: 2cc51e409fdf8674a993783345432945, type: 3}
 --- !u!4 &2059701698
 Transform:
   m_ObjectHideFlags: 0
@@ -20531,6 +20532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3910952a979db44d89ac453901fbeea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player_weapon: 0
   ps: 0
   laser: {fileID: -3206816259849341346, guid: b0785ab372f3fec46b68513e1e401e60, type: 3}
   laser_parent: {fileID: 3695146227478737774}

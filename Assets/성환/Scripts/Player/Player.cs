@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
         definePD.CurHp = definePD.MaxHp;
         definePD.MaxExp = 20f;
         Init();
-        SetBombCtime(3f);
+        SwitchBombCreate();
     }
 
     // Update is called once per frame
@@ -217,6 +217,19 @@ public class Player : MonoBehaviour
             definePD.CurExp = spareExp;
             GameManager.instance.LevelupPause();
             GameManager.instance.selectCardManager.StartSelectCard();
+        }
+    }
+
+    void SwitchBombCreate()
+    {
+        switch (bomb.bt)
+        {
+            case BombType.Nomal:
+                SetBombCtime(3f);
+                break;
+            case BombType.Magnet:
+                SetBombCtime(6f);
+                break;
         }
     }
 }

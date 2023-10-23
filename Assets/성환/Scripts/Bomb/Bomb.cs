@@ -46,6 +46,7 @@ public abstract class Bomb : MonoBehaviour
     //public ParticleSystem particle;
     protected BombState bs;
     public BombType bt;
+    public bool magnetBombZone;
     public abstract void Init();
 
     public virtual void ResetData()
@@ -60,6 +61,7 @@ public abstract class Bomb : MonoBehaviour
         destination = GameManager.instance.GetRandomPosition(player.transform, player.area);
         maxdis = Vector3.Distance(start_pos, destination);
         DirInit(destination);
+        bs = BombState.Idle;
     }
 
     private void Update()
@@ -117,8 +119,8 @@ public abstract class Bomb : MonoBehaviour
                 normalBomb.B_State(bs);
                 break;
             case BombType.Magnet:
-                MagnetBomb magnetBomb = GetComponent<MagnetBomb>();
-                magnetBomb.MagnetEvents();
+                MagnetBomb magnet = GetComponent<MagnetBomb>();
+                StartCoroutine(magnet.Bomb());
                 break;
         }
     }

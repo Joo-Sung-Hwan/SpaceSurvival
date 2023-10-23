@@ -11,6 +11,8 @@ public struct EnemyData
     public float attack;
     public float defence;
     public float speed;
+    public float magnetStrength;
+    public float magnetDistance;
     public EnemyState enemyState;
 }
 
@@ -45,10 +47,14 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] TMP_Text damageTxt;
     public List<Item> items = new List<Item>();
     public Canvas canvas;
+    public float magnetDir = 1f;
+    public bool looseMagnet;
+    public bool magnetBombZone;
     protected Player player;
     protected EnemyType enemyT = EnemyType.None;
     protected Animator anim;
     protected DefineEnemyData defineData;
+    protected Transform magnetTrans;
     //protected DefineEnemyData defineD = DefineEnemyData.None;
 
 
@@ -141,6 +147,21 @@ public abstract class Enemy : MonoBehaviour
                 Hp -= collision.GetComponent<FxManager>().fd.Attack;
                 CreateDamageTxt(collision.GetComponent<FxManager>().fd.Attack);
                 break;
+            case "MagnetBomb":
+                magnetTrans = collision.transform;
+                magnetBombZone = true;
+                break;
+        }
+    }
+
+    public virtual void MagnetEvents()
+    {
+        if (player.bomb.magnetBombZone)
+        {
+            Vector2 dirMagnet = magnetTrans.position - transform.position;
+            float distance = Vector2.Distance(magnetTrans.position, transform.position);
+            float magnetDisStr = (ed.magnetDistance / distance) * ed.magnetStrength;
+            transform.Translate((dirMagnet * magnetDir) * magnetDisStr * Time.deltaTime);
         }
     }
 
@@ -158,10 +179,8 @@ public abstract class Enemy : MonoBehaviour
     {
         //Debug.Log("아이템생성");
         int rand = Random.Range (0, 100);
-        if (rand < 33)
-            GameManager.instance.pollingsystem.PollingItem(items[1], transform);
-        else
-            GameManager.instance.pollingsystem.PollingItem(items[0], transform);
+        int randIndex = rand < 33 ? 1 : 0;
+        GameManager.instance.pollingsystem.PollingItem(items[randIndex], transform);
         gameObject.SetActive(false);
     }
 }
