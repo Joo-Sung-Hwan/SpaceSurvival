@@ -127,7 +127,7 @@ public abstract class Enemy : MonoBehaviour
         switch(str)
         {
             case "Player":
-                GameManager.instance.player.SetHP(ed.attack);
+                GameManager.instance.player.definePD.CurHp -= ed.attack;
                 //Debug.Log(GameManager.instance.playerSpawnManager.player.definePD.CurHp);
                 break;
             case "Bomb":

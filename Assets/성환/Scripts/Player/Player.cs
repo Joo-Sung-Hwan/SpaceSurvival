@@ -88,43 +88,13 @@ public class Player : MonoBehaviour
         
     }
 
-    public void SetLevel(int level)
-    {
-        definePD.Level = level;
-    }
-
-    public void SetHP(float damage)
-    {
-        definePD.CurHp -= damage;
-    }
-
-    public void SetAttack(float attack)
-    {
-        definePD.Attack = attack;
-    }
-
-    public void SetDefense(float defense)
-    {
-        definePD.Defense = defense;
-    }
-
-    public void SetAttackSpeed(float attackspeed)
-    {
-        definePD.AttackSpeed = attackspeed;
-    }
-
-    public void SetSpeed(float speed)
-    {
-        definePD.Speed = speed;
-    }
-
     public void Init()
     {
-        SetLevel(1);
-        SetAttack(10);
-        SetDefense(5);
-        SetAttackSpeed(1);
-        SetSpeed(2);
+        definePD.Level = 1;
+        definePD.Attack = 10;
+        definePD.Defense = 10;
+        definePD.AttackSpeed = 1;
+        definePD.Speed = 2;
     }
     public void BulletFire()
     {

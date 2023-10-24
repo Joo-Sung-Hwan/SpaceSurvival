@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public bool isPause = false;
     public Player player;
     public SelectCardManager selectCardManager;
+    public SceneChangeManger scenechangeManager;
 
     private void Awake()
     {
@@ -47,5 +48,35 @@ public class GameManager : MonoBehaviour
     public void LevelupPause()
     {
         isPause = true;
+    }
+
+    public void ExchangeWeapon(string s)
+    {
+        switch (s)
+        {
+            case "∆¯≈∫":
+                player.player_weapon = PlayerWeapon.Bomb;
+                break;
+            case "±§º±∞À":
+                player.player_weapon = PlayerWeapon.Laser;
+                break;
+            default:
+                player.player_weapon = PlayerWeapon.Idle;
+                break;
+        }
+    }
+
+    // ±‘πŒ - µ•¿Ã≈Õ player ≥—∞‹¡÷±‚
+    public void SetPlayerStatus()
+    {
+        Dictionary<Enum_GM.abilityName, float> dic_player = new();
+        InventoryManager inven = InventoryManager.Instance;
+        foreach (var item in inven.d_equipments)
+        {
+            foreach (var item1 in item.Value.abilities)
+            {
+                
+            }
+        }
     }
 }
