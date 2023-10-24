@@ -83,7 +83,6 @@ public class SelectCardManager : MonoBehaviour
     {
         // Json 데이터 -> struct로 받아서 적용
         s_card_list = JsonUtility.FromJson<SelectCardList>(jsondata.text);
-        string s = s_card_list.SelectCardData[0].Bomb[0].Damage[0].title;
-        Debug.Log(s);
+        
     }
 }

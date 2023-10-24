@@ -205,7 +205,7 @@ MonoBehaviour:
   weapon_list:
   - {fileID: -1970917987607217371, guid: e11197d9be3d439fa8ed7faaf94989f4, type: 3}
   - {fileID: 8848993070067138329, guid: 30edb9d12883df642bcb8b4f9bb0c3da, type: 3}
-  - {fileID: 1679966620, guid: 8e38d2ae656a57a44b4c6d885095a3cd, type: 3}
+  - {fileID: 21300000, guid: 64aae5a16729fd44da5e5727fb4f2f02, type: 3}
   image: {fileID: 4079168959995378496}
   text: {fileID: 6831733398092979964}
 --- !u!114 &5736850467546917879
