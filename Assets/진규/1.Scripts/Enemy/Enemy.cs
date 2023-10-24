@@ -50,10 +50,12 @@ public abstract class Enemy : MonoBehaviour
     protected Animator anim;
     protected DefineEnemyData defineData;
     protected Transform magnetTrans;
+    protected Transform webTrans;
 
     float magnetDir = 1f;
-    bool looseMagnet = true;
+    bool looseZone = true;
     bool magnetBombZone;
+    bool webpBombZone;
     //protected DefineEnemyData defineD = DefineEnemyData.None;
 
 
@@ -124,6 +126,7 @@ public abstract class Enemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         string str = collision.tag;
+        Bomb bomb = GetComponent<Bomb>();
         switch(str)
         {
             case "Player":
@@ -148,17 +151,34 @@ public abstract class Enemy : MonoBehaviour
                 break;
             case "MagnetBomb":
                 magnetTrans = collision.transform;
-                magnetBombZone = true;
                 CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
+                magnetBombZone = true;
                 break;
+            case "WebBomb":
+                webTrans = collision.transform;
+                webpBombZone = true;
+                break;
+                /*switch (bomb.bt)
+                {
+                    case BombType.Magnet:
+                        
+                        break;
+                    case BombType.Web:
+                        
+                }
+                break;*/
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("MagnetBomb") && looseMagnet)
+        if (collision.CompareTag("MagnetBomb") && looseZone)
         {
             magnetBombZone = false;
+        }
+        if(collision.CompareTag("WebBomb") && looseZone)
+        {
+            webpBombZone = false;
         }
     }
 
@@ -171,6 +191,16 @@ public abstract class Enemy : MonoBehaviour
             float distance = Vector2.Distance(magnetTrans.position, transform.position);
             float magnetDisStr = (ed.magnetDistance / distance) * ed.magnetStrength;
             transform.Translate((dirMagnet * magnetDir) * magnetDisStr * Time.deltaTime);
+        }
+    }
+
+    public virtual void WebEvents()
+    {
+        if(webpBombZone)
+        {
+            Vector3 distance = player.transform.position - transform.position;
+
+            transform.Translate(Time.deltaTime * (ed.speed * player.bomb.bd.BombDebuff) * distance.normalized);
         }
     }
 

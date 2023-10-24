@@ -20,6 +20,7 @@ public class NormalBomb : Bomb
         SetBombSize(1);
     }
 
+
     public override void ResetData()
     {
         base.ResetData();

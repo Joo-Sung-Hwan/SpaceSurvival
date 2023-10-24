@@ -198,8 +198,10 @@ public class Player : MonoBehaviour
                 SetBombCtime(3f);
                 break;
             case BombType.Magnet:
+            case BombType.Web:
                 SetBombCtime(6f);
                 break;
+                
         }
     }
 }

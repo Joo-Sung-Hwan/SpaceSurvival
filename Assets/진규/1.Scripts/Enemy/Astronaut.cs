@@ -31,6 +31,7 @@ public class Astronaut : Enemy
             {
                 Move();
                 MagnetEvents();
+                WebEvents();
             }
         }
     }
@@ -45,5 +46,9 @@ public class Astronaut : Enemy
         base.MagnetEvents();
     }
 
+    public override void WebEvents()
+    {
+        base.WebEvents();
+    }
     public override void DataInPut() => base.DataInPut();
 }

@@ -12,17 +12,26 @@ public enum BombState
 public enum BombType
 {
     Nomal,
-    Magnet
+    Magnet,
+    Web
 }
 
+public struct BombTypeClass
+{
+    public NormalBomb nomalBomb;
+    public MagnetBomb magnetBomb;
+    public WebBomb webBomb;
+}
 public struct BombData
 {
     public float BombAttack { get; set; }
     public float BombSize { get; set; }
+    public float BombDebuff { get; set; }
 }
 
 public abstract class Bomb : MonoBehaviour
 {
+    public BombTypeClass btc = new();
     Vector3 start_pos;
     Vector2 dir;
     Vector2 destination;
@@ -64,7 +73,7 @@ public abstract class Bomb : MonoBehaviour
         bs = BombState.Idle;
     }
 
-    private void Update()
+    void Update()
     {
         if (!isGrounded)
         {
@@ -115,12 +124,14 @@ public abstract class Bomb : MonoBehaviour
         switch(bt)
         {
             case BombType.Nomal:
-                NormalBomb normalBomb = GetComponent<NormalBomb>();
-                normalBomb.B_State(bs);
+                btc.nomalBomb.B_State(bs);
+                /*NormalBomb normalBomb = GetComponent<NormalBomb>();
+                normalBomb.B_State(bs);*/
                 break;
             case BombType.Magnet:
-                MagnetBomb magnet = GetComponent<MagnetBomb>();
-                magnet.MagnetState(bs);
+                btc.magnetBomb.MagnetState(bs);
+                break;
+            case BombType.Web:
                 break;
         }
     }
