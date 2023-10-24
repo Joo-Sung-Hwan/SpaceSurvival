@@ -41,20 +41,19 @@ public enum DefineEnemyData
 public abstract class Enemy : MonoBehaviour
 {
     public EnemyData ed = new EnemyData();
-    [SerializeField] private List<Sprite> idleSp = new List<Sprite>();
-    [SerializeField] private List<Sprite> walkSp = new List<Sprite>();
-    [SerializeField] private List<Sprite> deadSp = new List<Sprite>();
-    [SerializeField] TMP_Text damageTxt;
     public List<Item> items = new List<Item>();
     public Canvas canvas;
-    public float magnetDir = 1f;
-    public bool looseMagnet;
-    public bool magnetBombZone;
+    [SerializeField] TMP_Text damageTxt;
+
     protected Player player;
     protected EnemyType enemyT = EnemyType.None;
     protected Animator anim;
     protected DefineEnemyData defineData;
     protected Transform magnetTrans;
+
+    float magnetDir = 1f;
+    bool looseMagnet = true;
+    bool magnetBombZone;
     //protected DefineEnemyData defineD = DefineEnemyData.None;
 
 
@@ -150,13 +149,23 @@ public abstract class Enemy : MonoBehaviour
             case "MagnetBomb":
                 magnetTrans = collision.transform;
                 magnetBombZone = true;
+                CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
                 break;
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("MagnetBomb") && looseMagnet)
+        {
+            magnetBombZone = false;
+        }
+    }
+
+    //자석폭탄 이벤트 구현
     public virtual void MagnetEvents()
     {
-        if (player.bomb.magnetBombZone)
+        if (magnetBombZone)
         {
             Vector2 dirMagnet = magnetTrans.position - transform.position;
             float distance = Vector2.Distance(magnetTrans.position, transform.position);
@@ -170,14 +179,12 @@ public abstract class Enemy : MonoBehaviour
     {
         Vector3 pos = transform.position + (Vector3.up * 0.5f);
         TMP_Text damageT = Instantiate(damageTxt, pos, Quaternion.identity, canvas.transform);
-        //damageT.transform.position = transform.position;
         damageT.text = damage.ToString();
     }
 
     // 몬스터가 죽을시 생성되는 아이템
     public void ExpCreate()
     {
-        //Debug.Log("아이템생성");
         int rand = Random.Range (0, 100);
         int randIndex = rand < 33 ? 1 : 0;
         GameManager.instance.pollingsystem.PollingItem(items[randIndex], transform);

@@ -120,7 +120,7 @@ public abstract class Bomb : MonoBehaviour
                 break;
             case BombType.Magnet:
                 MagnetBomb magnet = GetComponent<MagnetBomb>();
-                StartCoroutine(magnet.Bomb());
+                magnet.MagnetState(bs);
                 break;
         }
     }
