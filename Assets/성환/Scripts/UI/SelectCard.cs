@@ -23,6 +23,11 @@ public class SelectCard : MonoBehaviour
     int rand1;
     List<int> rand_list = new();
     List<List<int>> rand2_list = new();
+
+    public void SetCardData(PlayerWeapon pw)
+    {
+        image.sprite = weapon_list[(int)pw];
+    }
     public void Init()
     {
         SelectCardManager.SelectCardList sl = GameManager.instance.selectCardManager.s_card_list;
@@ -110,28 +115,6 @@ public class SelectCard : MonoBehaviour
         rand = Random.Range(1, 100);
         rand_index = rand < 70 ? 0 : rand < 90 ? 1 : 2;
         rand1 = Random.Range(0, 3);
-        List<int> tmp_list = new();
-        
-
-        for (int i = 0; i < 2; i++)
-        {
-            for(int j = 0; j < rand2_list.Count; j++)
-            {
-                if((rand2_list[j][0] == rand1) && (rand2_list[j][1] == rand_index))
-                {
-                    SetRand();
-                }
-                else
-                {
-                    rand_list.Add(rand1);
-                    rand_list.Add(rand_index);
-                    tmp_list.Add(rand1);
-                    tmp_list.Add(rand_index);
-                    rand2_list.Add(rand_list);
-                    tmp_list.Clear();
-                }
-            }
-        }
         
         Debug.Log($"rand1 = {rand1}, rand_index = {rand_index}");
     }
