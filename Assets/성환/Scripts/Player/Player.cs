@@ -60,6 +60,7 @@ public class Player : MonoBehaviour
         definePD.CurHp = definePD.MaxHp;
         definePD.MaxExp = 20f;
         Init();
+        GameManager.instance.SetPlayerStatus();
         SwitchBombCreate();
     }
 

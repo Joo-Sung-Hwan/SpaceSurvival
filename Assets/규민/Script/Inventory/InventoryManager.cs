@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
 using System.IO;
+using TMPro;
 
+#region 아이템 class, struct
 [System.Serializable]
 public class ItemData
 {
@@ -18,35 +20,65 @@ public class ItemData
         this.abilities = abilities;
     }
 }
+
+[System.Serializable]
+//아이템 종류별 특징 (이름이나 장착 부위같이 종류가 다를 경우에만 달라지는 특징)
+public class ItemStaticData
+{
+    public string name;
+    public Enum_GM.ItemPlace place;
+    public string spriteName;
+    public string description;
+
+    public ItemStaticData(string name, Enum_GM.ItemPlace place, string spriteName, string description)
+    {
+        this.name = name;
+        this.place = place;
+        this.spriteName = spriteName;
+        this.description = description;
+    }
+}
+
+//아이템 능력치
 public struct Item_Ability
 {
     public Enum_GM.abilityName abilityName;
     public float abilityValue;
     public Enum_GM.Rarity abilityrarity;
 }
-
+#endregion
 
 public class InventoryManager : MonoBehaviour
 {
-    [SerializeField] ItemManager itemManager;
-    [SerializeField] TMPro.TMP_Text totalAb_Text;
+    #region Hierarchy에서 넣어주어야 할 것들
+    [Header("ItemDatas(ScriptableObj)")]
+    [SerializeField] List<ItemScriptableData> isdList;
+
+    [SerializeField] TMP_Text totalAb_Text;
+    [SerializeField] TMP_Dropdown dropdown;
     public Inventory_UI inventory_UI;
     public ItemDetail itemDetail;
     public ItemDetail equipmentDetail;
-    [HideInInspector] public List<ItemData> inventoryDatas = new List<ItemData>();
-    [HideInInspector] public Dictionary<Enum_GM.ItemPlace, ItemData> d_equipments = new Dictionary<Enum_GM.ItemPlace, ItemData>();
-    [HideInInspector] public Dictionary<Enum_GM.abilityName, float> d_totalAb = new Dictionary<Enum_GM.abilityName, float>();
-    [HideInInspector] public bool isSelectMode = false;
-    [HideInInspector] public List<InventoryCell> selectedCells = new List<InventoryCell>();
 
     [Header("장비칸 (순서-무기,옷,신발,귀고리,반지,펫)")]
     public List<InventoryCell> equipCells = new List<InventoryCell>();
-
-    #region 정렬 - 선언
-    [SerializeField] TMPro.TMP_Dropdown dropdown;
-    Enum_GM.SortBy sortBy = Enum_GM.SortBy.name;
     #endregion
 
+    //인벤토리에 들어있는 아이템들 리스트
+    [HideInInspector] public List<ItemData> inventoryDatas = new List<ItemData>();
+    //부위별 장착 아이템
+    [HideInInspector] public Dictionary<Enum_GM.ItemPlace, ItemData> d_equipments = new Dictionary<Enum_GM.ItemPlace, ItemData>();
+    //능력별 능력치 증가값
+    [HideInInspector] public Dictionary<Enum_GM.abilityName, float> d_totalAb = new Dictionary<Enum_GM.abilityName, float>();
+    //선택모드인지 나타내는 변수
+    [HideInInspector] public bool isSelectMode = false;
+    ///선택모드에서 선택한 아이템들 리스트
+    [HideInInspector] public List<InventoryCell> selectedCells = new List<InventoryCell>();
+    
+    //정렬 기준
+    Enum_GM.SortBy sortBy = Enum_GM.SortBy.name;
+
+    //선택한 아이템(선택모드x)
     public ItemData SelectedItem 
     { 
         get 
@@ -88,18 +120,14 @@ public class InventoryManager : MonoBehaviour
         LoadEquipment();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F1))
         {
             AddItem(inventoryDatas);
         }
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-            Debug.Log(equipCells[0].cellData.itemStaticData.name);
-        }
     }
+    
 
     /// <summary>
     /// 아이템 추가 함수(테스트)
@@ -107,9 +135,9 @@ public class InventoryManager : MonoBehaviour
     /// <param name="itemDatas"></param>
     void AddItem(List<ItemData> itemDatas)
     {
-        int rand = Random.Range(0, itemManager.items.Count);
-        ItemStaticData newIsData = itemManager.items[rand];
-
+        int rand = Random.Range(0, isdList.Count);
+        ItemScriptableData isd = isdList[rand];
+        ItemStaticData newIsData = new ItemStaticData(isd.ItemName, isd.Place, isd.SpriteName, isd.Description);
 
         //임시
         int randRarity = Random.Range(1, 4);
@@ -166,6 +194,7 @@ public class InventoryManager : MonoBehaviour
         itemDatas.Add(new ItemData(newIsData, newRarity, newItemAbs));
         inventory_UI?.OnCellsEnable();
     }
+
     #region 아이템 데이터 저장/불러오기
     public void SaveInventory()
     {
@@ -253,6 +282,9 @@ public class InventoryManager : MonoBehaviour
         SetTotalAbTxt();
     }
 
+    /// <summary>
+    /// 총 능력치 증가량 표시
+    /// </summary>
     public void SetTotalAbTxt()
     {
         totalAb_Text.text = "";
@@ -296,6 +328,7 @@ public class InventoryManager : MonoBehaviour
     }
     #endregion
 
+    #region 선택 모드
     /// <summary>
     /// 선택모드에서 선택한 아이템 일괄 삭제
     /// </summary>
@@ -321,6 +354,7 @@ public class InventoryManager : MonoBehaviour
 
         selectedCells.Clear();
     }
+    #endregion
 
     #region 정렬
     /// <summary>

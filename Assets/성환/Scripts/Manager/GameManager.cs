@@ -68,14 +68,24 @@ public class GameManager : MonoBehaviour
     // 규민 - 데이터 player 넘겨주기
     public void SetPlayerStatus()
     {
-        Dictionary<Enum_GM.abilityName, float> dic_player = new();
-        InventoryManager inven = InventoryManager.Instance;
-        foreach (var item in inven.d_equipments)
+        foreach (var item in InventoryManager.Instance.d_totalAb)
         {
-            foreach (var item1 in item.Value.abilities)
+            switch (item.Key)
             {
-                
+                case Enum_GM.abilityName.damage:
+                    player.definePD.MaxHp *= (1 + item.Value * 0.01f);
+                    //Debug.Log(player.definePD.Attack);
+                    break;
+                case Enum_GM.abilityName.range:
+                    break;
+                case Enum_GM.abilityName.attackSpeed:
+                    break;
+                case Enum_GM.abilityName.speed:
+                    break;
+                default:
+                    break;
             }
+            
         }
     }
 }

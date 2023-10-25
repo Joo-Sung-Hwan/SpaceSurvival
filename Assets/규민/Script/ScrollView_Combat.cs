@@ -76,6 +76,10 @@ public class ScrollView_Combat : MonoBehaviour, IDragHandler , IBeginDragHandler
         if (remainder > distance * 0.5f)
             targetIndex++;
 
+        //맨끝 예외처리
+        if (targetIndex >= content_Trans.childCount)
+            targetIndex = content_Trans.childCount - 1;
+
         //스크롤 변경
         return targetIndex;
     }
