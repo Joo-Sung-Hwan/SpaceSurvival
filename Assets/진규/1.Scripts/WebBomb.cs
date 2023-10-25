@@ -12,7 +12,6 @@ public class WebBomb : Bomb
     {
         bt = BombType.Web;
         WebTrans = transform.GetChild(3);
-        bd.BombDebuff = 0.25f;
     }
 
     void Start()
@@ -21,6 +20,7 @@ public class WebBomb : Bomb
         ResetData();
         SetBombAttack(2);
         SetBombSize(1);
+        SetBombDebuff(0.25f);
     }
 
     public override void ResetData()
@@ -30,7 +30,7 @@ public class WebBomb : Bomb
         AtiveObj(true);
     }
 
-    public void MagnetState(BombState bs)
+    public void WebState(BombState bs)
     {
         if (bs == BombState.Idle)
         {
@@ -47,6 +47,7 @@ public class WebBomb : Bomb
     {
         yield return new WaitForSeconds(0.5f);
         Instantiate(particle, transform);
+        yield return new WaitForSeconds(0.3f);
         AtiveObj(false);
         WebTrans.GetComponent<CircleCollider2D>().enabled = true;
         yield return new WaitForSeconds(4f);

@@ -22,6 +22,7 @@ public struct BombTypeClass
     public MagnetBomb magnetBomb;
     public WebBomb webBomb;
 }
+
 public struct BombData
 {
     public float BombAttack { get; set; }
@@ -31,7 +32,6 @@ public struct BombData
 
 public abstract class Bomb : MonoBehaviour
 {
-    public BombTypeClass btc = new();
     Vector3 start_pos;
     Vector2 dir;
     Vector2 destination;
@@ -42,6 +42,7 @@ public abstract class Bomb : MonoBehaviour
     int maxbounce = 5;
     int curbounce;
 
+    public BombTypeClass btc = new();
     public BombData bd = new();
 
     public Transform sprite;
@@ -55,7 +56,7 @@ public abstract class Bomb : MonoBehaviour
     //public ParticleSystem particle;
     protected BombState bs;
     public BombType bt;
-    public bool magnetBombZone;
+
     public abstract void Init();
 
     public virtual void ResetData()
@@ -119,19 +120,22 @@ public abstract class Bomb : MonoBehaviour
         }
     }
 
+    // 폭탄타입에 따른 이벤트 구현
     void BombEvents()
     {
-        switch(bt)
+        switch(GameManager.instance.player.bomb.bt)
         {
             case BombType.Nomal:
+                btc.nomalBomb = GetComponent<NormalBomb>();
                 btc.nomalBomb.B_State(bs);
-                /*NormalBomb normalBomb = GetComponent<NormalBomb>();
-                normalBomb.B_State(bs);*/
                 break;
             case BombType.Magnet:
-                btc.magnetBomb.MagnetState(bs);
+                btc.magnetBomb = GetComponent<MagnetBomb>();
+                btc.magnetBomb.MagnetState(bs); 
                 break;
             case BombType.Web:
+                btc.webBomb = GetComponent<WebBomb>();
+                btc.webBomb.WebState(bs);
                 break;
         }
     }
@@ -161,5 +165,10 @@ public abstract class Bomb : MonoBehaviour
     {
         bd.BombSize = size;
         GetComponent<Transform>().localScale = new Vector3(bd.BombSize, bd.BombSize, 0f);
+    }
+
+    public void SetBombDebuff(float bombDebuff)
+    {
+        bd.BombDebuff = bombDebuff;
     }
 }

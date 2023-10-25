@@ -10,7 +10,7 @@ public struct EnemyData
     public float hp;
     public float attack;
     public float defence;
-    public float speed;
+    public float speed { get; set; }
     public float magnetStrength;
     public float magnetDistance;
     public EnemyState enemyState;
@@ -55,7 +55,7 @@ public abstract class Enemy : MonoBehaviour
     float magnetDir = 1f;
     bool looseZone = true;
     bool magnetBombZone;
-    bool webpBombZone;
+    bool webBombZone;
     //protected DefineEnemyData defineD = DefineEnemyData.None;
 
 
@@ -73,14 +73,18 @@ public abstract class Enemy : MonoBehaviour
             }
         }
     }
-
+    public float DeBuff { get; set; }
     // 플레이어가 바라보는 방향에 몬스터가 플레이어 바라보기
     public virtual void Move()
     {
         Vector3 distance = player.transform.position - transform.position;
         anim = transform.GetComponent<Animator>();
-
-        transform.Translate(Time.deltaTime * ed.speed * distance.normalized);
+        if(!webBombZone)
+            transform.Translate(Time.deltaTime * ed.speed * distance.normalized);
+        else
+            transform.Translate(Time.deltaTime * ed.speed * DeBuff * distance.normalized);
+        //Debug.Log(ed.speed);
+        //Debug.Log(player.bomb.bd.BombDebuff);
         if (distance.normalized.x < 0)
             transform.GetComponent<SpriteRenderer>().flipX = false;
         else if (distance.normalized.x > 0)
@@ -126,7 +130,6 @@ public abstract class Enemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         string str = collision.tag;
-        Bomb bomb = GetComponent<Bomb>();
         switch(str)
         {
             case "Player":
@@ -156,7 +159,9 @@ public abstract class Enemy : MonoBehaviour
                 break;
             case "WebBomb":
                 webTrans = collision.transform;
-                webpBombZone = true;
+                webBombZone = true;
+                transform.GetComponent<SpriteRenderer>().color = new Color(241f, 99f, 234f, 255f);
+                DeBuff = collision.transform.parent.GetComponent<Bomb>().bd.BombDebuff;
                 break;
                 /*switch (bomb.bt)
                 {
@@ -178,7 +183,8 @@ public abstract class Enemy : MonoBehaviour
         }
         if(collision.CompareTag("WebBomb") && looseZone)
         {
-            webpBombZone = false;
+            webBombZone = false;
+            transform.GetComponent<SpriteRenderer>().color = new Color(255f, 255f, 255f, 255f);
         }
     }
 
@@ -191,16 +197,6 @@ public abstract class Enemy : MonoBehaviour
             float distance = Vector2.Distance(magnetTrans.position, transform.position);
             float magnetDisStr = (ed.magnetDistance / distance) * ed.magnetStrength;
             transform.Translate((dirMagnet * magnetDir) * magnetDisStr * Time.deltaTime);
-        }
-    }
-
-    public virtual void WebEvents()
-    {
-        if(webpBombZone)
-        {
-            Vector3 distance = player.transform.position - transform.position;
-
-            transform.Translate(Time.deltaTime * (ed.speed * player.bomb.bd.BombDebuff) * distance.normalized);
         }
     }
 
