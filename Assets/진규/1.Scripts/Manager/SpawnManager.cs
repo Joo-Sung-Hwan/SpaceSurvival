@@ -19,6 +19,8 @@ public class SpawnManager : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.instance.isPause)
+            return;
         spawnTime += Time.deltaTime;
 
         if(spawnTime > 1f)

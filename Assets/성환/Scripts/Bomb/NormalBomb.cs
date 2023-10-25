@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class NormalBomb : Bomb
 {
-    Animator ani;
     public override void Init()
     {
         bt = BombType.Nomal;
@@ -28,7 +27,7 @@ public class NormalBomb : Bomb
     }
 
     // 폭탄 터지는 애니메이션
-    public void B_State(BombState bs)
+    /*public void B_State(BombState bs)
     {
         if (bs == BombState.Idle)
         {
@@ -44,5 +43,5 @@ public class NormalBomb : Bomb
             explosion.SetActive(true);
             GetComponent<Animator>().Play("BombExplosion");
         }
-    }
+    }*/
 }

@@ -12329,7 +12329,6 @@ MonoBehaviour:
   isPause: 0
   player: {fileID: 9200852978829632582}
   selectCardManager: {fileID: 2059701697}
-  scenechangeManager: {fileID: 0}
 --- !u!1 &1236302134
 GameObject:
   m_ObjectHideFlags: 0
@@ -20537,7 +20536,7 @@ MonoBehaviour:
   ps: 0
   laser: {fileID: -3206816259849341346, guid: b0785ab372f3fec46b68513e1e401e60, type: 3}
   laser_parent: {fileID: 3695146227478737774}
-  bomb: {fileID: 5973910409910810619, guid: 923d33ba1f700b6469791209c95b6d7f, type: 3}
+  bomb: {fileID: -7094247771846778094, guid: b47571baa51aeaf42bb5bff67ea78db3, type: 3}
   area: {fileID: 722039230127804969}
   bullet: {fileID: 8681445915381928944, guid: 10c22bdd66cb3d04285e87657896fa9d, type: 3}
   bullet_parent:

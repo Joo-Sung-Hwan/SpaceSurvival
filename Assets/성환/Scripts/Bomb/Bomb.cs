@@ -13,7 +13,8 @@ public enum BombType
 {
     Nomal,
     Magnet,
-    Web
+    Web,
+    Fire
 }
 
 public struct BombTypeClass
@@ -21,6 +22,7 @@ public struct BombTypeClass
     public NormalBomb nomalBomb;
     public MagnetBomb magnetBomb;
     public WebBomb webBomb;
+    public FireBomb fireBomb;
 }
 
 public struct BombData
@@ -28,6 +30,9 @@ public struct BombData
     public float BombAttack { get; set; }
     public float BombSize { get; set; }
     public float BombDebuff { get; set; }
+    public Transform zoneTrans;
+    public Color firstColor;
+    public Color secondColor;
 }
 
 public abstract class Bomb : MonoBehaviour
@@ -47,13 +52,13 @@ public abstract class Bomb : MonoBehaviour
 
     public Transform sprite;
     public Transform shadow;
+    public ParticleSystem particle;
+    [HideInInspector]public Animator ani;
     float curheight;
 
     public GameObject explosion;
     Player player;
 
-    //public Animator ani;
-    //public ParticleSystem particle;
     protected BombState bs;
     public BombType bt;
 
@@ -116,27 +121,7 @@ public abstract class Bomb : MonoBehaviour
             tmp.y = tmp.y + 0.04f;
             sprite.position = tmp;
             isGrounded = true;
-            BombEvents();
-        }
-    }
-
-    // 폭탄타입에 따른 이벤트 구현
-    void BombEvents()
-    {
-        switch(GameManager.instance.player.bomb.bt)
-        {
-            case BombType.Nomal:
-                btc.nomalBomb = GetComponent<NormalBomb>();
-                btc.nomalBomb.B_State(bs);
-                break;
-            case BombType.Magnet:
-                btc.magnetBomb = GetComponent<MagnetBomb>();
-                btc.magnetBomb.MagnetState(bs); 
-                break;
-            case BombType.Web:
-                btc.webBomb = GetComponent<WebBomb>();
-                btc.webBomb.WebState(bs);
-                break;
+            B_State(bs);
         }
     }
 
@@ -170,5 +155,64 @@ public abstract class Bomb : MonoBehaviour
     public void SetBombDebuff(float bombDebuff)
     {
         bd.BombDebuff = bombDebuff;
+    }
+
+    //폭탄 터지는 파티클 효과
+    public IEnumerator BombParticle(float delay)
+    {
+        yield return new WaitForSeconds(0.5f);
+        Instantiate(particle, transform);
+        AtiveObj(gameObject.transform,false);
+        bd.zoneTrans.GetComponent<CircleCollider2D>().enabled = true;
+        yield return new WaitForSeconds(delay);
+        bd.zoneTrans.GetComponent<CircleCollider2D>().enabled = false;
+    }
+
+    // 폭탄 터지는 이벤트 구현
+    public void B_State(BombState bs)
+    {
+        if (bs == BombState.Idle)
+        {
+            ani.SetTrigger("idle");
+        }
+        else if(particle == null)
+        {
+            ani.ResetTrigger("idle");
+            ani.SetTrigger("explosion");
+            SettingActive(false);
+            explosion.SetActive(true);
+            GetComponent<Animator>().Play("BombExplosion");
+        }
+        else if(particle != null)
+        {
+            StartCoroutine(BombParticle(BombEvents()));
+        }
+    }
+
+    public void AtiveObj(Transform trans,bool isActive)
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            trans.GetChild(i).GetComponent<SpriteRenderer>().enabled = isActive;
+        }
+    }
+
+    // 폭탄타입에 따른 이벤트 구현
+    float BombEvents()
+    {
+        float delay = 0;
+        switch(GameManager.instance.player.bomb.bt)
+        {
+            case BombType.Magnet:
+                delay = 0.2f;
+                return delay;
+            case BombType.Web:
+                delay = 4f;
+                return delay;
+            case BombType.Fire:
+                delay = 2f;
+                return delay;
+        }
+        return delay;
     }
 }

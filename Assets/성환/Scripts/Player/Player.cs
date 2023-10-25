@@ -198,6 +198,9 @@ public class Player : MonoBehaviour
             case BombType.Nomal:
                 SetBombCtime(3f);
                 break;
+            case BombType.Fire:
+                SetBombCtime(4f);
+                break;
             case BombType.Magnet:
             case BombType.Web:
                 SetBombCtime(6f);
