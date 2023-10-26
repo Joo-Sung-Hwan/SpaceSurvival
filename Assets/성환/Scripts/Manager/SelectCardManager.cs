@@ -2,13 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using Newtonsoft.Json;
 
+public enum CardKind
+{
+    bomb,
+    bullet,
+    laser,
+    energyBolt,
+    hp
+}
 public class SelectCardManager : MonoBehaviour
 {
+    
     public SelectCard selectcard;
     public Transform selectcard_parent;
     [HideInInspector] public List<SelectCard> sc_list = new List<SelectCard>();
     public TextAsset jsondata;
+    public Dictionary<CardKind, List<CardData>> selectcarddata = new();
+    public List<SelectCardManager.CardData> cardCheck_list = new();
 
     [System.Serializable]
     public struct CardData
@@ -16,39 +28,24 @@ public class SelectCardManager : MonoBehaviour
         public string title;
         public float change;
         public string rare;
+        public string kind;
+        public string category;
     }
-
     [System.Serializable]
-    public struct CardKindData
-    {
-        public List<CardData> Damage;
-        public List<CardData> AttackSpeed;
-        public List<CardData> AttackRange;
-    }
-
-    [System.Serializable]
-    public struct CardWeaponData
-    {
-        public List<CardKindData> Bomb;
-        public List<CardKindData> Bullet;
-        public List<CardKindData> Lasor;
-        public List<CardKindData> EnergyBolt;
-        public List<CardKindData> Player;
-
-    }
-
     public struct SelectCardList
     {
-        public List<CardWeaponData> SelectCardData;
+        public List<CardData> Bomb;
+        public List<CardData> Bullet;
+        public List<CardData> Laser;
+        public List<CardData> EnergyBolt;
+        public List<CardData> HP;
     }
 
-    public SelectCardList s_card_list = new();
-
+    SelectCardList sc_dic = new();
     void Start()
     {
         SetJsonData();
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -81,8 +78,11 @@ public class SelectCardManager : MonoBehaviour
 
     public void SetJsonData()
     {
-        // Json 데이터 -> struct로 받아서 적용
-        s_card_list = JsonUtility.FromJson<SelectCardList>(jsondata.text);
-        
+        sc_dic = JsonUtility.FromJson<SelectCardList>(jsondata.text);
+        selectcarddata.Add(CardKind.bomb, sc_dic.Bomb);
+        selectcarddata.Add(CardKind.bullet, sc_dic.Bullet);
+        selectcarddata.Add(CardKind.laser, sc_dic.Laser);
+        selectcarddata.Add(CardKind.energyBolt, sc_dic.EnergyBolt);
+        selectcarddata.Add(CardKind.hp, sc_dic.HP);
     }
 }

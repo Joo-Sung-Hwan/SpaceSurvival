@@ -10,6 +10,16 @@ public enum Grade
     Rare,
     Unique
 }
+public enum Category
+{
+    Damage,
+    AttackSpeed,
+    AttackRange,
+    AttackAbility,
+    Last,
+    Reflect,
+    Player
+}
 public class SelectCard : MonoBehaviour
 {
     [HideInInspector] public Grade gr;
@@ -19,69 +29,32 @@ public class SelectCard : MonoBehaviour
     public TMP_Text text;
     public List<SelectCardManager.CardData> cd_list = new();
     int rand;
-    int rand_index;
-    int rand1;
-    List<int> rand_list = new();
-    List<List<int>> rand2_list = new();
+    string rand_index;
+    List<SelectCardManager.CardData> temp_list;
+    SelectCardManager.CardData cd;
+    public float ability_value;
 
-    public void SetCardData(PlayerWeapon pw)
-    {
-        image.sprite = weapon_list[(int)pw];
-    }
     public void Init()
     {
-        SelectCardManager.SelectCardList sl = GameManager.instance.selectCardManager.s_card_list;
         GetComponent<Image>().color = new Color(255f, 255f, 255f);
-        SetRand();
-        //int rand2 = Random.Range(0, sl.SelectCardData[0].Bomb[rand1].);
-        
-        if (GameManager.instance.player.player_weapon == PlayerWeapon.Bomb)
+        rand = Random.Range(1, 100);
+        rand_index = rand < 70 ? "Normal" : rand < 90 ? "Rare" : "Unique";
+        temp_list = new();
+        switch (GameManager.instance.player.player_weapon)
         {
-            image.sprite = weapon_list[0];
-            switch (rand1)
-            {
-                case 0:
-                    text.text = sl.SelectCardData[0].Bomb[0].Damage[rand_index].title;
-                    // string 값을 enum 값으로 변환
-                    gr = System.Enum.Parse<Grade>(sl.SelectCardData[0].Bomb[0].Damage[rand_index].rare);
-                    
-                    break;
-                case 1:
-                    text.text = sl.SelectCardData[0].Bomb[0].AttackSpeed[rand_index].title;
-                    // string 값을 enum 값으로 변환
-                    gr = System.Enum.Parse<Grade>(sl.SelectCardData[0].Bomb[0].AttackSpeed[rand_index].rare);
-                    break;
-                case 2:
-                    text.text = sl.SelectCardData[0].Bomb[0].AttackRange[rand_index].title;
-                    // string 값을 enum 값으로 변환
-                    gr = System.Enum.Parse<Grade>(sl.SelectCardData[0].Bomb[0].AttackRange[rand_index].rare);
-                    break;
-            }
-            
+            case PlayerWeapon.Laser:
+                Weapon_Card(CardKind.laser);
+                break;
+            case PlayerWeapon.Bomb:
+                Weapon_Card(CardKind.bomb);
+                break;
+            case PlayerWeapon.EnergyBolt:
+                Weapon_Card(CardKind.energyBolt);
+                break;
+
         }
-        else if(GameManager.instance.player.player_weapon == PlayerWeapon.Laser)
-        {
-            image.sprite = weapon_list[2];
-            switch (rand1)
-            {
-                case 0:
-                    text.text = sl.SelectCardData[0].Lasor[0].Damage[rand_index].title;
-                    // string 값을 enum 값으로 변환
-                    gr = System.Enum.Parse<Grade>(sl.SelectCardData[0].Lasor[0].Damage[rand_index].rare);
-                    break;
-                case 1:
-                    text.text = sl.SelectCardData[0].Lasor[0].AttackSpeed[rand_index].title;
-                    // string 값을 enum 값으로 변환
-                    gr = System.Enum.Parse<Grade>(sl.SelectCardData[0].Lasor[0].AttackSpeed[rand_index].rare);
-                    break;
-                case 2:
-                    text.text = sl.SelectCardData[0].Lasor[0].AttackRange[rand_index].title;
-                    // string 값을 enum 값으로 변환
-                    gr = System.Enum.Parse<Grade>(sl.SelectCardData[0].Lasor[0].AttackRange[rand_index].rare);
-                    break;
-            }
-                cd_list.Add(sl.SelectCardData[0].Bomb[0].Damage[rand_index]);
-            }
+        gr = System.Enum.Parse<Grade>(rand_index);
+        
         switch (gr)
         {
             case Grade.Normal:
@@ -98,24 +71,88 @@ public class SelectCard : MonoBehaviour
         }
     }
 
+    public void Weapon_Card(CardKind cardKind)
+    {
+        switch (rand_index)
+        {
+            case "Normal":
+            case "Rare":
+            case "Unique":
+                Setcard(cardKind, temp_list, rand_index);
+                break;
+        }
+    }
+
+    public void Setcard(CardKind cardKind, List<SelectCardManager.CardData> temp, string grade)
+    {
+        foreach (var item in GameManager.instance.selectCardManager.selectcarddata[cardKind])
+        {
+            if (item.rare == grade)
+            {
+                temp.Add(item);
+            }
+        }
+        foreach (var item in GameManager.instance.selectCardManager.selectcarddata[CardKind.hp])
+        {
+            if (item.rare == grade)
+            {
+                temp.Add(item);
+            }
+        }
+        int rand0 = Random.Range(0, temp.Count);
+        if (GameManager.instance.selectCardManager.cardCheck_list.Contains(temp[rand0]))
+        {
+            Init();
+        }
+        else
+        {
+            GameManager.instance.selectCardManager.cardCheck_list.Add(temp[rand0]);
+            cd = temp[rand0];
+            text.text = cd.title;
+            switch (cd.kind)
+            {
+                case "hp":
+                    image.sprite = weapon_list[(int)CardKind.hp];
+                    break;
+                default:
+                    image.sprite = weapon_list[(int)cardKind];
+                    break;
+            }
+        }
+    }
     public void OnclickCard()
     {
+        Debug.Log(cd.change);
         foreach(var item in GameManager.instance.selectCardManager.sc_list)
         {
             item.gameObject.SetActive(false);
         }
+        
+        GameManager.instance.selectCardManager.cardCheck_list.Clear();
         GameManager.instance.selectCardManager.sc_list.Clear();
         GameManager.instance.isPause = false;
-        rand_list.Clear();
-        rand2_list.Clear();
     }
 
-    public void SetRand()
+    public void SetAbility()
     {
-        rand = Random.Range(1, 100);
-        rand_index = rand < 70 ? 0 : rand < 90 ? 1 : 2;
-        rand1 = Random.Range(0, 3);
-        
-        Debug.Log($"rand1 = {rand1}, rand_index = {rand_index}");
+        switch (cd.category)
+        {
+            case "Damage":
+                break;
+            case "AttackSpeed":
+                break;
+            case "AttackRange":
+                break;
+            case "AttackAbility":
+                break;
+            case "Last":
+                break;
+            case "Reflect":
+                break;
+            case "Player":
+                break;
+
+        }
     }
+    
 }
