@@ -287,12 +287,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4eab3eaf39256c4dbc71979a6c55b04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colors:
+  - {r: 1, g: 0.09019608, b: 0.80784315, a: 1}
+  - {r: 0.8627451, g: 0.57254905, b: 1, a: 1}
   sprite: {fileID: 1023207484149046108}
   shadow: {fileID: 1616676884776328808}
+  particle: {fileID: 19800002, guid: a1a746746eb74cf4aa99f406b83dfffc, type: 3}
+  ani: {fileID: 0}
   explosion: {fileID: 0}
   bt: 2
-  magnetBombZone: 0
-  particle: {fileID: 19800002, guid: a1a746746eb74cf4aa99f406b83dfffc, type: 3}
 --- !u!1 &3959360767379389388
 GameObject:
   m_ObjectHideFlags: 0

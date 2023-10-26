@@ -15,6 +15,8 @@ public class Astronaut : Enemy
         ed.magnetStrength = 1f;
         ed.magnetDistance = 10f;
         player = GameManager.instance.player;
+        ed.sr = GetComponent<SpriteRenderer>();
+        ed.sr.color = Color.white;
         DataInPut();
     }
 

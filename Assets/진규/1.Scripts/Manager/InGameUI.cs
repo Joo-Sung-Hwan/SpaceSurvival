@@ -13,7 +13,7 @@ public class InGameUI : MonoBehaviour
     [SerializeField] public Button pauseButton;
     [SerializeField] public Material material;
     public Player player;
-    int min;
+    public int min;
     float sec;
     
     void Start()

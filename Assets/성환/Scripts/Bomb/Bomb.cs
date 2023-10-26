@@ -17,14 +17,6 @@ public enum BombType
     Fire
 }
 
-public struct BombTypeClass
-{
-    public NormalBomb nomalBomb;
-    public MagnetBomb magnetBomb;
-    public WebBomb webBomb;
-    public FireBomb fireBomb;
-}
-
 public struct BombData
 {
     public float BombAttack { get; set; }
@@ -46,8 +38,7 @@ public abstract class Bomb : MonoBehaviour
     bool isGrounded = true;
     int maxbounce = 5;
     int curbounce;
-
-    public BombTypeClass btc = new();
+    public List<Color> colors = new();
     public BombData bd = new();
 
     public Transform sprite;
@@ -161,11 +152,13 @@ public abstract class Bomb : MonoBehaviour
     public IEnumerator BombParticle(float delay)
     {
         yield return new WaitForSeconds(0.5f);
-        Instantiate(particle, transform);
+        ParticleSystem part = Instantiate(particle, transform);
         AtiveObj(gameObject.transform,false);
         bd.zoneTrans.GetComponent<CircleCollider2D>().enabled = true;
         yield return new WaitForSeconds(delay);
         bd.zoneTrans.GetComponent<CircleCollider2D>().enabled = false;
+        Destroy(part.gameObject);
+        gameObject.SetActive(false);
     }
 
     // ÆøÅº ÅÍÁö´Â ÀÌº¥Æ® ±¸Çö
@@ -204,7 +197,7 @@ public abstract class Bomb : MonoBehaviour
         switch(GameManager.instance.player.bomb.bt)
         {
             case BombType.Magnet:
-                delay = 0.2f;
+                delay = 0.4f;
                 return delay;
             case BombType.Web:
                 delay = 4f;

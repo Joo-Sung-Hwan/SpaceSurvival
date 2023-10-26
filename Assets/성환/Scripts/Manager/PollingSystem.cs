@@ -106,7 +106,7 @@ public class PollingSystem : MonoBehaviour
             if (!item.gameObject.activeSelf)
             {
                 b = item;
-                b.Init();
+                //b.Init();
                 b.ResetData();
                 b.transform.position = parent.position;
                 b.gameObject.SetActive(true);
@@ -139,8 +139,8 @@ public class PollingSystem : MonoBehaviour
             if (!item.gameObject.activeSelf)
             {
                 e = item;
-                e.Init();
                 e.IsDead = false;
+                e.Init();
                 e.transform.position = parent;
                 e.gameObject.SetActive(true);
                 break;

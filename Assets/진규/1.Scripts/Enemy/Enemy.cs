@@ -14,6 +14,7 @@ public struct EnemyData
     public float magnetStrength;
     public float magnetDistance;
     public EnemyState enemyState;
+    public SpriteRenderer sr;
 }
 
 public enum EnemyState
@@ -52,21 +53,20 @@ public abstract class Enemy : MonoBehaviour
     public TransType transT;
     public List<Item> items = new List<Item>();
     public Canvas canvas;
-
+    Transform targetTrans;
     protected Player player;
     protected EnemyType enemyT = EnemyType.None;
     protected Animator anim;
     protected DefineEnemyData defineData;
     Transform typeTrans;
-    protected Transform magnetTrans;
-    protected Transform webTrans;
+    //protected Transform magnetTrans;
+    //protected Transform webTrans;
 
-    SpriteRenderer sr;
     float magnetDir = 1f;
     bool looseZone = true;
-    bool magnetBombZone;
+    public bool magnetBombZone;
     public bool webBombZone;
-    bool fireBombZone;
+    public bool fireBombZone;
     Coroutine coroutine;
     //protected DefineEnemyData defineD = DefineEnemyData.None;
 
@@ -80,6 +80,7 @@ public abstract class Enemy : MonoBehaviour
             ed.hp = value;
             if(ed.hp <= 0)
             {
+                fireBombZone = false;
                 Dead();
             }
         }
@@ -88,7 +89,7 @@ public abstract class Enemy : MonoBehaviour
 
     void Start()
     {
-        sr = GetComponent<SpriteRenderer>();
+        ed.sr = GetComponent<SpriteRenderer>();
     }
 
     // 플레이어가 바라보는 방향에 몬스터가 플레이어 바라보기
@@ -139,6 +140,7 @@ public abstract class Enemy : MonoBehaviour
     public void Dead()
     {
         IsDead = true;
+        StopCoroutine("OnOff");
         ed.enemyState = EnemyState.Dead;
         anim.SetTrigger("Dead");
     }
@@ -170,28 +172,18 @@ public abstract class Enemy : MonoBehaviour
                 CreateDamageTxt(collision.GetComponent<FxManager>().fd.Attack);
                 break;
             case "MagnetBomb":
-                TransType(collision);
+                TransType(collision,out magnetBombZone);
                 CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
                 break;
             case "WebBomb":
-                TransType(collision);
-                StartCoroutine(OnOff(collision.gameObject));
+                TransType(collision, out webBombZone);
+                StartCoroutine("OnOff", collision.gameObject);
                 DeBuff = collision.transform.parent.GetComponent<Bomb>().bd.BombDebuff;
                 break;
             case "FireBomb":
-                TransType(collision);
-                StartCoroutine(OnOff(collision.gameObject));
-                Hp -= collision.transform.parent.GetComponent<Bomb>().bd.BombAttack;
+                TransType(collision, out fireBombZone);
+                StartCoroutine("OnOff", collision.gameObject);
                 break;
-                /*switch (bomb.bt)
-                {
-                    case BombType.Magnet:
-                        
-                        break;
-                    case BombType.Web:
-                        
-                }
-                break;*/
         }
     }
 
@@ -205,8 +197,8 @@ public abstract class Enemy : MonoBehaviour
         if(collision.CompareTag("WebBomb") && looseZone)
         {
             webBombZone = false;
-            StopAllCoroutines();
-            sr.color = new Color(1f, 1f, 1f, 1f);
+            StopCoroutine("OnOff");
+            ed.sr.color = new Color(1f, 1f, 1f, 1f);
         }
     }
 
@@ -215,8 +207,8 @@ public abstract class Enemy : MonoBehaviour
     {
         if (magnetBombZone)
         {
-            Vector2 dirMagnet = magnetTrans.position - transform.position;
-            float distance = Vector2.Distance(magnetTrans.position, transform.position);
+            Vector2 dirMagnet = typeTrans.position - transform.position;
+            float distance = Vector2.Distance(typeTrans.position, transform.position);
             float magnetDisStr = (ed.magnetDistance / distance) * ed.magnetStrength;
             transform.Translate((dirMagnet * magnetDir) * magnetDisStr * Time.deltaTime);
         }
@@ -239,44 +231,50 @@ public abstract class Enemy : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    // 특정 존의 Transform을 만들어주기위한 코드
     Transform Trans()
     {
-        Transform trans = GetComponent<Transform>(); 
+        targetTrans = GetComponent<Transform>();
         switch(player.bomb.bt)
         {
             case BombType.Magnet:
-                trans = transT.magnetTrans;
-                magnetBombZone = true;
-                return trans;
+                targetTrans = transT.magnetTrans;
+                return targetTrans;
             case BombType.Web:
-                trans = transT.WebTrans;
-                webBombZone = true;
-                return trans;
+                targetTrans = transT.WebTrans;
+                return targetTrans;
             case BombType.Fire:
-                trans = transT.fireTrans;
-                fireBombZone = true;
+                targetTrans = transT.fireTrans;
                 break;
         }
-        return trans;
+        return targetTrans;
     }
 
-    void TransType(Collider2D collider)
+    void TransType(Collider2D collider, out bool zone)
     {
         typeTrans = Trans();
         typeTrans = collider.transform;
+        zone = true;
     }
 
     public IEnumerator OnOff(GameObject bombObj)
     {
         bool isShow = false;
+        Bomb bomb = bombObj.transform.parent.GetComponent<Bomb>();
         for (int i = 0; i < 9; i++)
         {
+            if (fireBombZone && !IsDead)
+            {
+                Hp -= bomb.bd.BombAttack;
+                CreateDamageTxt(bomb.bd.BombAttack);
+            }
             isShow = !isShow;
-            sr.color = bombObj.transform.parent.GetComponent<Bomb>().bd.firstColor;
-            yield return new WaitForSeconds(0.2f);
-            sr.color = bombObj.transform.parent.GetComponent<Bomb>().bd.secondColor;
-            yield return new WaitForSeconds(0.2f);
+            for(int j = 0; j < bomb.colors.Count; j++)
+            {
+                ed.sr.color = bomb.colors[j];
+                yield return new WaitForSeconds(0.2f);
+            }
         }
-        //sr.color = new Color(1f, 1f, 1f, 1f);
+        ed.sr.color = new Color(1f, 1f, 1f, 1f);
     }
 }
