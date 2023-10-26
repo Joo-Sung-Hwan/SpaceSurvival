@@ -12,8 +12,5 @@ public class Bullet_small : Bullet
     }
 
     
-    public void OnEnable()
-    {
-        init();
-    }
+    
 }

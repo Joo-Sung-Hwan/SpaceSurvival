@@ -31,7 +31,7 @@ public class DamageTxt : MonoBehaviour
     void DamageTxtDoTween()
     {
         TMP_Text text = transform.GetComponent<TMP_Text>();
-        mySequence = DOTween.Sequence().SetAutoKill(false);
+        mySequence = DOTween.Sequence();
         mySequence.Append(text.GetComponent<RectTransform>().DOScale(1f, 2f));
     }
 }

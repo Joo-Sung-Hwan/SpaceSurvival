@@ -48,7 +48,7 @@ public enum DefineEnemyData
 
 public abstract class Enemy : MonoBehaviour
 {
-    [SerializeField] TMP_Text damageTxt;
+    [SerializeField] DamageTxt damageTxt;
     public EnemyData ed = new EnemyData();
     public TransType transT;
     public List<Item> items = new List<Item>();
@@ -62,6 +62,7 @@ public abstract class Enemy : MonoBehaviour
     //protected Transform magnetTrans;
     //protected Transform webTrans;
 
+    Vector3 vec;
     float magnetDir = 1f;
     bool looseZone = true;
     public bool magnetBombZone;
@@ -90,6 +91,7 @@ public abstract class Enemy : MonoBehaviour
     void Start()
     {
         ed.sr = GetComponent<SpriteRenderer>();
+        vec = transform.position + (Vector3.up * 0.5f);
     }
 
     // 플레이어가 바라보는 방향에 몬스터가 플레이어 바라보기
@@ -157,23 +159,24 @@ public abstract class Enemy : MonoBehaviour
                 break;
             case "Bomb":
                 Hp -= collision.transform.parent.GetComponent<Bomb>().bd.BombAttack;
-                CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
+                //CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
                 break;
             case "Laser":
                 Hp -= collision.GetComponent<LaserChild>().Attack;
-                CreateDamageTxt(collision.GetComponent<LaserChild>().Attack);
+                //CreateDamageTxt(collision.GetComponent<LaserChild>().Attack);
                 break;
             case "Bullet":
                 Hp -= collision.GetComponent<Bullet>().Attack;
-                CreateDamageTxt(collision.GetComponent<Bullet>().Attack);
+                GameManager.instance.pollingsystem.PoolingDamageTxt(damageTxt,vec, canvas, collision.GetComponent<Bullet>().Attack);
+                //CreateDamageTxt(collision.GetComponent<Bullet>().Attack);
                 break;
             case "EnegyBolt":
                 Hp -= collision.GetComponent<FxManager>().fd.Attack;
-                CreateDamageTxt(collision.GetComponent<FxManager>().fd.Attack);
+                //CreateDamageTxt(collision.GetComponent<FxManager>().fd.Attack);
                 break;
             case "MagnetBomb":
                 TransType(collision,out magnetBombZone);
-                CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
+                //CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
                 break;
             case "WebBomb":
                 TransType(collision, out webBombZone);
@@ -215,12 +218,12 @@ public abstract class Enemy : MonoBehaviour
     }
 
     // 데미지 텍스트 구현
-    void CreateDamageTxt(float damage)
+    /*void CreateDamageTxt(float damage)
     {
         Vector3 pos = transform.position + (Vector3.up * 0.5f);
         TMP_Text damageT = Instantiate(damageTxt, pos, Quaternion.identity, canvas.transform);
         damageT.text = damage.ToString();
-    }
+    }*/
 
     // 몬스터가 죽을시 생성되는 아이템
     public void ExpCreate()
@@ -266,7 +269,7 @@ public abstract class Enemy : MonoBehaviour
             if (fireBombZone && !IsDead)
             {
                 Hp -= bomb.bd.BombAttack;
-                CreateDamageTxt(bomb.bd.BombAttack);
+                //CreateDamageTxt(bomb.bd.BombAttack);
             }
             isShow = !isShow;
             for(int j = 0; j < bomb.colors.Count; j++)

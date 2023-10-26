@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PollingSystem : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PollingSystem : MonoBehaviour
     Queue<Bomb> bo_queue;
     Queue<Item> item_queue;
     Queue<SelectCard> s_queue;
+    Queue<DamageTxt> t_queue;
     
     // Start is called before the first frame update
     void Start()
@@ -20,6 +22,7 @@ public class PollingSystem : MonoBehaviour
         bo_queue = new Queue<Bomb>();
         item_queue = new Queue<Item>();
         s_queue = new Queue<SelectCard>();
+        t_queue = new();
     }
 
     // Update is called once per frame
@@ -36,6 +39,7 @@ public class PollingSystem : MonoBehaviour
         {
             Bullet bul = Instantiate(bullet, parent);
             b_queue.Enqueue(bul);
+            bul.init();
             bul.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bullet_parent);
             return bul;
         }
@@ -44,6 +48,7 @@ public class PollingSystem : MonoBehaviour
             if (!item.gameObject.activeSelf)
             {
                 b = item;
+                b.init();
                 b.transform.position = parent.position;
                 b.gameObject.SetActive(true);
                 break;
@@ -52,6 +57,7 @@ public class PollingSystem : MonoBehaviour
         if(b == null)
         {
             b = Instantiate(bullet, parent);
+            b.init();
             b.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bullet_parent);
             b_queue.Enqueue(b);
         }
@@ -224,5 +230,34 @@ public class PollingSystem : MonoBehaviour
         return s;
     }
     
-    
+    public DamageTxt PoolingDamageTxt(DamageTxt text, Vector3 pos, Canvas canvas, float damage)
+    {
+        DamageTxt damageT = null;
+        if(t_queue.Count == 0)
+        {
+            DamageTxt dt = Instantiate(text, pos, Quaternion.identity, canvas.transform);
+            t_queue.Enqueue(dt);
+            //dt.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_damageText_Parent);
+            text.GetComponent<TMP_Text>().text = damage.ToString();
+        }
+        foreach(DamageTxt damageTxt in t_queue)
+        {
+            if(!damageTxt.gameObject.activeSelf)
+            {
+                damageT = damageTxt;
+                damageT.transform.position = canvas.transform.position;
+                damageT.gameObject.SetActive(true);
+                return damageT;
+            }
+        }
+        if(damageT == null)
+        {
+            damageT = Instantiate(text, pos, Quaternion.identity, canvas.transform);
+            t_queue.Enqueue(damageT);
+            //damageT.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_damageText_Parent);
+            text.GetComponent<TMP_Text>().text = damage.ToString();
+        }
+        damageT.gameObject.SetActive(true);
+        return damageT;
+    }
 }

@@ -21,7 +21,7 @@ public class Laser : MonoBehaviour
         SetData();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         DestroyLaser();
     }

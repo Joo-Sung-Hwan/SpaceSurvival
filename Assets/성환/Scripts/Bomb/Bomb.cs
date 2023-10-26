@@ -70,7 +70,7 @@ public abstract class Bomb : MonoBehaviour
         bs = BombState.Idle;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (!isGrounded)
         {

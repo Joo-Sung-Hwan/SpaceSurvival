@@ -37,14 +37,14 @@ public abstract class Bullet : MonoBehaviour
     public void DestroyBullet()
     {
         destroy_time += Time.deltaTime;
-        if(destroy_time > 5f)
+        if(destroy_time > 2f)
         {
             gameObject.SetActive(false);
             destroy_time = 0f;
         }
     }
     
-    public void Update()
+    public void FixedUpdate()
     {
         Move();
         DestroyBullet();

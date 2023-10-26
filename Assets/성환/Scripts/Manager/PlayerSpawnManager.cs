@@ -9,6 +9,7 @@ public class PlayerSpawnManager : MonoBehaviour
     public Transform tmp_enemy_parent;
     public Transform tmp_item_parent;
     public Transform tmp_laser_parent;
+    public Transform tmp_damageText_Parent;
 
     // Start is called before the first frame update
     void Start()

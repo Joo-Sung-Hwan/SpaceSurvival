@@ -25,23 +25,4 @@ public class NormalBomb : Bomb
         base.ResetData();
         ani = GetComponent<Animator>();
     }
-
-    // 폭탄 터지는 애니메이션
-    /*public void B_State(BombState bs)
-    {
-        if (bs == BombState.Idle)
-        {
-            ani.SetTrigger("idle");
-            ani.ResetTrigger("explosion");
-            explosion.SetActive(false);
-        }
-        else
-        {
-            ani.ResetTrigger("idle");
-            ani.SetTrigger("explosion");
-            SettingActive(false);
-            explosion.SetActive(true);
-            GetComponent<Animator>().Play("BombExplosion");
-        }
-    }*/
 }

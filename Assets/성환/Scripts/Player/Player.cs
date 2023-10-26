@@ -58,14 +58,14 @@ public class Player : MonoBehaviour
         ani = GetComponent<Animator>();
         definePD.MaxHp = 100;
         definePD.CurHp = definePD.MaxHp;
-        definePD.MaxExp = 20f;
+        definePD.MaxExp = 200f;
         Init();
         //GameManager.instance.SetPlayerStatus();
         SwitchBombCreate();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!GameManager.instance.isPause)
         {
@@ -100,17 +100,15 @@ public class Player : MonoBehaviour
     public void BulletFire()
     {
         delayTimeBullet += Time.deltaTime;
-        if(delayTimeBullet > 1f)
+        if (delayTimeBullet > 1f)
         {
             if (GetComponent<SpriteRenderer>().flipX)
             {
                 GameManager.instance.pollingsystem.PollingBullet(bullet, bullet_parent[1]);
-                
             }
             else
             {
                 GameManager.instance.pollingsystem.PollingBullet(bullet, bullet_parent[0]);
-                
             }
             delayTimeBullet = 0f;
         }

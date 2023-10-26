@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f90e9b5ff2562b44864fa35e14ac613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageTxt: {fileID: 841508952416352554, guid: 2d4335b0807d8574081e8ac6d611917c, type: 3}
+  damageTxt: {fileID: -5306176505172949464, guid: 2d4335b0807d8574081e8ac6d611917c, type: 3}
   items:
   - {fileID: 4819316638390071840, guid: 150fa057f58bdfb42ab9e65e8650479f, type: 3}
   - {fileID: 7093794893088856794, guid: 5c3b89d0bfb40134d9508ea2b4b2541f, type: 3}
