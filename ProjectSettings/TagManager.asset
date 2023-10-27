@@ -11,6 +11,11 @@ TagManager:
   - Exp
   - Pet
   - Magnet
+  - Enemy
+  - FireBomb
+  - EnegyBolt
+  - MagnetBomb
+  - WebBomb
   layers:
   - Default
   - TransparentFX

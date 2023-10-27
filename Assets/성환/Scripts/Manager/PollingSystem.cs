@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class PollingSystem : MonoBehaviour
 {
@@ -229,23 +228,23 @@ public class PollingSystem : MonoBehaviour
         s.gameObject.SetActive(true);
         return s;
     }
-    
-    public DamageTxt PoolingDamageTxt(DamageTxt text, Vector3 pos, Canvas canvas, float damage)
+
+    public DamageTxt PoolingDamageTxt(DamageTxt text, Vector3 pos, Canvas canvas)
     {
         DamageTxt damageT = null;
         if(t_queue.Count == 0)
         {
             DamageTxt dt = Instantiate(text, pos, Quaternion.identity, canvas.transform);
             t_queue.Enqueue(dt);
+            dt.transform.SetParent(canvas.transform.GetChild(0));
             //dt.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_damageText_Parent);
-            text.GetComponent<TMP_Text>().text = damage.ToString();
         }
-        foreach(DamageTxt damageTxt in t_queue)
+        foreach (DamageTxt damageTxt in t_queue)
         {
-            if(!damageTxt.gameObject.activeSelf)
+            if (!damageTxt.gameObject.activeSelf)
             {
                 damageT = damageTxt;
-                damageT.transform.position = canvas.transform.position;
+                damageT.transform.position = pos;
                 damageT.gameObject.SetActive(true);
                 return damageT;
             }
@@ -254,8 +253,8 @@ public class PollingSystem : MonoBehaviour
         {
             damageT = Instantiate(text, pos, Quaternion.identity, canvas.transform);
             t_queue.Enqueue(damageT);
+            damageT.transform.SetParent(canvas.transform.GetChild(0));
             //damageT.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_damageText_Parent);
-            text.GetComponent<TMP_Text>().text = damage.ToString();
         }
         damageT.gameObject.SetActive(true);
         return damageT;

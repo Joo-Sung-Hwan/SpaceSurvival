@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public bool isPause = false;
     public Player player;
     public SelectCardManager selectCardManager;
+    public Canvas canvas;
 
     private void Awake()
     {

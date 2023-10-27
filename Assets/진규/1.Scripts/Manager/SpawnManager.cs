@@ -10,7 +10,6 @@ public class SpawnManager : MonoBehaviour
     private float spawnTime;
     PlayerCamera playerCamera;
     Vector2 spawnspot;
-
     void Start()
     {
         playerCamera = GameManager.instance.playerCamera;
@@ -23,7 +22,7 @@ public class SpawnManager : MonoBehaviour
             return;
         spawnTime += Time.deltaTime;
 
-        if(spawnTime > 1f)
+        if(spawnTime > 0.2f)
         {
             spawnTime = 0;
             Spawn();
@@ -32,7 +31,7 @@ public class SpawnManager : MonoBehaviour
 
     // PollingSystem을 이용한 Enemy Spawn
     void Spawn()
-    {   
+    {
         int rand = Random.Range(0, spawnPoint.Length);
         spawnspot = GameManager.instance.GetRandomPosition(spawnPoint[rand].transform, spawnPoint[rand]);
         GameManager.instance.pollingsystem.PollingEnemy(enemy, spawnspot);

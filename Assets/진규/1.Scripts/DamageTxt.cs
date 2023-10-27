@@ -18,12 +18,12 @@ public class DamageTxt : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
-        if (time > 1f)
+        if (time > 0.3f)
         {
             time = 0;
             gameObject.SetActive(false);
         }
-        transform.Translate(Vector2.up * 0.5f * Time.deltaTime);
+        transform.Translate(Vector2.up * 1.5f * Time.deltaTime);
         DamageTxtDoTween();
     }
 

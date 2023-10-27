@@ -62,13 +62,11 @@ public abstract class Enemy : MonoBehaviour
     //protected Transform magnetTrans;
     //protected Transform webTrans;
 
-    Vector3 vec;
     float magnetDir = 1f;
     bool looseZone = true;
-    public bool magnetBombZone;
-    public bool webBombZone;
-    public bool fireBombZone;
-    Coroutine coroutine;
+    bool magnetBombZone;
+    bool webBombZone;
+    bool fireBombZone;
     //protected DefineEnemyData defineD = DefineEnemyData.None;
 
     public abstract void Init();
@@ -81,6 +79,7 @@ public abstract class Enemy : MonoBehaviour
             ed.hp = value;
             if(ed.hp <= 0)
             {
+                canvas.gameObject.SetActive(false);
                 fireBombZone = false;
                 Dead();
             }
@@ -91,7 +90,6 @@ public abstract class Enemy : MonoBehaviour
     void Start()
     {
         ed.sr = GetComponent<SpriteRenderer>();
-        vec = transform.position + (Vector3.up * 0.5f);
     }
 
     // 플레이어가 바라보는 방향에 몬스터가 플레이어 바라보기
@@ -167,16 +165,15 @@ public abstract class Enemy : MonoBehaviour
                 break;
             case "Bullet":
                 Hp -= collision.GetComponent<Bullet>().Attack;
-                GameManager.instance.pollingsystem.PoolingDamageTxt(damageTxt,vec, canvas, collision.GetComponent<Bullet>().Attack);
-                //CreateDamageTxt(collision.GetComponent<Bullet>().Attack);
+                CreateDamageTxt(collision.GetComponent<Bullet>().Attack);
                 break;
             case "EnegyBolt":
                 Hp -= collision.GetComponent<FxManager>().fd.Attack;
-                //CreateDamageTxt(collision.GetComponent<FxManager>().fd.Attack);
+                CreateDamageTxt(collision.GetComponent<FxManager>().fd.Attack);
                 break;
             case "MagnetBomb":
                 TransType(collision,out magnetBombZone);
-                //CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
+                CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
                 break;
             case "WebBomb":
                 TransType(collision, out webBombZone);
@@ -217,13 +214,20 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    // 데미지 텍스트 구현
-    /*void CreateDamageTxt(float damage)
+    public Vector2 Pos()
     {
-        Vector3 pos = transform.position + (Vector3.up * 0.5f);
-        TMP_Text damageT = Instantiate(damageTxt, pos, Quaternion.identity, canvas.transform);
-        damageT.text = damage.ToString();
-    }*/
+        Vector3 transformVec = transform.position + (Vector3.up * 0.5f);
+        Vector3 screenPoint = RectTransformUtility.WorldToScreenPoint(GameManager.instance.canvas.GetComponent<Camera>(), transformVec);
+        return screenPoint;
+    }
+
+    // 데미지 텍스트 구현
+    void CreateDamageTxt(float damage)
+    {
+        Vector3 transformVec = transform.position + (Vector3.up * 0.5f);
+        DamageTxt damageT = GameManager.instance.pollingsystem.PoolingDamageTxt(damageTxt, transformVec, canvas);
+        damageT.GetComponent<TMP_Text>().text = damage.ToString();
+    }
 
     // 몬스터가 죽을시 생성되는 아이템
     public void ExpCreate()
@@ -269,7 +273,7 @@ public abstract class Enemy : MonoBehaviour
             if (fireBombZone && !IsDead)
             {
                 Hp -= bomb.bd.BombAttack;
-                //CreateDamageTxt(bomb.bd.BombAttack);
+                CreateDamageTxt(bomb.bd.BombAttack);
             }
             isShow = !isShow;
             for(int j = 0; j < bomb.colors.Count; j++)

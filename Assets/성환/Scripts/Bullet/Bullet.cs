@@ -37,7 +37,7 @@ public abstract class Bullet : MonoBehaviour
     public void DestroyBullet()
     {
         destroy_time += Time.deltaTime;
-        if(destroy_time > 2f)
+        if(destroy_time > 1f)
         {
             gameObject.SetActive(false);
             destroy_time = 0f;

@@ -287,12 +287,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b671fcbb720e346ae6b7fbd95c86d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colors: []
   sprite: {fileID: 1023207484149046108}
   shadow: {fileID: 1616676884776328808}
-  explosion: {fileID: 905052537019828390}
-  ani: {fileID: 4635545216529999539}
   particle: {fileID: 0}
-  bs: 0
+  ani: {fileID: 4635545216529999539}
+  explosion: {fileID: 905052537019828390}
   bt: 0
 --- !u!95 &4635545216529999539
 Animator:
