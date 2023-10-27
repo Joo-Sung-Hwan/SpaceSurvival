@@ -36,6 +36,7 @@ public class SelectCard : MonoBehaviour
 
     public void Init()
     {
+        GetComponent<Button>().enabled = false;
         GetComponent<Image>().color = new Color(255f, 255f, 255f);
         rand = Random.Range(1, 100);
         rand_index = rand < 70 ? "Normal" : rand < 90 ? "Rare" : "Unique";
@@ -137,7 +138,7 @@ public class SelectCard : MonoBehaviour
     {
         switch (cd.category)
         {
-            case "Damage":
+           case "Damage":
                 break;
             case "AttackSpeed":
                 break;
@@ -150,9 +151,13 @@ public class SelectCard : MonoBehaviour
             case "Reflect":
                 break;
             case "Player":
-                break;
-
+                break; 
         }
     }
     
+    // 버튼 이벤트 활성화
+    public void SetEnableChildButton()
+    {
+        GameManager.instance.selectCardManager.SetEnableButton();
+    }
 }

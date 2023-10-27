@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
+using UnityEngine.UI;
 
 public enum CardKind
 {
@@ -21,6 +22,7 @@ public class SelectCardManager : MonoBehaviour
     public TextAsset jsondata;
     public Dictionary<CardKind, List<CardData>> selectcarddata = new();
     public List<SelectCardManager.CardData> cardCheck_list = new();
+    int card_child = 0;
 
     [System.Serializable]
     public struct CardData
@@ -57,11 +59,32 @@ public class SelectCardManager : MonoBehaviour
 
     public void CreateSelectCard()
     {
-        
         SelectCard sc = GameManager.instance.pollingsystem.PoolingSelectCard(selectcard, selectcard_parent);
         sc_list.Add(sc);
+        foreach (var item in sc_list)
+        {
+            if (item.gameObject.activeSelf)
+            {
+                card_child += 1;
+            }
+        }
+        if(card_child < 3)
+        {
+            card_child = 0;
+        }
     }
 
+    public void SetEnableButton()
+    {
+        if (card_child == 3)
+        {
+            foreach (var item in sc_list)
+            {
+                item.gameObject.GetComponent<Button>().enabled = true;
+            }
+            card_child = 0;
+        }
+    }
     IEnumerator DelayCardTime()
     {
         for (int i = 0; i < 3; i++)
