@@ -7,15 +7,15 @@ public class MagnetBomb : Bomb
     public override void Init()
     {
         bt = BombType.Magnet;
-        bd.zoneTrans = transform.GetChild(3);
+        bd.zoneTrans = transform.GetChild(2);
+        bd.collider2D = bd.zoneTrans.GetComponent<CircleCollider2D>();
+        bd.BombAttack = 2f;
     }
 
     void Start()
     {
         Init();
         ResetData();
-        SetBombAttack(2);
-        SetBombSize(1);
     }
 
     public override void ResetData()

@@ -12,9 +12,11 @@ public class InGameUI : MonoBehaviour
     [SerializeField] private Image hp_Bar;
     [SerializeField] public Button pauseButton;
     [SerializeField] public Material material;
+    [SerializeField] public TMP_Text monsterIn;
     public Player player;
     public int min;
     float sec;
+    public int monsterIndex;
     
     void Start()
     {
@@ -42,6 +44,7 @@ public class InGameUI : MonoBehaviour
             sec = 0;
         }
         timer.text = string.Format("{0:D2}:{1:D2}", min, (int)sec);
+        MonsterIndex(monsterIndex);
     }
 
     // 경험치 및 체력bar 코드 수치 적용
@@ -53,5 +56,10 @@ public class InGameUI : MonoBehaviour
         float changeValue = getValue * width;
         float Value = (float)System.Math.Truncate(changeValue);
         MySequence.Append(targetRect.DOSizeDelta(new Vector2(Value, height), 1f, false));
+    }
+
+    public void MonsterIndex(int index)
+    {
+        monsterIn.text = index.ToString();
     }
 }

@@ -7,17 +7,14 @@ public class WebBomb : Bomb
     public override void Init()
     {
         bt = BombType.Web;
-        bd.zoneTrans = transform.GetChild(3);
-        bd.firstColor = new Color(1f, 23f / 255f, 206f / 255f, 1f);
-        bd.secondColor = new Color(220f / 255f, 146f / 255f, 1f, 1f);
+        bd.zoneTrans = transform.GetChild(2);
+        bd.collider2D = bd.zoneTrans.GetComponent<CircleCollider2D>();
     }
 
     void Start()
     {
         Init();
         ResetData();
-        SetBombAttack(2);
-        SetBombSize(1);
         SetBombDebuff(0.25f);
     }
 

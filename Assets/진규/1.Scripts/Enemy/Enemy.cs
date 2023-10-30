@@ -32,6 +32,7 @@ public enum EnemyType
 
 public struct TransType
 {
+    public Transform normalBombTrans;
     public Transform magnetTrans;
     public Transform WebTrans;
     public Transform fireTrans;
@@ -64,6 +65,7 @@ public abstract class Enemy : MonoBehaviour
 
     float magnetDir = 1f;
     bool looseZone = true;
+    bool normalBombZone;
     bool magnetBombZone;
     bool webBombZone;
     bool fireBombZone;
@@ -140,6 +142,7 @@ public abstract class Enemy : MonoBehaviour
     public void Dead()
     {
         IsDead = true;
+        GameManager.instance.gameUI.monsterIndex--;
         StopCoroutine("OnOff");
         ed.enemyState = EnemyState.Dead;
         anim.SetTrigger("Dead");
@@ -154,9 +157,10 @@ public abstract class Enemy : MonoBehaviour
             case "Player":
                 GameManager.instance.player.definePD.CurHp -= ed.attack;
                 break;
-            case "Bomb":
+            case "NormalBomb":
+                TransType(collision, out normalBombZone);
                 Hp -= collision.transform.parent.GetComponent<Bomb>().bd.BombAttack;
-                //CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
+                CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
                 break;
             case "Laser":
                 Hp -= collision.GetComponent<LaserChild>().Attack;
@@ -248,6 +252,9 @@ public abstract class Enemy : MonoBehaviour
         targetTrans = GetComponent<Transform>();
         switch(player.bomb.bt)
         {
+            case BombType.Nomal:
+                targetTrans = transT.normalBombTrans;
+                return targetTrans;
             case BombType.Magnet:
                 targetTrans = transT.magnetTrans;
                 return targetTrans;

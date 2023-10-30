@@ -18,11 +18,23 @@ public abstract class Item : MonoBehaviour
 
     Rigidbody2D rigid;
     Transform magnetTrans;
+    float time = 0;
     public abstract void Init();
 
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
+    }
+
+    void FixedUpdate()
+    {
+        time += Time.deltaTime;
+        if(time > 2f)
+        {
+            time = 0;
+            gameObject.SetActive(false);
+        }
+        Magnet();
     }
 
     public virtual void Magnet()

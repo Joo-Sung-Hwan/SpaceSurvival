@@ -7,16 +7,15 @@ public class NormalBomb : Bomb
     public override void Init()
     {
         bt = BombType.Nomal;
-        //bd.BombAttack = 10f;
+        bd.zoneTrans = transform.GetChild(2);
+        bd.collider2D = bd.zoneTrans.GetComponent<CircleCollider2D>();
+        bd.BombAttack = 25f;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         Init();
         ResetData();
-        SetBombAttack(50);
-        SetBombSize(1);
     }
 
 
@@ -24,5 +23,6 @@ public class NormalBomb : Bomb
     {
         base.ResetData();
         ani = GetComponent<Animator>();
+        AtiveObj(transform, true);
     }
 }

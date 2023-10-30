@@ -23,8 +23,7 @@ public struct BombData
     public float BombSize { get; set; }
     public float BombDebuff { get; set; }
     public Transform zoneTrans;
-    public Color firstColor;
-    public Color secondColor;
+    public CircleCollider2D collider2D;
 }
 
 public abstract class Bomb : MonoBehaviour
@@ -47,7 +46,6 @@ public abstract class Bomb : MonoBehaviour
     [HideInInspector]public Animator ani;
     float curheight;
 
-    public GameObject explosion;
     Player player;
 
     protected BombState bs;
@@ -57,8 +55,6 @@ public abstract class Bomb : MonoBehaviour
 
     public virtual void ResetData()
     {
-        SetBombAttack(bd.BombAttack);
-        SetBombSize(bd.BombSize);
         curbounce = 0;
         
         SettingActive(true);
@@ -82,6 +78,7 @@ public abstract class Bomb : MonoBehaviour
 
             CheckGroundHit();
         }
+        Debug.Log(bd.BombAttack);
     }
 
     void DirInit(Vector2 dir)
@@ -119,7 +116,6 @@ public abstract class Bomb : MonoBehaviour
     // ÆøÅº ÅÍÁö´Â ¾Ö´Ï¸ÞÀÌ¼Ç ³¡³µÀ» ¶§ È£Ãâ
     public void ExplosionFinish()
     {
-        explosion.SetActive(false);
         bs = BombState.Idle;
         gameObject.SetActive(false);
     }
@@ -130,17 +126,12 @@ public abstract class Bomb : MonoBehaviour
         shadow.gameObject.SetActive(active);
     }
 
-    // ÆøÅº °ø°Ý·Â ¼³Á¤
-    public void SetBombAttack(float bombattack)
-    {
-        bd.BombAttack = bombattack;
-    }
-
     // ÆøÅº ÅÍÁö´Â ¹üÀ§ ¼³Á¤
     public void SetBombSize(float size)
     {
         bd.BombSize = size;
-        GetComponent<Transform>().localScale = new Vector3(bd.BombSize, bd.BombSize, 0f);
+        //GetComponent<Transform>().localScale = new Vector3(bd.BombSize, bd.BombSize, 0f);
+        bd.collider2D.radius = bd.BombSize;
     }
 
     public void SetBombDebuff(float bombDebuff)
@@ -154,9 +145,9 @@ public abstract class Bomb : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         ParticleSystem part = Instantiate(particle, transform);
         AtiveObj(gameObject.transform,false);
-        bd.zoneTrans.GetComponent<CircleCollider2D>().enabled = true;
+        bd.collider2D.enabled = true;
         yield return new WaitForSeconds(delay);
-        bd.zoneTrans.GetComponent<CircleCollider2D>().enabled = false;
+        bd.collider2D.enabled = false;
         Destroy(part.gameObject);
         gameObject.SetActive(false);
     }
@@ -168,15 +159,7 @@ public abstract class Bomb : MonoBehaviour
         {
             ani.SetTrigger("idle");
         }
-        else if(particle == null)
-        {
-            ani.ResetTrigger("idle");
-            ani.SetTrigger("explosion");
-            SettingActive(false);
-            explosion.SetActive(true);
-            GetComponent<Animator>().Play("BombExplosion");
-        }
-        else if(particle != null)
+        else
         {
             StartCoroutine(BombParticle(BombEvents()));
         }
@@ -196,8 +179,9 @@ public abstract class Bomb : MonoBehaviour
         float delay = 0;
         switch(GameManager.instance.player.bomb.bt)
         {
+            case BombType.Nomal:
             case BombType.Magnet:
-                delay = 0.4f;
+                delay = 0.2f;
                 return delay;
             case BombType.Web:
                 delay = 4f;

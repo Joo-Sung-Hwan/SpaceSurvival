@@ -59,7 +59,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player_weapon = PlayerWeapon.Laser;
+        player_weapon = PlayerWeapon.NormalBomb;
+        SetBombEuqipment();
         ps = PlayerState.Idle;
         ani = GetComponent<Animator>();
         definePD.MaxHp = 100;
@@ -224,7 +225,6 @@ public class Player : MonoBehaviour
             case BombType.Web:
                 BombCTime = 6f;
                 break;
-                
         }
     }
 }

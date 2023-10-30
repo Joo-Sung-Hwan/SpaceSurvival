@@ -8,14 +8,4 @@ public class Exp2 : Item
     {
         info.exp = 20;
     }
-
-    void FixedUpdate()
-    {
-        base.Magnet();
-    }
-
-    public override void Magnet()
-    {
-        base.Magnet();
-    }
 }

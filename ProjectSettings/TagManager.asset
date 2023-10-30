@@ -16,6 +16,9 @@ TagManager:
   - EnegyBolt
   - MagnetBomb
   - WebBomb
+  - FxTemporaire
+  - NormalBomb
+  - NomalBomb
   layers:
   - Default
   - TransparentFX

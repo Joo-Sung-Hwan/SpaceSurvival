@@ -35,5 +35,6 @@ public class SpawnManager : MonoBehaviour
         int rand = Random.Range(0, spawnPoint.Length);
         spawnspot = GameManager.instance.GetRandomPosition(spawnPoint[rand].transform, spawnPoint[rand]);
         GameManager.instance.pollingsystem.PollingEnemy(enemy, spawnspot);
+        GameManager.instance.gameUI.monsterIndex++;
     }
 }
