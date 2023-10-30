@@ -8,7 +8,6 @@ public class Laser : MonoBehaviour
     [HideInInspector] public float LaserLastTime { get; set; }
     public LaserChild lc;
     public LayerMask layermask;
-
     Vector2 nextDir;
     RaycastHit2D ray;
     LineRenderer lr;
@@ -26,7 +25,7 @@ public class Laser : MonoBehaviour
     void FixedUpdate()
     {
         DestroyLaser();
-        Debug.Log(ReflectMaxCount);
+        //Debug.Log(ReflectMaxCount);
     }
 
     // 레이저 삭제
@@ -73,7 +72,7 @@ public class Laser : MonoBehaviour
             ray = Physics2D.Raycast(newposition, newDir, 300f, layermask);
             lr.SetPosition(i, new Vector3(ray.point.x, ray.point.y, 0f));
             newposition = ray.point;
-            if (transform.childCount < ReflectMaxCount - 1)
+            if (transform.childCount < lr.positionCount - 1)
             {
                 LaserChild c = Instantiate(lc, transform);
                 c.transform.position = lr.GetPosition(i - 1);

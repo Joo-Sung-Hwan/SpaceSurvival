@@ -158,16 +158,16 @@ public class SelectCard : MonoBehaviour
                 switch (cd.kind)
                 {
                     case "bomb":
-                        GetComponent<Bomb>().bd.BombAttack *= cd.change;
+                        GameManager.instance.player.bombtmp.bd.BombAttack += cd.change;
                         break;
                     case "bullet":
-                        GetComponent<Bullet>().Attack *= cd.change;
+                        GameManager.instance.player.bullet.Attack += cd.change;
                         break;
                     case "laser":
-                        GetComponent<LaserChild>().Attack *= cd.change;
+                        GameManager.instance.player.laser.lc.Attack += cd.change;
                         break;
                     case "energybolt":
-                        GetComponent<FxManager>().fd.Attack *= cd.change;
+                        GameManager.instance.player.fxmanager.fd.Attack += cd.change;
                         break;
                 }
                 break;
@@ -175,13 +175,13 @@ public class SelectCard : MonoBehaviour
                 switch (cd.kind)
                 {
                     case "bomb":
-                        GetComponent<Player>().BombCTime = cd.change;
+                        GameManager.instance.player.BombCTime = cd.change;
                         break;
                     case "bullet":
-                        GetComponent<Player>().BulletCTime = cd.change;
+                        GameManager.instance.player.BulletCTime = cd.change;
                         break;
                     case "laser":
-                        GetComponent<Player>().LaserCTime = cd.change;
+                        GameManager.instance.player.LaserCTime = cd.change;
                         break;
                 }
                 break;
@@ -194,17 +194,18 @@ public class SelectCard : MonoBehaviour
                 }
                 break;
             case "AttackAbility":
-                GetComponent<Bullet>().AttackAbility += (int)cd.change;
+                GameManager.instance.player.bullet.AttackAbility += (int)cd.change;
                 break;
             case "Last":
-                GetComponent<Laser>().LaserLastTime *= cd.change;
+                GameManager.instance.player.laser.LaserLastTime *= cd.change;
                 break;
             case "Reflect":
-                //GameManager.instance.ReflectMaxCount += (int)cd.change;
+                GameManager.instance.player.laser.ReflectMaxCount += (int)cd.change;
+
                 break;
             case "Player":
-                GetComponent<Player>().definePD.MaxHp += cd.change;
-                GetComponent<Player>().definePD.CurHp += cd.change;
+                GameManager.instance.player.definePD.MaxHp += cd.change;
+                GameManager.instance.player.definePD.CurHp += cd.change;
                 break;
             case "NUM":
                 GameManager.instance.player.index += (int)cd.change;
