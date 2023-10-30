@@ -53,6 +53,7 @@ public abstract class Bomb : MonoBehaviour
 
     public abstract void Init();
 
+
     public virtual void ResetData()
     {
         curbounce = 0;
