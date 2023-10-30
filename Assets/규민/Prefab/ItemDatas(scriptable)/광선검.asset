@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\uAD11\uC120\uAC80"
   place: 0
+  weaponKind: 5
   spriteName: LightSaber_Icon
-  description: "\uC704\uC6A9\uC704\uC6A9"
+  description: "\uC704\uC6A9\uC704\uC6A9\uC6A9"

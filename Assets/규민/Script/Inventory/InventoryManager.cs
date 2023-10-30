@@ -27,13 +27,15 @@ public class ItemStaticData
 {
     public string name;
     public Enum_GM.ItemPlace place;
+    public PlayerWeapon weaponKind;
     public string spriteName;
     public string description;
 
-    public ItemStaticData(string name, Enum_GM.ItemPlace place, string spriteName, string description)
+    public ItemStaticData(string name, Enum_GM.ItemPlace place, PlayerWeapon weaponKind, string spriteName, string description)
     {
         this.name = name;
         this.place = place;
+        this.weaponKind = weaponKind;
         this.spriteName = spriteName;
         this.description = description;
     }
@@ -137,7 +139,7 @@ public class InventoryManager : MonoBehaviour
     {
         int rand = Random.Range(0, isdList.Count);
         ItemScriptableData isd = isdList[rand];
-        ItemStaticData newIsData = new ItemStaticData(isd.ItemName, isd.Place, isd.SpriteName, isd.Description);
+        ItemStaticData newIsData = new ItemStaticData(isd.ItemName, isd.Place, isd.WeaponKind, isd.SpriteName, isd.Description);
 
         List<Item_Ability> newItemAbs = new List<Item_Ability>();
 

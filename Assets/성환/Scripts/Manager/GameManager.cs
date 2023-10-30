@@ -70,13 +70,17 @@ public class GameManager : MonoBehaviour
     // 규민 - 데이터 player 넘겨주기
     public void SetPlayerStatus()
     {
+        //장착중인 무기의 종류 넘겨주기 (무기 장착중이 아니면 PlayerWeapon.Idle 반환)
+        player.player_weapon = InventoryManager.Instance.d_equipments.ContainsKey(Enum_GM.ItemPlace.weapon) ?
+        InventoryManager.Instance.d_equipments[Enum_GM.ItemPlace.weapon].itemStaticData.weaponKind : PlayerWeapon.Idle;
+
+        //장착중인 장비들의 ability 증가량 총합 넘겨주기 (수정 필요)
         foreach (var item in InventoryManager.Instance.d_totalAb)
         {
             switch (item.Key)
             {
                 case Enum_GM.abilityName.damage:
                     player.definePD.MaxHp *= (1 + item.Value * 0.01f);
-                    //Debug.Log(player.definePD.Attack);
                     break;
                 case Enum_GM.abilityName.range:
                     break;
@@ -86,8 +90,7 @@ public class GameManager : MonoBehaviour
                     break;
                 default:
                     break;
-            }
-            
+            }      
         }
     }
 }
