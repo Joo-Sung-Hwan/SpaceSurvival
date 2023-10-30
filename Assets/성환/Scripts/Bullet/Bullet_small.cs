@@ -8,9 +8,7 @@ public class Bullet_small : Bullet
     {
         Speed = 5f;
         Attack = 10f;
+        AttackAbility = 1;
         SetDir();
     }
-
-    
-    
 }

@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
 
     [Header("ÆøÅº")]
     public Bomb bomb;
+    public Bomb[] bombkind;
     public BoxCollider2D area;
 
     [Header("ÃÑ¾Ë")]
@@ -38,6 +39,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public int Size { get; set; }
 
     [Header("¿¡³ÊÁöº¼Æ®")]
+    public FxManager fxmanager;
     public List<Transform> enegyTrans;
     public Transform enegy;
     public int index;
@@ -46,8 +48,12 @@ public class Player : MonoBehaviour
     float delayTimeB = 0f;
     float delayTimeBullet = 0f;
     [HideInInspector] public float BombCTime { get; set; }
+    [HideInInspector] public float BulletCTime { get; set; }
+    [HideInInspector] public float LaserCTime { get; set; }
 
-   
+
+
+
 
 
     // Start is called before the first frame update
@@ -62,6 +68,8 @@ public class Player : MonoBehaviour
         Init();
         //GameManager.instance.SetPlayerStatus();
         SwitchBombCreate();
+        BulletCTime = 2f;
+        LaserCTime = 2f;
     }
 
     // Update is called once per frame
@@ -69,9 +77,7 @@ public class Player : MonoBehaviour
     {
         if (!GameManager.instance.isPause)
         {
-            BulletFire();
-            LaserFire();
-            CreateBomb();
+            Fire();
             LevelUp();
             if (ps == PlayerState.Walk)
             {
@@ -84,11 +90,35 @@ public class Player : MonoBehaviour
                 ani.ResetTrigger("Walk");
                 ani.SetTrigger("Idle");
             }
-            EnegyBolt();
         }
         
     }
 
+    public void SetBombEuqipment()
+    {
+        bomb = bombkind[(int)player_weapon - (int)PlayerWeapon.NormalBomb];
+    }
+    public void Fire()
+    {
+        switch (player_weapon)
+        {
+            case PlayerWeapon.NormalBomb:
+            case PlayerWeapon.MagnetBomb:
+            case PlayerWeapon.WebBomb:
+            case PlayerWeapon.FireBomb:
+                CreateBomb();
+                break;
+            case PlayerWeapon.EnergyBolt:
+                EnegyBolt();
+                break;
+            case PlayerWeapon.Laser:
+                LaserFire();
+                break;
+            default:
+                break;
+        }
+        BulletFire();
+    }
     public void Init()
     {
         definePD.Level = 1;
@@ -100,7 +130,7 @@ public class Player : MonoBehaviour
     public void BulletFire()
     {
         delayTimeBullet += Time.deltaTime;
-        if (delayTimeBullet > 1f)
+        if (delayTimeBullet > BulletCTime)
         {
             if (GetComponent<SpriteRenderer>().flipX)
             {
@@ -117,7 +147,7 @@ public class Player : MonoBehaviour
     public void LaserFire()
     {
         delayTimeL += Time.deltaTime;
-        if (delayTimeL > 2f)
+        if (delayTimeL > LaserCTime)
         {
             GameManager.instance.pollingsystem.PollingLaser(laser, laser_parent);
             delayTimeL = 0f;
@@ -140,36 +170,27 @@ public class Player : MonoBehaviour
     }
     public void EnegyBolt()
     {
-        if(Input.GetKeyDown(KeyCode.F1))
+        if (index >= enegyTrans.Count)
         {
-            index++;
-            if(index >= enegyTrans.Count)
-            {
-                index = enegyTrans.Count;
-            }
+            index = enegyTrans.Count;
+        }
 
-            foreach (var trans in enegyTrans)
-                trans.gameObject.SetActive(false);
+        foreach (var trans in enegyTrans)
+            trans.gameObject.SetActive(false);
 
-            int val = 360 / index;
-            int temVal = val;
-            for(int i = 0; i < index; i++)
-            {
-                enegyTrans[i].gameObject.SetActive(true);
-                enegyTrans[i].transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, temVal));
-                temVal += val;
-            }
+        int val = 360 / index;
+        int temVal = val;
+        for (int i = 0; i < index; i++)
+        {
+            enegyTrans[i].gameObject.SetActive(true);
+            enegyTrans[i].transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, temVal));
+            temVal += val;
         }
 
         foreach (var trans in enegyTrans)
             trans.GetChild(0).rotation = Quaternion.Euler(Vector3.zero);
 
         enegy.Rotate(Vector3.forward * Time.deltaTime * 70f);
-    }
-
-    public void SetBombCtime(float time)
-    {
-        BombCTime = time;
     }
 
     public void ChainLighningFire()
@@ -194,14 +215,14 @@ public class Player : MonoBehaviour
         switch (bomb.bt)
         {
             case BombType.Nomal:
-                SetBombCtime(3f);
+                BombCTime = 3f;
                 break;
             case BombType.Fire:
-                SetBombCtime(4f);
+                BombCTime = 4f;
                 break;
             case BombType.Magnet:
             case BombType.Web:
-                SetBombCtime(6f);
+                BombCTime = 6f;
                 break;
                 
         }

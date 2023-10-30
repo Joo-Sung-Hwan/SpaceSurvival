@@ -19,7 +19,10 @@ public enum Monster
 public enum PlayerWeapon
 {
     Idle,
-    Bomb,
+    NormalBomb,
+    MagnetBomb,
+    WebBomb,
+    FireBomb,
     Laser,
     EnergyBolt
 }

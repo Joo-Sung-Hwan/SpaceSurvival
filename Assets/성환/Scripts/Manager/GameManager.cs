@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public SelectCardManager selectCardManager;
     public Canvas canvas;
 
+    
     private void Awake()
     {
         if (instance == null)
@@ -55,7 +56,7 @@ public class GameManager : MonoBehaviour
         switch (s)
         {
             case "ÆøÅº":
-                player.player_weapon = PlayerWeapon.Bomb;
+                player.player_weapon = PlayerWeapon.NormalBomb;
                 break;
             case "±¤¼±°Ë":
                 player.player_weapon = PlayerWeapon.Laser;

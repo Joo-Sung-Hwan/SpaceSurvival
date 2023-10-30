@@ -6,6 +6,7 @@ public abstract class Bullet : MonoBehaviour
 {
     public float Speed { get; set; }
     public float Attack { get; set; }
+    public int AttackAbility { get; set; }
     float destroy_time = 0f;
     protected bool dir;
     public abstract void init();
@@ -37,7 +38,7 @@ public abstract class Bullet : MonoBehaviour
     public void DestroyBullet()
     {
         destroy_time += Time.deltaTime;
-        if(destroy_time > 1f)
+        if(destroy_time > 5f)
         {
             gameObject.SetActive(false);
             destroy_time = 0f;

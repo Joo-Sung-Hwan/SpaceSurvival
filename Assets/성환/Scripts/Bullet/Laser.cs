@@ -5,6 +5,7 @@ using UnityEngine;
 public class Laser : MonoBehaviour
 {
     [HideInInspector] public int ReflectMaxCount { get; set; }
+    [HideInInspector] public float LaserLastTime { get; set; }
     public LaserChild lc;
     public LayerMask layermask;
 
@@ -18,19 +19,21 @@ public class Laser : MonoBehaviour
         lr = GetComponent<LineRenderer>();
         ReflectMaxCount = 5;
         LaserSize = 0.2f;
+        LaserLastTime = 0.5f;
         SetData();
     }
 
     void FixedUpdate()
     {
         DestroyLaser();
+        Debug.Log(ReflectMaxCount);
     }
 
     // 레이저 삭제
     public void DestroyLaser()
     {
         d_time += Time.deltaTime;
-        if (d_time > 0.5f)
+        if (d_time > LaserLastTime)
         {
             for(int i = 0; i < transform.childCount; i++)
             {

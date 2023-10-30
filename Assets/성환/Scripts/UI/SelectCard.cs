@@ -10,16 +10,6 @@ public enum Grade
     Rare,
     Unique
 }
-public enum Category
-{
-    Damage,
-    AttackSpeed,
-    AttackRange,
-    AttackAbility,
-    Last,
-    Reflect,
-    Player
-}
 public class SelectCard : MonoBehaviour
 {
     [HideInInspector] public Grade gr;
@@ -33,9 +23,26 @@ public class SelectCard : MonoBehaviour
     List<SelectCardManager.CardData> temp_list;
     SelectCardManager.CardData cd;
     public float ability_value;
-
+    GameObject equip_weapon;
+    GameObject equip_weapon2;
     public void Init()
     {
+        switch (GameManager.instance.player.player_weapon)
+        {
+            case PlayerWeapon.NormalBomb:
+            case PlayerWeapon.MagnetBomb:
+            case PlayerWeapon.WebBomb:
+            case PlayerWeapon.FireBomb:
+                equip_weapon = GameManager.instance.player.bomb.gameObject;
+                break;
+            case PlayerWeapon.Laser:
+                equip_weapon = GameManager.instance.player.laser.gameObject;
+                break;
+            case PlayerWeapon.EnergyBolt:
+                equip_weapon = GameManager.instance.player.fxmanager.gameObject;
+                break;
+        }
+        equip_weapon2 = GameManager.instance.player.bullet.gameObject;
         GetComponent<Button>().enabled = false;
         GetComponent<Image>().color = new Color(255f, 255f, 255f);
         rand = Random.Range(1, 100);
@@ -46,7 +53,10 @@ public class SelectCard : MonoBehaviour
             case PlayerWeapon.Laser:
                 Weapon_Card(CardKind.laser);
                 break;
-            case PlayerWeapon.Bomb:
+            case PlayerWeapon.NormalBomb:
+            case PlayerWeapon.FireBomb:
+            case PlayerWeapon.WebBomb:
+            case PlayerWeapon.MagnetBomb:
                 Weapon_Card(CardKind.bomb);
                 break;
             case PlayerWeapon.EnergyBolt:
@@ -123,12 +133,11 @@ public class SelectCard : MonoBehaviour
     }
     public void OnclickCard()
     {
-        Debug.Log(cd.change);
         foreach(var item in GameManager.instance.selectCardManager.sc_list)
         {
             item.gameObject.SetActive(false);
         }
-        
+        SetAbility();
         GameManager.instance.selectCardManager.cardCheck_list.Clear();
         GameManager.instance.selectCardManager.sc_list.Clear();
         GameManager.instance.isPause = false;
@@ -139,19 +148,60 @@ public class SelectCard : MonoBehaviour
         switch (cd.category)
         {
            case "Damage":
+                switch (cd.kind)
+                {
+                    case "bomb":
+                        GetComponent<Bomb>().bd.BombAttack *= cd.change;
+                        break;
+                    case "bullet":
+                        GetComponent<Bullet>().Attack *= cd.change;
+                        break;
+                    case "laser":
+                        GetComponent<LaserChild>().Attack *= cd.change;
+                        break;
+                    case "energybolt":
+                        GetComponent<FxManager>().fd.Attack *= cd.change;
+                        break;
+                }
                 break;
             case "AttackSpeed":
+                switch (cd.kind)
+                {
+                    case "bomb":
+                        GetComponent<Player>().BombCTime = cd.change;
+                        break;
+                    case "bullet":
+                        GetComponent<Player>().BulletCTime = cd.change;
+                        break;
+                    case "laser":
+                        GetComponent<Player>().LaserCTime = cd.change;
+                        break;
+                }
                 break;
             case "AttackRange":
+                switch (cd.kind)
+                {
+                    case "bomb":
+                        //GetComponent<Bomb>(). = cd.change;
+                        break;
+                }
                 break;
             case "AttackAbility":
+                GetComponent<Bullet>().AttackAbility += (int)cd.change;
                 break;
             case "Last":
+                GetComponent<Laser>().LaserLastTime *= cd.change;
                 break;
             case "Reflect":
+                //GameManager.instance.ReflectMaxCount += (int)cd.change;
                 break;
             case "Player":
-                break; 
+                GetComponent<Player>().definePD.MaxHp += cd.change;
+                GetComponent<Player>().definePD.CurHp += cd.change;
+                break;
+            case "NUM":
+                GameManager.instance.player.index += (int)cd.change;
+                break;
         }
     }
     

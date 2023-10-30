@@ -244,7 +244,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &99800435
 Transform:
   m_ObjectHideFlags: 0
@@ -20659,6 +20659,7 @@ MonoBehaviour:
   bullet_parent:
   - {fileID: 8898409927773117031}
   - {fileID: 88947800062768257}
+  fxmanager: {fileID: -577172998427142138, guid: 9573d0d3926dedd4391cdf02c5051ad8, type: 3}
   enegyTrans:
   - {fileID: 202987329}
   - {fileID: 1131198486}
