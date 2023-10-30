@@ -159,16 +159,16 @@ public abstract class Enemy : MonoBehaviour
                 //CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
                 break;
             case "Laser":
-                Hp -= collision.GetComponent<Bullet>().Attack;
-                collision.GetComponent<Bullet>().AttackAbility -= 1;
-                if (collision.GetComponent<Bullet>().AttackAbility <= 0)
-                {
-                    collision.gameObject.SetActive(false);
-                }
-                CreateDamageTxt(collision.GetComponent<Bullet>().Attack);
+                Hp -= collision.GetComponent<LaserChild>().Attack;
+                CreateDamageTxt(collision.GetComponent<LaserChild>().Attack);
                 break;
             case "Bullet":
                 Hp -= collision.GetComponent<Bullet>().Attack;
+                collision.GetComponent<Bullet>().AttackAbility -= 1;
+                if(collision.GetComponent<Bullet>().AttackAbility <= 0)
+                {
+                    collision.gameObject.SetActive(false);
+                }
                 CreateDamageTxt(collision.GetComponent<Bullet>().Attack);
                 break;
             case "EnegyBolt":

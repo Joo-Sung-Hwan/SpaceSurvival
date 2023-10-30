@@ -110,6 +110,13 @@ public class SelectCard : MonoBehaviour
                 temp.Add(item);
             }
         }
+        foreach (var item in GameManager.instance.selectCardManager.selectcarddata[CardKind.bullet])
+        {
+            if (item.rare == grade)
+            {
+                temp.Add(item);
+            }
+        }
         int rand0 = Random.Range(0, temp.Count);
         if (GameManager.instance.selectCardManager.cardCheck_list.Contains(temp[rand0]))
         {
