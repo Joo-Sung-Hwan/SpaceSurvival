@@ -139,14 +139,11 @@ public class InventoryManager : MonoBehaviour
         ItemScriptableData isd = isdList[rand];
         ItemStaticData newIsData = new ItemStaticData(isd.ItemName, isd.Place, isd.SpriteName, isd.Description);
 
-        //임시
-        int randRarity = Random.Range(1, 4);
-
         List<Item_Ability> newItemAbs = new List<Item_Ability>();
 
         //랜덤으로 어빌리티의 종류/수치를 결정함
-        // i = 최대 ability 개수
-        for (int i = 0; i < 5; i++)
+        //Random.Range(최소 개수, 최대 개수+1)
+        for (int i = 0; i < Random.Range(2,6); i++)
         {
             Item_Ability item_Ab = new Item_Ability();
 

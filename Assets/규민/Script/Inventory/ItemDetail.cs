@@ -42,11 +42,17 @@ public class ItemDetail : MonoBehaviour
 
         itemDesc_Txt.text = ivd.itemStaticData.description;
 
-        int index = 0;
-        foreach (var abil in ivd.abilities)
+        for (int i = 0; i < ability_Txt.Count; i++)
         {
-            ability_Txt[index].text = AbEnumToString(abil.abilityName) + " + " + abil.abilityValue + "%";
-            SetColor(abil.abilityrarity, ability_Txt[index++]);
+            if (i + 1 <= ivd.abilities.Count)
+            {
+                ability_Txt[i].gameObject.SetActive(true);
+                ability_Txt[i].text = AbEnumToString(ivd.abilities[i].abilityName) + " + " + ivd.abilities[i].abilityValue + "%";
+                SetColor(ivd.abilities[i].abilityrarity, ability_Txt[i]);
+                Debug.Log(111);
+            }
+            else
+                ability_Txt[i].gameObject.SetActive(false);
         }
 
         itemImage.sprite = Resources.Load<Sprite>("ItemIcons/" + ivd.itemStaticData.spriteName);
