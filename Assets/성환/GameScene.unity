@@ -20654,6 +20654,11 @@ MonoBehaviour:
   laser: {fileID: -3206816259849341346, guid: b0785ab372f3fec46b68513e1e401e60, type: 3}
   laser_parent: {fileID: 3695146227478737774}
   bomb: {fileID: 8651506747060013263, guid: 5984a097eafe9a7448d46f3769b3db32, type: 3}
+  bombkind:
+  - {fileID: 5973910409910810619, guid: 923d33ba1f700b6469791209c95b6d7f, type: 3}
+  - {fileID: -8284519638914888950, guid: f5955ed93b894674083e75bbe89b4c1a, type: 3}
+  - {fileID: -7094247771846778094, guid: b47571baa51aeaf42bb5bff67ea78db3, type: 3}
+  - {fileID: 8651506747060013263, guid: 5984a097eafe9a7448d46f3769b3db32, type: 3}
   area: {fileID: 722039230127804969}
   bullet: {fileID: 8681445915381928944, guid: 10c22bdd66cb3d04285e87657896fa9d, type: 3}
   bullet_parent:
