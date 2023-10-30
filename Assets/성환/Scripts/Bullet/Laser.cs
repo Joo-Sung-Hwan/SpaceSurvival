@@ -81,6 +81,7 @@ public class Laser : MonoBehaviour
                 c.GetComponent<SpriteRenderer>().size = new Vector2(Vector2.Distance(lr.GetPosition(i - 1), lr.GetPosition(i)), LaserSize);
                 transform.GetChild(i - 1).GetComponent<BoxCollider2D>().size = new Vector2(Vector2.Distance(lr.GetPosition(i - 1), lr.GetPosition(i)), LaserSize);
                 transform.GetChild(i - 1).GetComponent<BoxCollider2D>().offset = new Vector2((Vector2.Distance(lr.GetPosition(i - 1), lr.GetPosition(i))) * 0.5f, 0f);
+                c.Init();
             }
             if (!transform.GetChild(i - 1).gameObject.activeSelf)
             {
@@ -90,6 +91,7 @@ public class Laser : MonoBehaviour
                 transform.GetChild(i - 1).GetComponent<SpriteRenderer>().size = new Vector2(Vector2.Distance(lr.GetPosition(i - 1), lr.GetPosition(i)), LaserSize);
                 transform.GetChild(i - 1).GetComponent<BoxCollider2D>().size = new Vector2(Vector2.Distance(lr.GetPosition(i - 1), lr.GetPosition(i)), LaserSize);
                 transform.GetChild(i - 1).GetComponent<BoxCollider2D>().offset = new Vector2((Vector2.Distance(lr.GetPosition(i - 1), lr.GetPosition(i))) * 0.5f, 0f);
+                transform.GetChild(i - 1).GetComponent<LaserChild>().Init();
                 transform.GetChild(i - 1).gameObject.SetActive(true);
             }
             OnCollider();

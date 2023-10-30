@@ -92,7 +92,6 @@ public class Player : MonoBehaviour
                 ani.SetTrigger("Idle");
             }
         }
-        
     }
 
     public void SetBombEuqipment()
@@ -150,7 +149,7 @@ public class Player : MonoBehaviour
         delayTimeL += Time.deltaTime;
         if (delayTimeL > LaserCTime)
         {
-            GameManager.instance.pollingsystem.PollingLaser(laser, laser_parent);
+            laser = GameManager.instance.pollingsystem.PollingLaser(laser, laser_parent);
             delayTimeL = 0f;
         }
     }
@@ -216,7 +215,7 @@ public class Player : MonoBehaviour
         switch (bomb.bt)
         {
             case BombType.Nomal:
-                BombCTime = 3f;
+                BombCTime = 0.4f;
                 break;
             case BombType.Fire:
                 BombCTime = 4f;

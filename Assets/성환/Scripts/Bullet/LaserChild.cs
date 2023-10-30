@@ -7,8 +7,15 @@ public class LaserChild : MonoBehaviour
     [HideInInspector] public float Attack { get; set; }
 
     // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
-        Attack = 10f;
+        Init();
+    }
+
+    public void Init()
+    {
+        Attack = GameManager.instance.weaponDataManager.laser_damage;
+
     }
 }

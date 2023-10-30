@@ -158,13 +158,13 @@ public class SelectCard : MonoBehaviour
                 switch (cd.kind)
                 {
                     case "bomb":
-                        GameManager.instance.player.bomb.bd.BombAttack += cd.change;
+                        GameManager.instance.weaponDataManager.normal_bomb_damage += cd.change;
                         break;
                     case "bullet":
                         GameManager.instance.player.bullet.Attack += cd.change;
                         break;
                     case "laser":
-                        GameManager.instance.player.laser.lc.Attack += cd.change;
+                        GameManager.instance.weaponDataManager.laser_damage += cd.change;
                         break;
                     case "energybolt":
                         GameManager.instance.player.fxmanager.fd.Attack += cd.change;
@@ -203,7 +203,7 @@ public class SelectCard : MonoBehaviour
                 GameManager.instance.player.laser.ReflectMaxCount += (int)cd.change;
 
                 break;
-            case "Player":
+            case "HP":
                 GameManager.instance.player.definePD.MaxHp += cd.change;
                 GameManager.instance.player.definePD.CurHp += cd.change;
                 break;

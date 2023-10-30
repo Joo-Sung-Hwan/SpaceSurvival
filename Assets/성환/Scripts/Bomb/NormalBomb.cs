@@ -9,7 +9,7 @@ public class NormalBomb : Bomb
         bt = BombType.Nomal;
         bd.zoneTrans = transform.GetChild(2);
         bd.collider2D = bd.zoneTrans.GetComponent<CircleCollider2D>();
-        bd.BombAttack = 25f;
+        bd.BombAttack = GameManager.instance.weaponDataManager.normal_bomb_damage;
     }
 
     void Start()
