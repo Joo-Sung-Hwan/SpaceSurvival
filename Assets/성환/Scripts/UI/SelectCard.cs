@@ -152,25 +152,28 @@ public class SelectCard : MonoBehaviour
 
     public void SetAbility()
     {
-        //Bomb[] bomb = FindObjectsOfType<Bomb>();
         switch (cd.category)
         {
            case "Damage":
                 switch (cd.kind)
                 {
                     case "bomb":
-                        //GameManager.instance.weaponDataManager.bomb_damage += cd.change;
-                        foreach(var item in GameManager.instance.pollingsystem.bo_queue)
+                        foreach (var item in GameManager.instance.pollingsystem.bo_queue)
                         {
                             item.bd.BombAttack += cd.change;
                         }
-                        //GameManager.instance.player.bomb.bd.bombAttack += cd.change;
                         break;
                     case "bullet":
-                        GameManager.instance.player.bullet.Attack += cd.change;
+                        foreach (var item in GameManager.instance.pollingsystem.b_queue)
+                        {
+                            item.Attack += cd.change;
+                        }
                         break;
                     case "laser":
-                        GameManager.instance.weaponDataManager.laser_damage += cd.change;
+                        foreach (var item in GameManager.instance.pollingsystem.lc_queue)
+                        {
+                            item.Attack += cd.change;
+                        }
                         break;
                     case "energybolt":
                         GameManager.instance.player.fxmanager.fd.Attack += cd.change;
@@ -218,7 +221,21 @@ public class SelectCard : MonoBehaviour
                 break;
         }
     }
-    
+    public void SettingStatPlus(Queue queue, float stat)
+    {
+        foreach (var item in queue)
+        {
+            stat += cd.change;
+        }
+    }
+
+    public void SettingStatEqual(Queue queue, float stat)
+    {
+        foreach (var item in queue)
+        {
+            stat = cd.change;
+        }
+    }
     // 버튼 이벤트 활성화
     public void SetEnableChildButton()
     {

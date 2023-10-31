@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PollingSystem : MonoBehaviour
 {
-    Queue<Bullet> b_queue;
-    Queue<Laser> l_queue;
+    [HideInInspector] public Queue<Bullet> b_queue;
+    [HideInInspector] public Queue<Laser> l_queue;
+    [HideInInspector] public Queue<LaserChild> lc_queue;
     Queue<Enemy> e_queue;
-    public Queue<Bomb> bo_queue;
+    [HideInInspector] public Queue<Bomb> bo_queue;
     Queue<Item> item_queue;
     Queue<SelectCard> s_queue;
     Queue<DamageTxt> t_queue;
@@ -17,6 +18,7 @@ public class PollingSystem : MonoBehaviour
     {
         b_queue = new Queue<Bullet>();
         l_queue = new Queue<Laser>();
+        lc_queue = new Queue<LaserChild>();
         e_queue = new Queue<Enemy>();
         bo_queue = new Queue<Bomb>();
         item_queue = new Queue<Item>();
@@ -77,7 +79,6 @@ public class PollingSystem : MonoBehaviour
             if (!item.gameObject.activeSelf)
             {
                 l = item;
-                l.SetData();
                 l.transform.position = parent.position;
                 l.gameObject.SetActive(true);
                 break;
@@ -87,11 +88,38 @@ public class PollingSystem : MonoBehaviour
         {
             l = Instantiate(laser, parent);
             l.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_laser_parent);
-            l.SetData();
             l_queue.Enqueue(l);
         }
         l.gameObject.SetActive(true);
         return l;
+    }
+
+    public LaserChild PollingLaserChild(LaserChild laserchild, Transform parent)
+    {
+        LaserChild lc = null;
+        if (lc_queue.Count == 0)
+        {
+            LaserChild lh = Instantiate(laserchild, parent);
+            lc_queue.Enqueue(lh);
+            return lh;
+        }
+        foreach (LaserChild item in lc_queue)
+        {
+            if (!item.gameObject.activeSelf)
+            {
+                lc = item;
+                lc.transform.position = parent.position;
+                lc.gameObject.SetActive(true);
+                break;
+            }
+        }
+        if (lc == null)
+        {
+            lc = Instantiate(laserchild, parent);;
+            lc_queue.Enqueue(lc);
+        }
+        lc.gameObject.SetActive(true);
+        return lc;
     }
     public Bomb PollingBomb(Bomb bomb, Transform parent)
     {
@@ -191,7 +219,6 @@ public class PollingSystem : MonoBehaviour
         {
             SelectCard sc = Instantiate(card, parent);
             s_queue.Enqueue(sc);
-            sc.Init();
             sc.transform.SetParent(GameManager.instance.selectCardManager.selectcard_parent);
             return sc;
         }
@@ -200,7 +227,6 @@ public class PollingSystem : MonoBehaviour
             if (!item.gameObject.activeSelf)
             {
                 s = item;
-                s.Init();
                 s.transform.position = parent.position;
                 s.gameObject.SetActive(true);
                 return s;
@@ -209,7 +235,6 @@ public class PollingSystem : MonoBehaviour
         if (s == null)
         {
             s = Instantiate(card, parent);
-            s.Init();
             s.transform.SetParent(GameManager.instance.selectCardManager.selectcard_parent);
             s_queue.Enqueue(s);
         }

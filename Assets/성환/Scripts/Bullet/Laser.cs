@@ -15,7 +15,6 @@ public class Laser : MonoBehaviour
     [HideInInspector] public float LaserSize { get; set; }
     public void Start()
     {
-        lr = GetComponent<LineRenderer>();
         ReflectMaxCount = 5;
         LaserSize = 0.2f;
         LaserLastTime = 0.5f;
@@ -34,7 +33,7 @@ public class Laser : MonoBehaviour
         d_time += Time.deltaTime;
         if (d_time > LaserLastTime)
         {
-            for(int i = 0; i < transform.childCount; i++)
+            for (int i = 0; i < transform.childCount; i++)
             {
                 transform.GetChild(i).gameObject.SetActive(false);
             }
@@ -55,11 +54,11 @@ public class Laser : MonoBehaviour
     // LineRenderer, 레이저 발사
     public void ShootRay()
     {
+        lr = GetComponent<LineRenderer>();
         lr.enabled = true;
         Vector2 newposition = transform.position;
         Vector2 newDir = nextDir;
         lr.positionCount = ReflectMaxCount;
-        float rotZ;
         // LineRenderer의 찍는 좌표 갯수만큼 반복문 호출
         for (int i = 0; i < lr.positionCount; i++)
         {
@@ -72,28 +71,8 @@ public class Laser : MonoBehaviour
             ray = Physics2D.Raycast(newposition, newDir, 300f, layermask);
             lr.SetPosition(i, new Vector3(ray.point.x, ray.point.y, 0f));
             newposition = ray.point;
-            if (transform.childCount < lr.positionCount - 1)
-            {
-                LaserChild c = Instantiate(lc, transform);
-                c.transform.position = lr.GetPosition(i - 1);
-                rotZ = GetAngle(lr.GetPosition(i - 1), lr.GetPosition(i));
-                c.transform.rotation = Quaternion.Euler(0, 0, rotZ);
-                c.GetComponent<SpriteRenderer>().size = new Vector2(Vector2.Distance(lr.GetPosition(i - 1), lr.GetPosition(i)), LaserSize);
-                transform.GetChild(i - 1).GetComponent<BoxCollider2D>().size = new Vector2(Vector2.Distance(lr.GetPosition(i - 1), lr.GetPosition(i)), LaserSize);
-                transform.GetChild(i - 1).GetComponent<BoxCollider2D>().offset = new Vector2((Vector2.Distance(lr.GetPosition(i - 1), lr.GetPosition(i))) * 0.5f, 0f);
-                c.Init();
-            }
-            if (!transform.GetChild(i - 1).gameObject.activeSelf)
-            {
-                transform.GetChild(i - 1).transform.position = lr.GetPosition(i - 1);
-                rotZ = GetAngle(lr.GetPosition(i - 1), lr.GetPosition(i));
-                transform.GetChild(i - 1).transform.rotation = Quaternion.Euler(0, 0, rotZ);
-                transform.GetChild(i - 1).GetComponent<SpriteRenderer>().size = new Vector2(Vector2.Distance(lr.GetPosition(i - 1), lr.GetPosition(i)), LaserSize);
-                transform.GetChild(i - 1).GetComponent<BoxCollider2D>().size = new Vector2(Vector2.Distance(lr.GetPosition(i - 1), lr.GetPosition(i)), LaserSize);
-                transform.GetChild(i - 1).GetComponent<BoxCollider2D>().offset = new Vector2((Vector2.Distance(lr.GetPosition(i - 1), lr.GetPosition(i))) * 0.5f, 0f);
-                transform.GetChild(i - 1).GetComponent<LaserChild>().Init();
-                transform.GetChild(i - 1).gameObject.SetActive(true);
-            }
+            LaserChild c = GameManager.instance.pollingsystem.PollingLaserChild(lc, transform);
+            c.Init(lr.GetPosition(i - 1), lr.GetPosition(i), LaserSize);
             OnCollider();
             ray.collider.gameObject.SetActive(false);
             newDir = Vector2.Reflect(newDir, ray.normal);

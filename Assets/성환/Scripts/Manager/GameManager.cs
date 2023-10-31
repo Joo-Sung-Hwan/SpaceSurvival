@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public bool isPause = false;
     public Player player;
     public SelectCardManager selectCardManager;
-    public WeaponDataManager weaponDataManager;
+    //public WeaponDataManager weaponDataManager;
     public Canvas canvas;
 
     

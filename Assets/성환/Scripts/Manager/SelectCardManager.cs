@@ -60,6 +60,7 @@ public class SelectCardManager : MonoBehaviour
     public void CreateSelectCard()
     {
         SelectCard sc = GameManager.instance.pollingsystem.PoolingSelectCard(selectcard, selectcard_parent);
+        sc.Init();
         sc_list.Add(sc);
         foreach (var item in sc_list)
         {

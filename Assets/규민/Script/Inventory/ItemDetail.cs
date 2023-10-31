@@ -49,7 +49,6 @@ public class ItemDetail : MonoBehaviour
                 ability_Txt[i].gameObject.SetActive(true);
                 ability_Txt[i].text = AbEnumToString(ivd.abilities[i].abilityName) + " + " + ivd.abilities[i].abilityValue + "%";
                 SetColor(ivd.abilities[i].abilityrarity, ability_Txt[i]);
-                Debug.Log(111);
             }
             else
                 ability_Txt[i].gameObject.SetActive(false);

@@ -159,7 +159,8 @@ public class Player : MonoBehaviour
         delayTimeL += Time.deltaTime;
         if (delayTimeL > LaserCTime)
         {
-            laser = GameManager.instance.pollingsystem.PollingLaser(laser, laser_parent);
+            Laser l = GameManager.instance.pollingsystem.PollingLaser(laser, laser_parent);
+            l.SetData();
             delayTimeL = 0f;
         }
     }

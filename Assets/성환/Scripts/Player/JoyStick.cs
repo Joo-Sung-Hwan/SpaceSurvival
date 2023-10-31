@@ -17,11 +17,11 @@ public class JoyStick : MonoBehaviour, IBeginDragHandler,IEndDragHandler,IDragHa
     bool isDrag;
 
     // Player 움직이는 속도
-    [HideInInspector] public float Speed { get; set; }
+    
 
     void Start()
     {
-        Speed = 2f;
+        
     }
 
     // Drag 시작할 때
@@ -66,7 +66,7 @@ public class JoyStick : MonoBehaviour, IBeginDragHandler,IEndDragHandler,IDragHa
             {
                 p.GetComponent<SpriteRenderer>().flipX = false;
             }
-            p.transform.Translate(new Vector2(input_vector.x, input_vector.y) * Time.deltaTime * Speed);
+            p.transform.Translate(new Vector2(input_vector.x, input_vector.y) * Time.deltaTime * GameManager.instance.player.definePD.Speed);
             // Clamp 사용해서 캐릭터 움직임 제한
             Vector3 temp;
             temp = new Vector2(Mathf.Clamp(p.transform.position.x, -10f, 10f), Mathf.Clamp(p.transform.position.y, -9f, 9f));
