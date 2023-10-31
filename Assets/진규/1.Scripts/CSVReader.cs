@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+using System.IO;
 using System.Text.RegularExpressions;
+using System;
 
 // CSV Data를 만들기 위한 코드
 public class CSVReader
@@ -14,10 +15,11 @@ public class CSVReader
     public static List<Dictionary<string, object>> Read(string file)
     {
         var list = new List<Dictionary<string, object>>();
-        TextAsset data = Resources.Load(file) as TextAsset;
-
-        var lines = Regex.Split(data.text, LINE_SPLIT_RE);
-
+        //TextAsset data = Resources.Load(file) as TextAsset;
+        TextAsset data = Resources.Load<TextAsset>("EnemyData");
+        //var lines = Regex.Split(data.text, LINE_SPLIT_RE);
+        StringReader sr = new StringReader(data.text);
+        var lines = Regex.Split(sr.ToString(), LINE_SPLIT_RE);
         if (lines.Length <= 1) return list;
 
         var header = Regex.Split(lines[0], SPLIT_RE);
