@@ -12675,6 +12675,9 @@ MonoBehaviour:
   - {fileID: 58299603}
   - {fileID: 216956139}
   timeText: {fileID: 53850549}
+  parentTrans:
+  - {fileID: 957796821}
+  - {fileID: 1596765868}
   images:
   - {fileID: 877314477}
   - {fileID: 1873567651}
