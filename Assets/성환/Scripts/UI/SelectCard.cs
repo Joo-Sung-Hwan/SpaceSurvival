@@ -158,7 +158,7 @@ public class SelectCard : MonoBehaviour
                 switch (cd.kind)
                 {
                     case "bomb":
-                        GameManager.instance.weaponDataManager.normal_bomb_damage += cd.change;
+                        GameManager.instance.weaponDataManager.bomb_damage += cd.change;
                         break;
                     case "bullet":
                         GameManager.instance.player.bullet.Attack += cd.change;

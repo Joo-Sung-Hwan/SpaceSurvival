@@ -159,8 +159,8 @@ public abstract class Enemy : MonoBehaviour
                 break;
             case "NormalBomb":
                 TransType(collision, out normalBombZone);
-                Hp -= collision.transform.parent.GetComponent<Bomb>().bd.BombAttack;
-                CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
+                //Hp -= collision.transform.parent.GetComponent<Bomb>().bd.BombAttack;
+                //CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
                 break;
             case "Laser":
                 Hp -= collision.GetComponent<LaserChild>().Attack;
@@ -181,7 +181,7 @@ public abstract class Enemy : MonoBehaviour
                 break;
             case "MagnetBomb":
                 TransType(collision,out magnetBombZone);
-                CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
+                //CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
                 break;
             case "WebBomb":
                 TransType(collision, out webBombZone);
@@ -283,8 +283,8 @@ public abstract class Enemy : MonoBehaviour
         {
             if (fireBombZone && !IsDead)
             {
-                Hp -= bomb.bd.BombAttack;
-                CreateDamageTxt(bomb.bd.BombAttack);
+                //Hp -= bomb.bd.BombAttack;
+                //CreateDamageTxt(bomb.bd.BombAttack);
             }
             isShow = !isShow;
             for(int j = 0; j < bomb.colors.Count; j++)

@@ -5,11 +5,12 @@ using UnityEngine;
 public class WeaponDataManager : MonoBehaviour
 {
     [HideInInspector] public float laser_damage;
-    [HideInInspector] public float normal_bomb_damage;
+    [HideInInspector] public float bomb_damage;
+    [HideInInspector] public float bomb_range;
 
     private void Start()
     {
         laser_damage = 10f;
-        normal_bomb_damage = 20f;
+        bomb_damage = 20f;
     }
 }

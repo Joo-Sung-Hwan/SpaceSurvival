@@ -9,7 +9,7 @@ public class MagnetBomb : Bomb
         bt = BombType.Magnet;
         bd.zoneTrans = transform.GetChild(2);
         bd.collider2D = bd.zoneTrans.GetComponent<CircleCollider2D>();
-        bd.BombAttack = 2f;
+        //bd.bomb_Attack = BombAttack;
     }
 
     void Start()

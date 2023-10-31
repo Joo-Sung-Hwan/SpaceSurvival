@@ -19,8 +19,9 @@ public enum BombType
 
 public struct BombData
 {
-    public float BombAttack { get; set; }
-    public float BombSize { get; set; }
+    
+    public float bomb_attack;
+    public float bomb_size;
     public float BombDebuff { get; set; }
     public Transform zoneTrans;
     public CircleCollider2D collider2D;
@@ -28,6 +29,28 @@ public struct BombData
 
 public abstract class Bomb : MonoBehaviour
 {
+    public float BombAttack
+    {
+        get
+        {
+            return GameManager.instance.weaponDataManager.bomb_damage;
+        }
+        set
+        {
+            GameManager.instance.weaponDataManager.bomb_damage = value;
+        }
+    }
+    public float BombSize
+    {
+        get
+        {
+            return GameManager.instance.weaponDataManager.bomb_damage;
+        }
+        set
+        {
+            GameManager.instance.weaponDataManager.bomb_damage = value;
+        }
+    }
     Vector3 start_pos;
     Vector2 dir;
     Vector2 destination;
@@ -79,7 +102,6 @@ public abstract class Bomb : MonoBehaviour
 
             CheckGroundHit();
         }
-        Debug.Log(bd.BombAttack);
     }
 
     void DirInit(Vector2 dir)
@@ -127,6 +149,7 @@ public abstract class Bomb : MonoBehaviour
         shadow.gameObject.SetActive(active);
     }
 
+    /*
     // ÆøÅº ÅÍÁö´Â ¹üÀ§ ¼³Á¤
     public void SetBombSize(float size)
     {
@@ -134,7 +157,7 @@ public abstract class Bomb : MonoBehaviour
         //GetComponent<Transform>().localScale = new Vector3(bd.BombSize, bd.BombSize, 0f);
         bd.collider2D.radius = bd.BombSize;
     }
-
+    */
     public void SetBombDebuff(float bombDebuff)
     {
         bd.BombDebuff = bombDebuff;

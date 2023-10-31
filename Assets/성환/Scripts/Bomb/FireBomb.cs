@@ -9,7 +9,7 @@ public class FireBomb : Bomb
         bt = BombType.Fire;
         bd.zoneTrans = transform.GetChild(2);
         bd.collider2D = bd.zoneTrans.GetComponent<CircleCollider2D>();
-        bd.BombAttack = 1f;
+        //bd.bomb_attack = BombAttack - 19f;
     }
 
     void Start()

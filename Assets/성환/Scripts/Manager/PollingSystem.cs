@@ -121,7 +121,6 @@ public class PollingSystem : MonoBehaviour
         if (b == null)
         {
             b = Instantiate(bomb, parent);
-            b.Init();
             b.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bomb_parent);
             bo_queue.Enqueue(b);
         }
