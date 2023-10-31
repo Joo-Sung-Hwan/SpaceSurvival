@@ -1,1 +1,34 @@
-{}
+{
+  "weapon": {
+    "itemStaticData": {
+      "name": "폭탄",
+      "place": 0,
+      "weaponKind": 1,
+      "spriteName": "Bomb_Icon",
+      "description": "주변으로 날아가 폭발합니다."
+    },
+    "rarity": 0,
+    "abilities": [
+      {
+        "abilityName": 2,
+        "abilityValue": 18.0,
+        "abilityrarity": 0
+      },
+      {
+        "abilityName": 3,
+        "abilityValue": 14.0,
+        "abilityrarity": 1
+      },
+      {
+        "abilityName": 2,
+        "abilityValue": 7.0,
+        "abilityrarity": 3
+      },
+      {
+        "abilityName": 2,
+        "abilityValue": 6.0,
+        "abilityrarity": 3
+      }
+    ]
+  }
+}
