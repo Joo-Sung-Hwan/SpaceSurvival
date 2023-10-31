@@ -143,7 +143,7 @@ public abstract class Enemy : MonoBehaviour
     public void Dead()
     {
         IsDead = true;
-        GameManager.instance.gameUI.monsterIndex--;
+        GameManager.instance.gameUI.monsterIndex++;
         StopCoroutine("OnOff");
         ed.enemyState = EnemyState.Dead;
         anim.SetTrigger("Dead");

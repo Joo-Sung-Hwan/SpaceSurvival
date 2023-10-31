@@ -55,18 +55,29 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player_weapon = PlayerWeapon.NormalBomb;
-        SetBombEuqipment();
+        switch(player_weapon)
+        {
+            case PlayerWeapon.NormalBomb:
+            case PlayerWeapon.MagnetBomb:
+            case PlayerWeapon.WebBomb:
+            case PlayerWeapon.FireBomb:
+                SetBombEuqipment();
+                break;
+            default:
+                break;
+                
+        }
         ps = PlayerState.Idle;
         ani = GetComponent<Animator>();
         definePD.MaxHp = 20;
         definePD.CurHp = definePD.MaxHp;
         definePD.MaxExp = 200f;
+        definePD.Speed = 2f;
         Init();
-        //GameManager.instance.SetPlayerStatus();
         SwitchBombCreate();
         BulletCTime = 2f;
         LaserCTime = 2f;
+        GameManager.instance.SetPlayerStatus();
     }
 
     // Update is called once per frame
