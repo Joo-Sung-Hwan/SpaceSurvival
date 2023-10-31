@@ -11,7 +11,7 @@ namespace Singleton
         private static PauseManager instance = null;
 
         [SerializeField] public GameObject pauseUI;
-        [SerializeField] List<Button> buttons = new(); 
+        [SerializeField] List<Button> buttons = new();
         public static PauseManager Instance
         {
             get
@@ -29,9 +29,9 @@ namespace Singleton
 
         void Awake() => instance = this;
 
-        void Update()
+        void Start()
         {
-
+            EneterExit();
         }
 
         // Pause버튼 누르면 게임멈춤
@@ -62,7 +62,7 @@ namespace Singleton
         // 나가기 누르면 로비로 Scene전환
         public void EneterExit()
         {
-
+            buttons[3].onClick.AddListener(FindObjectOfType<SceneChangeManger>().OnClickLobby);
         }
     }
 }

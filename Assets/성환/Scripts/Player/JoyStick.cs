@@ -55,6 +55,7 @@ public class JoyStick : MonoBehaviour, IBeginDragHandler,IEndDragHandler,IDragHa
 
     void PlayerControl(Player p)
     {
+        
         if (isDrag)
         {
             if(input_vector.x > 0)
@@ -66,8 +67,12 @@ public class JoyStick : MonoBehaviour, IBeginDragHandler,IEndDragHandler,IDragHa
                 p.GetComponent<SpriteRenderer>().flipX = false;
             }
             p.transform.Translate(new Vector2(input_vector.x, input_vector.y) * Time.deltaTime * Speed);
+            // Clamp 사용해서 캐릭터 움직임 제한
+            Vector3 temp;
+            temp = new Vector2(Mathf.Clamp(p.transform.position.x, -10f, 10f), Mathf.Clamp(p.transform.position.y, -9f, 9f));
+            p.transform.position = temp;
             // 움직일때 레이저 좌표도 같이 움직임
-            GameManager.instance.playerSpawnManager.tmp_laser_parent.transform.Translate(new Vector2(input_vector.x, input_vector.y) * Time.deltaTime * Speed);
+            GameManager.instance.playerSpawnManager.tmp_laser_parent.transform.position = p.transform.position;
             p.ps = PlayerState.Walk;
         }
     }

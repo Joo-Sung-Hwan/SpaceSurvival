@@ -20,5 +20,12 @@ public class SceneChangeManger : MonoBehaviour
     public void OnClickGameScene()
     {
         SceneManager.LoadScene("GameScene");
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public void OnClickLobby()
+    {
+        SceneManager.LoadScene("Lobby_GM");
+        Destroy(gameObject);
     }
 }
