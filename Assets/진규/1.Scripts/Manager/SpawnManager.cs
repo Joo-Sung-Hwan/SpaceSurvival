@@ -22,7 +22,7 @@ public class SpawnManager : MonoBehaviour
             return;
         spawnTime += Time.deltaTime;
 
-        if(spawnTime > 0.2f)
+        if(spawnTime > 1f)
         {
             spawnTime = 0;
             Spawn();

@@ -7,9 +7,9 @@ using DG.Tweening;
 
 public class InGameUI : MonoBehaviour
 {
-    [SerializeField] private TMP_Text timer;
     [SerializeField] private Image exp_Bar;
     [SerializeField] private Image hp_Bar;
+    [SerializeField] public TMP_Text timer;
     [SerializeField] public Button pauseButton;
     [SerializeField] public Material material;
     [SerializeField] public TMP_Text monsterIn;

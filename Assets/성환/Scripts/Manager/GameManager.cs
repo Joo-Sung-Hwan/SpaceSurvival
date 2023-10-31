@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public SpawnManager spawnManager;
     public PlayerCamera playerCamera;
     public InGameUI gameUI;
+    public ResultManager resultUI;
     public bool isPause = false;
     public Player player;
     public SelectCardManager selectCardManager;

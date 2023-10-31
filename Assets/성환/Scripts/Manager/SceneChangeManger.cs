@@ -26,6 +26,7 @@ public class SceneChangeManger : MonoBehaviour
     public void OnClickLobby()
     {
         SceneManager.LoadScene("Lobby_GM");
+        Time.timeScale = 1;
         Destroy(gameObject);
     }
 }

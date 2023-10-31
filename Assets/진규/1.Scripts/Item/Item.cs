@@ -29,7 +29,7 @@ public abstract class Item : MonoBehaviour
     void FixedUpdate()
     {
         time += Time.deltaTime;
-        if(time > 2f)
+        if(time > 5f)
         {
             time = 0;
             gameObject.SetActive(false);

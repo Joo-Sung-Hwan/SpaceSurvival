@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public float BombCTime { get; set; }
     [HideInInspector] public float BulletCTime { get; set; }
     [HideInInspector] public float LaserCTime { get; set; }
+    public bool missionCheck = false;
 
     // Start is called before the first frame update
     void Start()
@@ -58,7 +59,7 @@ public class Player : MonoBehaviour
         SetBombEuqipment();
         ps = PlayerState.Idle;
         ani = GetComponent<Animator>();
-        definePD.MaxHp = 100;
+        definePD.MaxHp = 20;
         definePD.CurHp = definePD.MaxHp;
         definePD.MaxExp = 200f;
         Init();
@@ -87,6 +88,7 @@ public class Player : MonoBehaviour
                 ani.SetTrigger("Idle");
             }
         }
+        Dead();
     }
 
     public void SetBombEuqipment()
@@ -191,6 +193,15 @@ public class Player : MonoBehaviour
         enegy.Rotate(Vector3.forward * Time.deltaTime * 70f);
     }
 
+    void Dead()
+    {
+        if(definePD.CurHp <= 0)
+        {
+            GameManager.instance.isPause = true;
+            GameManager.instance.resultUI.gameObject.SetActive(true);
+        }
+    }
+
     public void ChainLighningFire()
     {
         
@@ -213,7 +224,7 @@ public class Player : MonoBehaviour
         switch (bomb.bt)
         {
             case BombType.Nomal:
-                BombCTime = 0.4f;
+                BombCTime = 2f;
                 break;
             case BombType.Fire:
                 BombCTime = 4f;
