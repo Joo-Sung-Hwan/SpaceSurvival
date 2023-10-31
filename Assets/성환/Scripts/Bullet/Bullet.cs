@@ -11,6 +11,19 @@ public abstract class Bullet : MonoBehaviour
     protected bool dir;
     public abstract void init();
 
+    void Start()
+    {
+        Speed = 5f;
+        Attack = 10f;
+        AttackAbility = 1;
+    }
+
+    public void FixedUpdate()
+    {
+        Move();
+        DestroyBullet();
+    }
+
     public void Move()
     {
         if (dir)
@@ -44,10 +57,5 @@ public abstract class Bullet : MonoBehaviour
             destroy_time = 0f;
         }
     }
-    
-    public void FixedUpdate()
-    {
-        Move();
-        DestroyBullet();
-    }
+
 }

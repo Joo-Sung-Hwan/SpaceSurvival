@@ -51,11 +51,6 @@ public class Player : MonoBehaviour
     [HideInInspector] public float BulletCTime { get; set; }
     [HideInInspector] public float LaserCTime { get; set; }
 
-
-
-
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -134,11 +129,13 @@ public class Player : MonoBehaviour
         {
             if (GetComponent<SpriteRenderer>().flipX)
             {
-                GameManager.instance.pollingsystem.PollingBullet(bullet, bullet_parent[1]);
+                Bullet b = GameManager.instance.pollingsystem.PollingBullet(bullet, bullet_parent[1]);
+                b.init();
             }
             else
             {
-                GameManager.instance.pollingsystem.PollingBullet(bullet, bullet_parent[0]);
+                Bullet b = GameManager.instance.pollingsystem.PollingBullet(bullet, bullet_parent[0]);
+                b.init();
             }
             delayTimeBullet = 0f;
         }
@@ -164,7 +161,8 @@ public class Player : MonoBehaviour
         delayTimeB += Time.deltaTime;
         if (delayTimeB > BombCTime)
         {
-            GameManager.instance.pollingsystem.PollingBomb(bomb, area.transform);
+            Bomb b = GameManager.instance.pollingsystem.PollingBomb(bomb, area.transform);
+            b.ResetData();
             delayTimeB = 0f;
         }
     }

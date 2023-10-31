@@ -19,8 +19,8 @@ public enum BombType
 
 public struct BombData
 {
-    
-    public float bomb_attack;
+    public float BombAttack { get; set; }
+    //public float bomb_attack;
     public float bomb_size;
     public float BombDebuff { get; set; }
     public Transform zoneTrans;
@@ -29,28 +29,6 @@ public struct BombData
 
 public abstract class Bomb : MonoBehaviour
 {
-    public float BombAttack
-    {
-        get
-        {
-            return GameManager.instance.weaponDataManager.bomb_damage;
-        }
-        set
-        {
-            GameManager.instance.weaponDataManager.bomb_damage = value;
-        }
-    }
-    public float BombSize
-    {
-        get
-        {
-            return GameManager.instance.weaponDataManager.bomb_damage;
-        }
-        set
-        {
-            GameManager.instance.weaponDataManager.bomb_damage = value;
-        }
-    }
     Vector3 start_pos;
     Vector2 dir;
     Vector2 destination;
@@ -60,8 +38,8 @@ public abstract class Bomb : MonoBehaviour
     bool isGrounded = true;
     int maxbounce = 5;
     int curbounce;
-    public List<Color> colors = new();
     public BombData bd = new();
+    public List<Color> colors = new();
 
     public Transform sprite;
     public Transform shadow;
@@ -74,9 +52,6 @@ public abstract class Bomb : MonoBehaviour
     protected BombState bs;
     public BombType bt;
 
-    public abstract void Init();
-
-
     public virtual void ResetData()
     {
         curbounce = 0;
@@ -88,6 +63,7 @@ public abstract class Bomb : MonoBehaviour
         maxdis = Vector3.Distance(start_pos, destination);
         DirInit(destination);
         bs = BombState.Idle;
+        AtiveObj(transform, true);
     }
 
     void FixedUpdate()

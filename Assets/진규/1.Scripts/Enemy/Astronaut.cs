@@ -7,17 +7,11 @@ public class Astronaut : Enemy
     public override void Init()
     {
         ed.name = EnemyType.Astronaut.ToString();
-        //ed.exp = (int)DefineEnemyData.Exp;
-        //ed.hp = (int)DefineEnemyData.Hp;
-        //ed.attack = (int)DefineEnemyData.Attack;
-        //ed.defence = (int)DefineEnemyData.Defence;
-        //ed.speed = (int)DefineEnemyData.Speed;
         ed.magnetStrength = 1f;
         ed.magnetDistance = 10f;
         player = GameManager.instance.player;
         ed.sr = GetComponent<SpriteRenderer>();
         ed.sr.color = Color.white;
-        DataInPut();
     }
 
     void Update()

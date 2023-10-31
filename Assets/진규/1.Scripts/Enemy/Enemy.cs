@@ -92,6 +92,9 @@ public abstract class Enemy : MonoBehaviour
     void Start()
     {
         ed.sr = GetComponent<SpriteRenderer>();
+        ed.magnetStrength = 1f;
+        ed.magnetDistance = 10f;
+        DataInPut();
     }
 
     // 플레이어가 바라보는 방향에 몬스터가 플레이어 바라보기
@@ -103,8 +106,6 @@ public abstract class Enemy : MonoBehaviour
             transform.Translate(Time.deltaTime * ed.speed * distance.normalized);
         else
             transform.Translate(Time.deltaTime * ed.speed * DeBuff * distance.normalized);
-        //Debug.Log(ed.speed);
-        //Debug.Log(player.bomb.bd.BombDebuff);
         if (distance.normalized.x < 0)
             transform.GetComponent<SpriteRenderer>().flipX = false;
         else if (distance.normalized.x > 0)
@@ -159,8 +160,8 @@ public abstract class Enemy : MonoBehaviour
                 break;
             case "NormalBomb":
                 TransType(collision, out normalBombZone);
-                //Hp -= collision.transform.parent.GetComponent<Bomb>().bd.BombAttack;
-                //CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
+                Hp -= collision.transform.parent.GetComponent<Bomb>().bd.BombAttack;
+                CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
                 break;
             case "Laser":
                 Hp -= collision.GetComponent<LaserChild>().Attack;
@@ -181,7 +182,7 @@ public abstract class Enemy : MonoBehaviour
                 break;
             case "MagnetBomb":
                 TransType(collision,out magnetBombZone);
-                //CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
+                CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
                 break;
             case "WebBomb":
                 TransType(collision, out webBombZone);
@@ -242,7 +243,8 @@ public abstract class Enemy : MonoBehaviour
     {
         int rand = Random.Range (0, 100);
         int randIndex = rand < 33 ? 1 : 0;
-        GameManager.instance.pollingsystem.PollingItem(items[randIndex], transform);
+        Item i = GameManager.instance.pollingsystem.PollingItem(items[randIndex], transform);
+        i.Init();
         gameObject.SetActive(false);
     }
 
@@ -283,8 +285,8 @@ public abstract class Enemy : MonoBehaviour
         {
             if (fireBombZone && !IsDead)
             {
-                //Hp -= bomb.bd.BombAttack;
-                //CreateDamageTxt(bomb.bd.BombAttack);
+                Hp -= bomb.bd.BombAttack;
+                CreateDamageTxt(bomb.bd.BombAttack);
             }
             isShow = !isShow;
             for(int j = 0; j < bomb.colors.Count; j++)

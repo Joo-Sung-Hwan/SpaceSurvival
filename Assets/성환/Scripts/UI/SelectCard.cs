@@ -152,13 +152,19 @@ public class SelectCard : MonoBehaviour
 
     public void SetAbility()
     {
+        //Bomb[] bomb = FindObjectsOfType<Bomb>();
         switch (cd.category)
         {
            case "Damage":
                 switch (cd.kind)
                 {
                     case "bomb":
-                        GameManager.instance.weaponDataManager.bomb_damage += cd.change;
+                        //GameManager.instance.weaponDataManager.bomb_damage += cd.change;
+                        foreach(var item in GameManager.instance.pollingsystem.bo_queue)
+                        {
+                            item.bd.BombAttack += cd.change;
+                        }
+                        //GameManager.instance.player.bomb.bd.bombAttack += cd.change;
                         break;
                     case "bullet":
                         GameManager.instance.player.bullet.Attack += cd.change;
