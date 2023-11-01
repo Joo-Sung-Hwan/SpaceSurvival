@@ -20,6 +20,8 @@ public abstract class Bullet : MonoBehaviour
 
     public void FixedUpdate()
     {
+        if (GameManager.instance.isPause)
+            return;
         Move();
         DestroyBullet();
     }

@@ -68,6 +68,8 @@ public abstract class Bomb : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (GameManager.instance.isPause)
+            return;
         if (!isGrounded)
         {
             curheight += -gravity * Time.deltaTime;
@@ -165,6 +167,7 @@ public abstract class Bomb : MonoBehaviour
         }
     }
 
+    // ÆøÅº ¹üÀ§ collider2D On/Off
     public void AtiveObj(Transform trans,bool isActive)
     {
         for (int i = 0; i < 2; i++)

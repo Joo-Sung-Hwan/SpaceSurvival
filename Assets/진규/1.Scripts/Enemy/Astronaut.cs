@@ -16,18 +16,19 @@ public class Astronaut : Enemy
 
     void Update()
     {
+        if (player == null)
+        {
+            player = GameManager.instance.player;
+            return;
+        }
+        if (!IsDead)
+        {
+            Move();
+            MagnetEvents();
+        }
         if (!GameManager.instance.isPause)
         {
-            if (player == null)
-            {
-                player = GameManager.instance.player;
-                return;
-            }
-            if (!IsDead)
-            {
-                Move();
-                MagnetEvents();
-            }
+            
         }
     }
 

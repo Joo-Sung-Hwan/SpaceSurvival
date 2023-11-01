@@ -40,7 +40,6 @@ namespace Singleton
             GameManager.instance.gameUI.pauseButton.GetComponent<Image>().material = GameManager.instance.gameUI.material;
             GameManager.instance.isPause = true;
             pauseUI.SetActive(true);
-            Time.timeScale = 0;
         }
 
         // 계속하기 누르면 다시 게임진행
@@ -49,7 +48,6 @@ namespace Singleton
             GameManager.instance.isPause = false;
             pauseUI.SetActive(false);
             GameManager.instance.gameUI.pauseButton.GetComponent<Image>().material = null;
-            Time.timeScale = 1;
         }
 
         // 다시하기 누르면 게임 처음부터 다시 진행

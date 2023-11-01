@@ -270,6 +270,7 @@ public abstract class Enemy : MonoBehaviour
         return targetTrans;
     }
 
+    // 특정 존의 따른 Transform과 bool값 받아주는 함수
     void TransType(Collider2D collider, out bool zone)
     {
         typeTrans = Trans();
@@ -277,6 +278,7 @@ public abstract class Enemy : MonoBehaviour
         zone = true;
     }
 
+    // 특정 폭탄에 의한 색깔 표현
     public IEnumerator OnOff(GameObject bombObj)
     {
         bool isShow = false;
