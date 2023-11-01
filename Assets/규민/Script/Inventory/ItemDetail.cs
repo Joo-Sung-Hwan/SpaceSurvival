@@ -132,4 +132,18 @@ public class ItemDetail : MonoBehaviour
             gameObject.SetActive(false);
             
     }
+
+    public void OnRandomBoxResult(int price)
+    {
+        if (InventoryManager.Instance.Gold < price)
+        {
+            Debug.Log("구매 실패");
+            return;
+        }
+
+        gameObject.SetActive(true);
+        ItemData id = InventoryManager.Instance.RandomItem();
+        SetDetails(id);
+        InventoryManager.Instance.AddItem(id);
+    }
 }

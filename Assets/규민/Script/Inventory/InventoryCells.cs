@@ -14,6 +14,9 @@ public class InventoryCells : MonoBehaviour
     /// </summary>
     public void SetInventory()
     {
+        if (cells.Count == 0)
+            InstantiateCells();
+
         int index = 0;
         foreach (var ivData in InventoryManager.Instance.inventoryDatas)
         { 
@@ -30,6 +33,14 @@ public class InventoryCells : MonoBehaviour
     }
 
     private void Start()
+    {
+        if (cells.Count != 0)
+            return;
+
+        InstantiateCells();
+    }
+
+    public void InstantiateCells()
     {
         for (int i = 0; i < cell_Count; i++)
         {

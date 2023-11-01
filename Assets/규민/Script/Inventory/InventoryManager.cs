@@ -64,6 +64,10 @@ public class InventoryManager : MonoBehaviour
 
     [Header("장비칸 (순서-무기,옷,신발,귀고리,반지,펫)")]
     public List<InventoryCell> equipCells = new List<InventoryCell>();
+
+    [Header("골드")]
+    [SerializeField] TMP_Text lobbyGold_Text;
+    [SerializeField] TMP_Text shopGold_Text;
     #endregion
 
     //인벤토리에 들어있는 아이템들 리스트
@@ -76,6 +80,21 @@ public class InventoryManager : MonoBehaviour
     [HideInInspector] public bool isSelectMode = false;
     ///선택모드에서 선택한 아이템들 리스트
     [HideInInspector] public List<InventoryCell> selectedCells = new List<InventoryCell>();
+    //골드
+    private int gold = 300;
+    public int Gold
+    {
+        get
+        {
+            return gold;
+        }
+        set
+        {
+            lobbyGold_Text.text = value.ToString();
+            shopGold_Text.text = value.ToString();
+            gold = value;
+        }
+    }
     
     //정렬 기준
     Enum_GM.SortBy sortBy = Enum_GM.SortBy.name;
@@ -126,16 +145,20 @@ public class InventoryManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            AddItem(inventoryDatas);
+            AddItem(RandomItem());
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            Gold += 500;
         }
     }
-    
 
+    #region 아이템 추가
     /// <summary>
-    /// 아이템 추가 함수(테스트)
+    /// 랜덤 아이템 반환 함수
     /// </summary>
     /// <param name="itemDatas"></param>
-    void AddItem(List<ItemData> itemDatas)
+    public ItemData RandomItem()
     {
         int rand = Random.Range(0, isdList.Count);
         ItemScriptableData isd = isdList[rand];
@@ -190,9 +213,15 @@ public class InventoryManager : MonoBehaviour
                 newRarity = item.abilityrarity;
         }
 
-        itemDatas.Add(new ItemData(newIsData, newRarity, newItemAbs));
+        return new ItemData(newIsData, newRarity, newItemAbs);
+    }
+
+    public void AddItem(ItemData id)
+    {
+        inventoryDatas.Add(id);
         inventory_UI?.OnCellsEnable();
     }
+    #endregion
 
     #region 아이템 데이터 저장/불러오기
     public void SaveInventory()
