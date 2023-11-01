@@ -21,7 +21,7 @@ public struct BombData
 {
     public float BombAttack { get; set; }
     //public float bomb_attack;
-    public float bomb_size;
+    public float BombRange { get; set; }
     public float BombDebuff { get; set; }
     public Transform zoneTrans;
     public CircleCollider2D collider2D;
@@ -125,20 +125,6 @@ public abstract class Bomb : MonoBehaviour
     {
         sprite.gameObject.SetActive(active);
         shadow.gameObject.SetActive(active);
-    }
-
-    /*
-    // 폭탄 터지는 범위 설정
-    public void SetBombSize(float size)
-    {
-        bd.BombSize = size;
-        //GetComponent<Transform>().localScale = new Vector3(bd.BombSize, bd.BombSize, 0f);
-        bd.collider2D.radius = bd.BombSize;
-    }
-    */
-    public void SetBombDebuff(float bombDebuff)
-    {
-        bd.BombDebuff = bombDebuff;
     }
 
     //폭탄 터지는 파티클 효과

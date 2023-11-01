@@ -5,6 +5,10 @@ using UnityEngine;
 public struct PetData
 {
     public float speed;
+    public float attack;
+    public float buff;
+    public float size;
+    public CircleCollider2D collider2D;
 }
 
 public abstract class Pet : MonoBehaviour
@@ -12,15 +16,14 @@ public abstract class Pet : MonoBehaviour
     public PetData petData = new();
     public Animator anim;
     public bool MagnetPet { get; set; }
+    public bool AttackPet { get; set; }
     protected Player player;
-    Rigidbody2D rigid;
 
     public abstract void Init();
 
     void Update()
     {
         player = GameManager.instance.player;
-        rigid = GetComponent<Rigidbody2D>();
         Move();
     }
 

@@ -6,11 +6,12 @@ public class NormalBomb : Bomb
 {
     void Start()
     {
+        bd.BombAttack = 25f;
+        bd.BombRange = 1f;
         bd.zoneTrans = transform.GetChild(2);
         bd.collider2D = bd.zoneTrans.GetComponent<CircleCollider2D>();
+        bd.collider2D.radius = bd.BombRange;
         ani = GetComponent<Animator>();
-        
-        bd.BombAttack = 25f;
     }
 
 

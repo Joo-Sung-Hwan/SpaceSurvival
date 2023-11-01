@@ -16,20 +16,26 @@ public class Astronaut : Enemy
 
     void Update()
     {
-        if (player == null)
+        if (GameManager.instance.isPause)
         {
-            player = GameManager.instance.player;
+            GetComponent<Animator>().enabled = false;
             return;
         }
-        if (!IsDead)
+        else
         {
-            Move();
-            MagnetEvents();
+            GetComponent<Animator>().enabled = true;
+            if (player == null)
+            {
+                player = GameManager.instance.player;
+                return;
+            }
+            if (!IsDead)
+            {
+                Move();
+                MagnetEvents();
+            }
         }
-        if (!GameManager.instance.isPause)
-        {
-            
-        }
+        
     }
 
     public override void Move()

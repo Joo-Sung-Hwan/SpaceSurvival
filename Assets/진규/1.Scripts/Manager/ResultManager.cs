@@ -52,7 +52,7 @@ public class ResultManager : MonoBehaviour
 
     TMP_Text[] ResultReWardTexts()
     {
-        int reward1 = GameManager.instance.gameUI.monsterIndex * 10;
+        int reward1 = GameManager.instance.gameUI.monsterIndex + (int)(GameManager.instance.gameUI.sec * 0.1f);
         int reward2 = GameManager.instance.gameUI.monsterIndex;
         resultTexts[0].text = reward1.ToString();
         resultTexts[1].text = reward2.ToString();

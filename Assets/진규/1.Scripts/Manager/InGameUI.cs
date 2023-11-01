@@ -15,7 +15,7 @@ public class InGameUI : MonoBehaviour
     [SerializeField] public TMP_Text monsterIn;
     public Player player;
     public int min;
-    float sec;
+    public float sec;
     public int monsterIndex;
     
     void Start()
@@ -28,9 +28,9 @@ public class InGameUI : MonoBehaviour
     {
         if (GameManager.instance.isPause == false)
             Timer();
-        if (exp_Bar.GetComponent<RectTransform>().rect.width >= 1041 || hp_Bar.GetComponent<RectTransform>().rect.width <= 0)
+        if (exp_Bar.GetComponent<RectTransform>().rect.width >= 967 || hp_Bar.GetComponent<RectTransform>().rect.width <= 0)
             return;
-        CalculationBar(exp_Bar, player.definePD.CurExp, player.definePD.MaxExp, 1041, 56.5f);
+        CalculationBar(exp_Bar, player.definePD.CurExp, player.definePD.MaxExp, 967, 56.5f);
         CalculationBar(hp_Bar, player.definePD.CurHp, player.definePD.MaxHp, 193, 32f);
     }
 
