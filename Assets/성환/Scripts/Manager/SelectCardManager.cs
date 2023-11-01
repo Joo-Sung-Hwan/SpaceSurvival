@@ -12,7 +12,8 @@ public enum CardKind
     laser,
     energyBolt,
     hp,
-    speed
+    speed,
+    idle
 }
 public class SelectCardManager : MonoBehaviour
 {

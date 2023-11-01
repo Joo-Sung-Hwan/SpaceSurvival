@@ -44,7 +44,6 @@ public class SelectCard : MonoBehaviour
         }
         equip_weapon2 = GameManager.instance.player.bullet.gameObject;
         GetComponent<Button>().enabled = false;
-        GetComponent<Image>().color = new Color(255f, 255f, 255f);
         rand = Random.Range(1, 100);
         rand_index = rand < 70 ? "Normal" : rand < 90 ? "Rare" : "Unique";
         temp_list = new();
@@ -62,6 +61,9 @@ public class SelectCard : MonoBehaviour
             case PlayerWeapon.EnergyBolt:
                 Weapon_Card(CardKind.energyBolt);
                 break;
+            default:
+                Weapon_Card(CardKind.idle);
+                break;
 
         }
         gr = System.Enum.Parse<Grade>(rand_index);
@@ -76,8 +78,7 @@ public class SelectCard : MonoBehaviour
                 GetComponent<Image>().sprite = sprite_list[1];
                 break;
             case Grade.Unique:
-                GetComponent<Image>().sprite = sprite_list[1];
-                GetComponent<Image>().color = new Color(124f, 0f, 152f);
+                GetComponent<Image>().sprite = sprite_list[2];
                 break;
         }
     }
@@ -96,11 +97,14 @@ public class SelectCard : MonoBehaviour
 
     public void Setcard(CardKind cardKind, List<SelectCardManager.CardData> temp, string grade)
     {
-        foreach (var item in GameManager.instance.selectCardManager.selectcarddata[cardKind])
+        if(cardKind != CardKind.idle)
         {
-            if (item.rare == grade)
+            foreach (var item in GameManager.instance.selectCardManager.selectcarddata[cardKind])
             {
-                temp.Add(item);
+                if (item.rare == grade)
+                {
+                    temp.Add(item);
+                }
             }
         }
         foreach (var item in GameManager.instance.selectCardManager.selectcarddata[CardKind.hp])
@@ -117,6 +121,7 @@ public class SelectCard : MonoBehaviour
                 temp.Add(item);
             }
         }
+
         int rand0 = Random.Range(0, temp.Count);
         if (GameManager.instance.selectCardManager.cardCheck_list.Contains(temp[rand0]))
         {
@@ -193,13 +198,13 @@ public class SelectCard : MonoBehaviour
                 switch (cd.kind)
                 {
                     case "bomb":
-                        GameManager.instance.player.BombCTime = cd.change;
+                        GameManager.instance.player.BombCTime *= cd.change;
                         break;
                     case "bullet":
-                        GameManager.instance.player.BulletCTime = cd.change;
+                        GameManager.instance.player.BulletCTime *= cd.change;
                         break;
                     case "laser":
-                        GameManager.instance.player.LaserCTime = cd.change;
+                        GameManager.instance.player.LaserCTime *= cd.change;
                         break;
                 }
                 break;
@@ -212,14 +217,22 @@ public class SelectCard : MonoBehaviour
                 }
                 break;
             case "AttackAbility":
-                GameManager.instance.player.bullet.AttackAbility += (int)cd.change;
+                foreach (var item in GameManager.instance.pollingsystem.b_queue)
+                {
+                    item.AttackAbility += (int)cd.change;
+                }
                 break;
             case "Last":
-                GameManager.instance.player.laser.LaserLastTime *= cd.change;
+                foreach (var item in GameManager.instance.pollingsystem.l_queue)
+                {
+                    item.LaserLastTime *= cd.change;
+                }
                 break;
             case "Reflect":
-                GameManager.instance.player.laser.ReflectMaxCount += (int)cd.change;
-
+                foreach (var item in GameManager.instance.pollingsystem.l_queue)
+                {
+                    item.ReflectMaxCount += (int)cd.change;
+                }
                 break;
             case "HP":
                 GameManager.instance.player.definePD.MaxHp += cd.change;

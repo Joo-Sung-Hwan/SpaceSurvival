@@ -176,20 +176,6 @@
     {
       "title": "레이저 반사 횟수 + 1",
       "change": "1",
-      "rare": "Normal",
-      "kind": "laser",
-      "category": "Reflect"
-    },
-    {
-      "title": "레이저 반사 횟수 + 2",
-      "change": "2",
-      "rare": "Rare",
-      "kind": "laser",
-      "category": "Reflect"
-    },
-    {
-      "title": "레이저 반사 횟수 + 3",
-      "change": "3",
       "rare": "Unique",
       "kind": "laser",
       "category": "Reflect"

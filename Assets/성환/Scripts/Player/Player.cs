@@ -58,7 +58,19 @@ public class Player : MonoBehaviour
     {
         index = 1;
         levelup = true;
-        switch(player_weapon)
+        
+        ps = PlayerState.Idle;
+        ani = GetComponent<Animator>();
+        definePD.MaxHp = 100;
+        definePD.CurHp = definePD.MaxHp;
+        definePD.MaxExp = 200f;
+        definePD.Speed = 2f;
+        Init();
+        SwitchBombCreate();
+        BulletCTime = 2f;
+        LaserCTime = 2f;
+        GameManager.instance.SetPlayerStatus();
+        switch (player_weapon)
         {
             case PlayerWeapon.NormalBomb:
             case PlayerWeapon.MagnetBomb:
@@ -68,20 +80,8 @@ public class Player : MonoBehaviour
                 break;
             default:
                 break;
-                
+
         }
-        ps = PlayerState.Idle;
-        ani = GetComponent<Animator>();
-        definePD.MaxHp = 2000;
-        definePD.CurHp = definePD.MaxHp;
-        definePD.MaxExp = 200f;
-        definePD.Speed = 2f;
-        Init();
-        SwitchBombCreate();
-        BulletCTime = 2f;
-        LaserCTime = 2f;
-        GameManager.instance.SetPlayerStatus();
-        player_weapon = PlayerWeapon.EnergyBolt;
     }
 
     // Update is called once per frame

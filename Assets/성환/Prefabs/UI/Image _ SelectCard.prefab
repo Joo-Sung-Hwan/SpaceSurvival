@@ -93,8 +93,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -200,8 +200,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gr: 0
   sprite_list:
-  - {fileID: 21300000, guid: 2ce04efc8d44e9343be4632d18d688bf, type: 3}
-  - {fileID: 21300000, guid: e2dbad3b493225b4e9484df7d1fc6df5, type: 3}
+  - {fileID: 21300000, guid: dd77367546bf4433dbbb2317a935df54, type: 3}
+  - {fileID: 21300000, guid: 10d23572713d041c596abf5c00be11dc, type: 3}
+  - {fileID: 21300000, guid: c7ade68a31f1d4e12a57617409b6ee8a, type: 3}
   weapon_list:
   - {fileID: -1970917987607217371, guid: e11197d9be3d439fa8ed7faaf94989f4, type: 3}
   - {fileID: -7278697522162196308, guid: c90979951c554ccf9e077d2bbfce760b, type: 3}

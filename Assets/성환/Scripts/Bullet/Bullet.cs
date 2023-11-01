@@ -7,6 +7,7 @@ public abstract class Bullet : MonoBehaviour
     public float Speed { get; set; }
     public float Attack { get; set; }
     public int AttackAbility { get; set; }
+    [HideInInspector] public int attackability;
     float destroy_time = 0f;
     protected bool dir;
     public abstract void init();

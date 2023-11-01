@@ -169,8 +169,10 @@ public abstract class Enemy : MonoBehaviour
                 break;
             case "Bullet":
                 Hp -= collision.GetComponent<Bullet>().Attack;
-                collision.GetComponent<Bullet>().AttackAbility -= 1;
-                if(collision.GetComponent<Bullet>().AttackAbility <= 0)
+                Debug.Log(collision.GetComponent<Bullet>().attackability);
+                collision.GetComponent<Bullet>().attackability -= 1;
+                Debug.Log(collision.GetComponent<Bullet>().attackability);
+                if (collision.GetComponent<Bullet>().attackability <= 0)
                 {
                     collision.gameObject.SetActive(false);
                 }

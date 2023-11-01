@@ -6,6 +6,7 @@ public class Bullet_small : Bullet
 {
     public override void init()
     {
+        attackability = AttackAbility;
         SetDir();
     }
 }
