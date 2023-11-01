@@ -72,7 +72,7 @@ public class Player : MonoBehaviour
         }
         ps = PlayerState.Idle;
         ani = GetComponent<Animator>();
-        definePD.MaxHp = 20;
+        definePD.MaxHp = 2000;
         definePD.CurHp = definePD.MaxHp;
         definePD.MaxExp = 200f;
         definePD.Speed = 2f;

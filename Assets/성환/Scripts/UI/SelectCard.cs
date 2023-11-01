@@ -132,6 +132,12 @@ public class SelectCard : MonoBehaviour
                 case "hp":
                     image.sprite = weapon_list[(int)CardKind.hp];
                     break;
+                case "bullet":
+                    image.sprite = weapon_list[(int)CardKind.bullet];
+                    break;
+                case "speed":
+                    image.sprite = weapon_list[(int)CardKind.speed];
+                    break;
                 default:
                     image.sprite = weapon_list[(int)cardKind];
                     break;
@@ -222,8 +228,8 @@ public class SelectCard : MonoBehaviour
             case "Speed":
                 GameManager.instance.player.definePD.Speed += cd.change;
                 break;
-            case "NUM":
-                GameManager.instance.player.index += 1;
+            case "Num":
+                GameManager.instance.player.index += (int)cd.change;
                 GameManager.instance.player.levelup = true;
                 break;
         }

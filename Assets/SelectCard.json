@@ -198,21 +198,21 @@
   "EnergyBolt": [
     {
       "title": "에너지 볼트 데미지 소폭 상승",
-      "change": "1",
+      "change": "0.3",
       "rare": "Normal",
       "kind": "energybolt",
       "category": "Damage"
     },
     {
       "title": "에너지 볼트 데미지 소폭 상승",
-      "change": "2",
+      "change": "0.5",
       "rare": "Rare",
       "kind": "energybolt",
       "category": "Damage"
     },
     {
       "title": "에너지 볼트 데미지 소폭 상승",
-      "change": "5",
+      "change": "1",
       "rare": "Unique",
       "kind": "energybolt",
       "category": "Damage"
@@ -251,21 +251,21 @@
       "title": "이동속도 소폭 증가",
       "change": "0.1",
       "rare": "Normal",
-      "kind": "hp",
+      "kind": "speed",
       "category": "Speed"
     },
     {
       "title": "이동속도 증가",
       "change": "0.15",
       "rare": "Rare",
-      "kind": "hp",
+      "kind": "speed",
       "category": "Speed"
     },
     {
       "title": "이동속도 대폭 증가",
       "change": "0.2",
       "rare": "Rare",
-      "kind": "hp",
+      "kind": "speed",
       "category": "Speed"
     }
   ]

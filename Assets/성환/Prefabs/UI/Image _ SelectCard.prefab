@@ -204,10 +204,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e2dbad3b493225b4e9484df7d1fc6df5, type: 3}
   weapon_list:
   - {fileID: -1970917987607217371, guid: e11197d9be3d439fa8ed7faaf94989f4, type: 3}
-  - {fileID: 8848993070067138329, guid: 30edb9d12883df642bcb8b4f9bb0c3da, type: 3}
+  - {fileID: -7278697522162196308, guid: c90979951c554ccf9e077d2bbfce760b, type: 3}
   - {fileID: 21300000, guid: 64aae5a16729fd44da5e5727fb4f2f02, type: 3}
-  - {fileID: 2119361787, guid: f0f58cfe734d01548b497ae70d695739, type: 3}
-  - {fileID: 21300000, guid: 1dbb70c8dcc4cd34395131e77e0a2ce0, type: 3}
+  - {fileID: 21300000, guid: 2485c9e6454994b36a896bc87d27d1b3, type: 3}
+  - {fileID: 21300000, guid: 793419d20ed1c4c928ffd26adec2578e, type: 3}
+  - {fileID: 21300000, guid: 44f2803dad0404cbeb9ee038d70da104, type: 3}
   image: {fileID: 4079168959995378496}
   text: {fileID: 6831733398092979964}
   cd_list: []
