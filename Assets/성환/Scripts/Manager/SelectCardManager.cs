@@ -40,7 +40,7 @@ public class SelectCardManager : MonoBehaviour
         public List<CardData> Bullet;
         public List<CardData> Laser;
         public List<CardData> EnergyBolt;
-        public List<CardData> HP;
+        public List<CardData> Player;
     }
 
     SelectCardList sc_dic = new();
@@ -107,6 +107,6 @@ public class SelectCardManager : MonoBehaviour
         selectcarddata.Add(CardKind.bullet, sc_dic.Bullet);
         selectcarddata.Add(CardKind.laser, sc_dic.Laser);
         selectcarddata.Add(CardKind.energyBolt, sc_dic.EnergyBolt);
-        selectcarddata.Add(CardKind.hp, sc_dic.HP);
+        selectcarddata.Add(CardKind.hp, sc_dic.Player);
     }
 }

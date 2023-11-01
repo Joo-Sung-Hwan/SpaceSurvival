@@ -225,7 +225,7 @@
       "category": "Num"
     }
   ],
-  "HP": [
+  "Player": [
     {
       "title": "HP 100 증가",
       "change": "100",
@@ -246,6 +246,27 @@
       "rare": "Unique",
       "kind": "hp",
       "category": "HP"
+    },
+    {
+      "title": "이동속도 소폭 증가",
+      "change": "0.1",
+      "rare": "Normal",
+      "kind": "hp",
+      "category": "Speed"
+    },
+    {
+      "title": "이동속도 증가",
+      "change": "0.15",
+      "rare": "Rare",
+      "kind": "hp",
+      "category": "Speed"
+    },
+    {
+      "title": "이동속도 대폭 증가",
+      "change": "0.2",
+      "rare": "Rare",
+      "kind": "hp",
+      "category": "Speed"
     }
   ]
 }

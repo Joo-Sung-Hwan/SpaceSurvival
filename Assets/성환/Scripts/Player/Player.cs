@@ -40,9 +40,10 @@ public class Player : MonoBehaviour
 
     [Header("에너지볼트")]
     public FxManager fxmanager;
-    public List<Transform> enegyTrans;
+    public List<EnergyBolt> enegyTrans;
     public Transform enegy;
     public int index;
+    [HideInInspector] public bool levelup;
 
     float delayTimeL = 0f;
     float delayTimeB = 0f;
@@ -55,6 +56,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        index = 1;
+        levelup = true;
         switch(player_weapon)
         {
             case PlayerWeapon.NormalBomb:
@@ -78,6 +81,7 @@ public class Player : MonoBehaviour
         BulletCTime = 2f;
         LaserCTime = 2f;
         GameManager.instance.SetPlayerStatus();
+        player_weapon = PlayerWeapon.EnergyBolt;
     }
 
     // Update is called once per frame
@@ -182,26 +186,22 @@ public class Player : MonoBehaviour
     }
     public void EnegyBolt()
     {
-        if (index >= enegyTrans.Count)
+        if (levelup)
         {
-            index = enegyTrans.Count;
+            int val = 360 / index;
+            int temVal = val;
+            for (int i = 0; i < index; i++)
+            {
+                enegyTrans[i].gameObject.transform.parent.gameObject.SetActive(true);
+                enegyTrans[i].gameObject.transform.parent.rotation = Quaternion.Euler(new Vector3(0f, 0f, temVal));
+                temVal += val;
+            }
         }
-
+        levelup = false;
         foreach (var trans in enegyTrans)
-            trans.gameObject.SetActive(false);
-
-        int val = 360 / index;
-        int temVal = val;
-        for (int i = 0; i < index; i++)
         {
-            enegyTrans[i].gameObject.SetActive(true);
-            enegyTrans[i].transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, temVal));
-            temVal += val;
+            trans.gameObject.transform.rotation = Quaternion.Euler(Vector3.zero);
         }
-
-        foreach (var trans in enegyTrans)
-            trans.GetChild(0).rotation = Quaternion.Euler(Vector3.zero);
-
         enegy.Rotate(Vector3.forward * Time.deltaTime * 70f);
     }
 

@@ -176,7 +176,10 @@ public class SelectCard : MonoBehaviour
                         }
                         break;
                     case "energybolt":
-                        GameManager.instance.player.fxmanager.fd.Attack += cd.change;
+                        foreach (var item in GameManager.instance.player.enegyTrans)
+                        {
+                            item.fd.Attack += cd.change;
+                        }
                         break;
                 }
                 break;
@@ -216,26 +219,16 @@ public class SelectCard : MonoBehaviour
                 GameManager.instance.player.definePD.MaxHp += cd.change;
                 GameManager.instance.player.definePD.CurHp += cd.change;
                 break;
+            case "Speed":
+                GameManager.instance.player.definePD.Speed += cd.change;
+                break;
             case "NUM":
-                GameManager.instance.player.index += (int)cd.change;
+                GameManager.instance.player.index += 1;
+                GameManager.instance.player.levelup = true;
                 break;
         }
     }
-    public void SettingStatPlus(Queue queue, float stat)
-    {
-        foreach (var item in queue)
-        {
-            stat += cd.change;
-        }
-    }
-
-    public void SettingStatEqual(Queue queue, float stat)
-    {
-        foreach (var item in queue)
-        {
-            stat = cd.change;
-        }
-    }
+    
     // 버튼 이벤트 활성화
     public void SetEnableChildButton()
     {

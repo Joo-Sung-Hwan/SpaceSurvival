@@ -59,12 +59,11 @@ public class Laser : MonoBehaviour
         Vector2 newposition = transform.position;
         Vector2 newDir = nextDir;
         lr.positionCount = ReflectMaxCount;
-        // LineRenderer의 찍는 좌표 갯수만큼 반복문 호출
+        // LineRenderer의 찍는 좌표 갯수만큼 Laserchild 생성
         for (int i = 0; i < lr.positionCount; i++)
         {
             if (i == 0)
             {
-                
                 lr.SetPosition(0, new Vector3(transform.position.x, transform.position.y, 0f));
                 continue;
             }
@@ -74,7 +73,9 @@ public class Laser : MonoBehaviour
             LaserChild c = GameManager.instance.pollingsystem.PollingLaserChild(lc, transform);
             c.Init(lr.GetPosition(i - 1), lr.GetPosition(i), LaserSize);
             OnCollider();
+            // ray가 collider에 걸리는 경우 배제하기 위해 꺼줌
             ray.collider.gameObject.SetActive(false);
+            // 다음 방향을 반사시켜서 설정
             newDir = Vector2.Reflect(newDir, ray.normal);
         }
         OnCollider();
@@ -90,6 +91,7 @@ public class Laser : MonoBehaviour
         }
     }
 
+    // 두 지점 사이의 각도
     public float GetAngle(Vector2 b_dir, Vector2 a_dir)
     {
         Vector2 v = a_dir - b_dir;
@@ -100,6 +102,4 @@ public class Laser : MonoBehaviour
     {
         LaserSize = sizeY;
     }
-
-
 }
