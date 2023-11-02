@@ -19,6 +19,9 @@ public class ItemDetail : MonoBehaviour
     [SerializeField] Image dc_itemImage;
     [SerializeField] List<TMP_Text> dc_ability_Txt;
 
+    [Header("")]
+    [SerializeField] GameObject buyFail;
+
     [HideInInspector] public ItemData itemdata;
     [HideInInspector] public int cellIndex;
 
@@ -137,10 +140,10 @@ public class ItemDetail : MonoBehaviour
     {
         if (InventoryManager.Instance.Gold < price)
         {
-            Debug.Log("구매 실패");
+            buyFail.SetActive(true);
             return;
         }
-
+        InventoryManager.Instance.Gold -= price;
         gameObject.SetActive(true);
         ItemData id = InventoryManager.Instance.RandomItem();
         SetDetails(id);
