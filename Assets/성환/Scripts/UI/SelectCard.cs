@@ -212,7 +212,10 @@ public class SelectCard : MonoBehaviour
                 switch (cd.kind)
                 {
                     case "bomb":
-                        //GetComponent<Bomb>(). = cd.change;
+                        foreach (var item in GameManager.instance.pollingsystem.bo_queue)
+                        {
+                            item.bd.BombRange += cd.change;
+                        }
                         break;
                 }
                 break;

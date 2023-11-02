@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class SceneChangeManger : MonoBehaviour
 {
+    [HideInInspector] public int gold;
     // Start is called before the first frame update
     void Start()
     {
-        
+        gold = 0;   
     }
 
     // Update is called once per frame
@@ -16,7 +17,10 @@ public class SceneChangeManger : MonoBehaviour
     {
         
     }
-
+    public void SetGold(int gold)
+    {
+        this.gold = gold;
+    }
     public void OnClickGameScene()
     {
         SceneManager.LoadScene("GameScene");
@@ -25,8 +29,9 @@ public class SceneChangeManger : MonoBehaviour
 
     public void OnClickLobby()
     {
+        GameManager.instance.isPause = false;
         SceneManager.LoadScene("Lobby_GM");
-        Time.timeScale = 1;
+        InventoryManager.Instance.Gold += gold;
         Destroy(gameObject);
     }
 }

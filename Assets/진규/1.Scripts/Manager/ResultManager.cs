@@ -14,13 +14,15 @@ public class ResultManager : MonoBehaviour
     [SerializeField] public TMP_Text[] resultTexts;
     [SerializeField] public Button button;
     public Sequence mySequence;
+    int resultGold;
 
     void Start()
     {
+        resultGold = 0;
         mySequence = DOTween.Sequence();
-        EneterExit();
         ResultMission();
         StartCoroutine(Events(ResultTime(), backGroundImages, images, ResultReWardTexts()));
+        EneterExit();
     } 
 
     void Update()
@@ -54,6 +56,7 @@ public class ResultManager : MonoBehaviour
     {
         int reward1 = GameManager.instance.gameUI.monsterIndex + (int)(GameManager.instance.gameUI.sec * 0.1f);
         int reward2 = GameManager.instance.gameUI.monsterIndex;
+        resultGold = reward1;
         resultTexts[0].text = reward1.ToString();
         resultTexts[1].text = reward2.ToString();
         return resultTexts;
@@ -84,6 +87,7 @@ public class ResultManager : MonoBehaviour
 
     public void EneterExit()
     {
+        FindObjectOfType<SceneChangeManger>().SetGold(resultGold);
         button.onClick.AddListener(FindObjectOfType<SceneChangeManger>().OnClickLobby);
     }
 }

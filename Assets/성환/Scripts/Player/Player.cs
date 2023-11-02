@@ -223,6 +223,7 @@ public class Player : MonoBehaviour
     {
         if(definePD.CurExp >= definePD.MaxExp)
         {
+            definePD.Level += 1;
             float spareExp = definePD.CurExp - definePD.MaxExp;
             definePD.MaxExp *= 1.2f;
             definePD.CurExp = spareExp;

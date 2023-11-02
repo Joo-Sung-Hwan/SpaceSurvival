@@ -13051,6 +13051,8 @@ MonoBehaviour:
   min: 0
   sec: 0
   monsterIndex: 0
+  level_icon: {fileID: 1072275511}
+  level_text: {fileID: 635470665}
 --- !u!1 &820965868
 GameObject:
   m_ObjectHideFlags: 0
@@ -15194,9 +15196,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e42baea120d5494d9481c512f61f386, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laser_damage: 0
-  bomb_damage: 0
-  bomb_range: 0
 --- !u!4 &1621202919
 Transform:
   m_ObjectHideFlags: 0

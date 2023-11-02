@@ -17,15 +17,17 @@ public class InGameUI : MonoBehaviour
     public int min;
     public float sec;
     public int monsterIndex;
+    public Image level_icon;
+    public TMP_Text level_text;
     
     void Start()
     {
-
+        
     }
-
     // Update is called once per frame
     void Update()
     {
+        level_text.text = GameManager.instance.player.definePD.Level.ToString();
         if (GameManager.instance.isPause == false)
             Timer();
         if (exp_Bar.GetComponent<RectTransform>().rect.width >= 967 || hp_Bar.GetComponent<RectTransform>().rect.width <= 0)
