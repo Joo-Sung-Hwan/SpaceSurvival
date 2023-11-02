@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
             Destroy(instance);
         }
     }
+
     public Vector2 GetRandomPosition(Transform trans, BoxCollider2D area)
     {
 

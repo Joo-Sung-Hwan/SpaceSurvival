@@ -57,7 +57,7 @@ public class InGameUI : MonoBehaviour
         float getValue = curValue / maxValue;
         float changeValue = getValue * width;
         float Value = (float)System.Math.Truncate(changeValue);
-        MySequence.Append(targetRect.DOSizeDelta(new Vector2(Value, height), 1f, false));
+        MySequence.Append(targetRect.DOSizeDelta(new Vector2(Value, height), 1f, false).SetLink(gameObject));
     }
 
     public void MonsterIndex(int index)

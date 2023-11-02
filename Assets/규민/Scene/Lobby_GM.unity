@@ -5266,6 +5266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 628f6f933744b634b993c54b2bab0533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gold: 0
 --- !u!4 &376829414
 Transform:
   m_ObjectHideFlags: 0
@@ -24426,7 +24427,7 @@ MonoBehaviour:
   - {fileID: 1426901615}
   - {fileID: 320224350}
   - {fileID: 1551900111}
-  buyFail: {fileID: 1978719817}
+  buyFail: {fileID: 0}
   itemdata:
     itemStaticData:
       name: 

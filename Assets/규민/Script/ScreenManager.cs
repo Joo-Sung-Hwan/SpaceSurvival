@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using DG.Tweening;
 public class ScreenManager : MonoBehaviour
 {
     public static ScreenManager instance;
@@ -18,6 +19,10 @@ public class ScreenManager : MonoBehaviour
             if(instance != this)
                 Destroy(gameObject);
         }
+        if (SceneManager.GetActiveScene().name == "Lobby_GM")
+            DOTween.KillAll();
+        else if (SceneManager.GetActiveScene().name == "GameScene")
+            DOTween.PlayAll();
     }
     void Start()
     {

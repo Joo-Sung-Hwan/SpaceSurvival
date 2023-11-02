@@ -6,7 +6,6 @@ using DG.Tweening;
 using UnityEngine.UI;
 public class DamageTxt : MonoBehaviour
 {
-    public Sequence mySequence;
     float time;
     // Start is called before the first frame update
     void Start()
@@ -31,7 +30,7 @@ public class DamageTxt : MonoBehaviour
     void DamageTxtDoTween()
     {
         TMP_Text text = transform.GetComponent<TMP_Text>();
-        mySequence = DOTween.Sequence();
-        mySequence.Append(text.GetComponent<RectTransform>().DOScale(1f, 2f));
+        Sequence mySequence = DOTween.Sequence();
+        mySequence.Append(text.GetComponent<RectTransform>().DOScale(1f, 2f).SetLink(gameObject));
     }
 }

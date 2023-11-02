@@ -21,7 +21,8 @@ public class ResultManager : MonoBehaviour
         resultGold = 0;
         mySequence = DOTween.Sequence();
         ResultMission();
-        StartCoroutine(Events(ResultTime(), backGroundImages, images, ResultReWardTexts()));
+        Envents(ResultTime());
+        Envents(backGroundImages, images, ResultReWardTexts());
         EneterExit();
     } 
 
@@ -32,16 +33,15 @@ public class ResultManager : MonoBehaviour
 
     void ResultMission()
     {
-        mySequence = DOTween.Sequence();
         if(GameManager.instance.player.missionCheck)
         {
             resultObjects[0].gameObject.SetActive(true);
-            mySequence.Append(resultObjects[0].GetComponent<RectTransform>().DOScaleX(1f, 1f));
+            mySequence.Append(resultObjects[0].GetComponent<RectTransform>().DOScaleX(1f, 0.3f)).SetLink(gameObject);
         }
         else
         {
             resultObjects[1].gameObject.SetActive(true);
-            mySequence.Append(resultObjects[1].GetComponent<RectTransform>().DOScaleX(1f, 1f));
+            mySequence.Append(resultObjects[1].GetComponent<RectTransform>().DOScaleX(1f, 0.3f)).SetLink(gameObject);
         }
     }
 
@@ -62,26 +62,29 @@ public class ResultManager : MonoBehaviour
         return resultTexts;
     }
 
-    IEnumerator Events(TMP_Text text, Image[] bgImage, Image[] images, TMP_Text[] texts)
+    void Envents(TMP_Text text)
     {
-        mySequence.Append(text.GetComponent<RectTransform>().DOScale(1.5f, 0.5f));
-        yield return mySequence.WaitForCompletion();
-        mySequence.Append(text.GetComponent<RectTransform>().DOScale(1f, 1f));
+        mySequence.Append(text.GetComponent<RectTransform>().DOScale(1.5f, 0.1f)).SetLink(gameObject)
+            .WaitForCompletion();
+        mySequence.Append(text.GetComponent<RectTransform>().DOScale(1f, 0.1f)).SetLink(gameObject);
+    }
+
+    void Envents(Image[] bgImage, Image[] images, TMP_Text[] texts)
+    {
         List<Sequence> sequences = new();
-        for(int i = 0; i < 2; i++)
+        for (int i = 0; i < 2; i++)
         {
             sequences.Add(mySequence);
         }
-        for(int i = 0; i < 2; i++)
+        for (int i = 0; i < 2; i++)
         {
-            sequences[i].Append(bgImage[i].GetComponent<RectTransform>().DOSizeDelta(new Vector2(500, 150), 0.5f, true));
-            sequences[i].Append(images[i].GetComponent<RectTransform>().DOSizeDelta(new Vector2(150, 150), 0.5f, true));
-            sequences[i].Append(texts[i].GetComponent<RectTransform>().DOScale(1.5f, 1.5f));
-            yield return sequences[i].WaitForCompletion();
-            yield return new WaitForSeconds(0.5f);
-            sequences[i].Append(bgImage[i].GetComponent<RectTransform>().DOSizeDelta(new Vector2(400, 100), 1f, false));
-            sequences[i].Append(images[i].GetComponent<RectTransform>().DOSizeDelta(new Vector2(100, 100), 1f, false));
-            sequences[i].Append(texts[i].GetComponent<RectTransform>().DOScale(1f, 1f));
+            sequences[i].Append(bgImage[i].GetComponent<RectTransform>().DOSizeDelta(new Vector2(500, 150), 0.2f, true))
+                .Append(images[i].GetComponent<RectTransform>().DOSizeDelta(new Vector2(150, 150), 0.1f, true))
+                .Append(texts[i].GetComponent<RectTransform>().DOScale(1.5f, 0.1f)).SetLink(gameObject)
+                .WaitForCompletion();
+            sequences[i].Append(bgImage[i].GetComponent<RectTransform>().DOSizeDelta(new Vector2(400, 100), 0.1f, false))
+                .Append(images[i].GetComponent<RectTransform>().DOSizeDelta(new Vector2(100, 100), 0.1f, false))
+                .Append(texts[i].GetComponent<RectTransform>().DOScale(1f, 0.1f)).SetLink(gameObject);
         }
     }
 
