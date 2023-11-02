@@ -23,30 +23,13 @@ public class SelectCard : MonoBehaviour
     List<SelectCardManager.CardData> temp_list;
     SelectCardManager.CardData cd;
     public float ability_value;
-    GameObject equip_weapon;
-    GameObject equip_weapon2;
     public void Init()
     {
-        switch (GameManager.instance.player.player_weapon)
-        {
-            case PlayerWeapon.NormalBomb:
-            case PlayerWeapon.MagnetBomb:
-            case PlayerWeapon.WebBomb:
-            case PlayerWeapon.FireBomb:
-                equip_weapon = GameManager.instance.player.bomb.gameObject;
-                break;
-            case PlayerWeapon.Laser:
-                equip_weapon = GameManager.instance.player.laser.gameObject;
-                break;
-            case PlayerWeapon.EnergyBolt:
-                equip_weapon = GameManager.instance.player.fxmanager.gameObject;
-                break;
-        }
-        equip_weapon2 = GameManager.instance.player.bullet.gameObject;
         GetComponent<Button>().enabled = false;
         rand = Random.Range(1, 100);
         rand_index = rand < 70 ? "Normal" : rand < 90 ? "Rare" : "Unique";
         temp_list = new();
+        // 장착한 무기에 대한 카드 Data 설정
         switch (GameManager.instance.player.player_weapon)
         {
             case PlayerWeapon.Laser:
@@ -68,6 +51,7 @@ public class SelectCard : MonoBehaviour
         }
         gr = System.Enum.Parse<Grade>(rand_index);
         
+        // 카드 등급에 따라 배경 설정
         switch (gr)
         {
             case Grade.Normal:
@@ -97,6 +81,7 @@ public class SelectCard : MonoBehaviour
 
     public void Setcard(CardKind cardKind, List<SelectCardManager.CardData> temp, string grade)
     {
+        // 장착한 무기에 따라 임시 리스트에 해당 무기 카드 데이터 저장
         if(cardKind != CardKind.idle)
         {
             foreach (var item in GameManager.instance.selectCardManager.selectcarddata[cardKind])
@@ -107,6 +92,8 @@ public class SelectCard : MonoBehaviour
                 }
             }
         }
+
+        // 장착한 무기에 상관없이 Player, 기본 무기인 Bullet 카드 데이터 저장
         foreach (var item in GameManager.instance.selectCardManager.selectcarddata[CardKind.hp])
         {
             if (item.rare == grade)
@@ -123,10 +110,14 @@ public class SelectCard : MonoBehaviour
         }
 
         int rand0 = Random.Range(0, temp.Count);
+
+        // 카드 3개가 생성될 때 중복된 카드가 나오지 않게 중복 값이 있으면 Init을 다시 불러줌
         if (GameManager.instance.selectCardManager.cardCheck_list.Contains(temp[rand0]))
         {
             Init();
         }
+
+        // 카드 중복이 아니라면 카드에 데이터 삽입
         else
         {
             GameManager.instance.selectCardManager.cardCheck_list.Add(temp[rand0]);
@@ -149,6 +140,8 @@ public class SelectCard : MonoBehaviour
             }
         }
     }
+
+    // 카드 버튼 이벤트 실행 함수
     public void OnclickCard()
     {
         foreach(var item in GameManager.instance.selectCardManager.sc_list)
@@ -161,6 +154,7 @@ public class SelectCard : MonoBehaviour
         GameManager.instance.isPause = false;
     }
 
+    // 카드 데이터 인게임 적용
     public void SetAbility()
     {
         switch (cd.category)
@@ -169,6 +163,7 @@ public class SelectCard : MonoBehaviour
                 switch (cd.kind)
                 {
                     case "bomb":
+                        // Hierachy 안에 있는 데이터 바꾸기 위해 생성할 때 저장한 풀링 시스템에 Queue에 접근하여 데이터 번경
                         foreach (var item in GameManager.instance.pollingsystem.bo_queue)
                         {
                             item.bd.BombAttack += cd.change;

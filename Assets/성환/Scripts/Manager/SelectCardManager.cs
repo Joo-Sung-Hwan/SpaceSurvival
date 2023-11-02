@@ -26,6 +26,7 @@ public class SelectCardManager : MonoBehaviour
     public List<SelectCardManager.CardData> cardCheck_list = new();
     int card_child = 0;
 
+    // Json데이터 받기 위해 stuct 구조 생성
     [System.Serializable]
     public struct CardData
     {
@@ -59,6 +60,7 @@ public class SelectCardManager : MonoBehaviour
         }
     }
 
+    // 카드 생성 함수
     public void CreateSelectCard()
     {
         SelectCard sc = GameManager.instance.pollingsystem.PoolingSelectCard(selectcard, selectcard_parent);
@@ -77,6 +79,7 @@ public class SelectCardManager : MonoBehaviour
         }
     }
 
+    // 카드 3개가 모두 애니메이션에 끝나야 버튼 이벤트 활성화하는 함수
     public void SetEnableButton()
     {
         if (card_child == 3)
@@ -88,6 +91,8 @@ public class SelectCardManager : MonoBehaviour
             card_child = 0;
         }
     }
+
+    // 카드 하나하나의 애니메이션이 끝나야 다음 카드 애니메이션이 돌게 하기위해 코루틴 사용
     IEnumerator DelayCardTime()
     {
         for (int i = 0; i < 3; i++)
@@ -102,6 +107,7 @@ public class SelectCardManager : MonoBehaviour
         StartCoroutine("DelayCardTime");
     }
 
+    // Json 데이터를사용하기 위해 Dictionary에 저장
     public void SetJsonData()
     {
         sc_dic = JsonUtility.FromJson<SelectCardList>(jsondata.text);
