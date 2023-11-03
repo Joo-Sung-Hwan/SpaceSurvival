@@ -54,7 +54,10 @@ public class ItemDetail : MonoBehaviour
                 SetColor(ivd.abilities[i].abilityrarity, ability_Txt[i]);
             }
             else
+            {
+                ability_Txt[i].text = "";
                 ability_Txt[i].gameObject.SetActive(false);
+            }
         }
 
         itemImage.sprite = Resources.Load<Sprite>("ItemIcons/" + ivd.itemStaticData.spriteName);
