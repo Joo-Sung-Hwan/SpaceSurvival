@@ -165,6 +165,7 @@ public class Player : MonoBehaviour
         {
             Laser l = GameManager.instance.pollingsystem.PollingLaser(laser, laser_parent);
             l.SetData();
+            l.CreateLaser();
             delayTimeL = 0f;
         }
     }

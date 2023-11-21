@@ -17,7 +17,7 @@ public class Laser : MonoBehaviour
     {
         ReflectMaxCount = 5;
         LaserSize = 0.2f;
-        LaserLastTime = 0.5f;
+        LaserLastTime = 10f;
         SetData();
     }
 
@@ -70,8 +70,6 @@ public class Laser : MonoBehaviour
             ray = Physics2D.Raycast(newposition, newDir, 300f, layermask);
             lr.SetPosition(i, new Vector3(ray.point.x, ray.point.y, 0f));
             newposition = ray.point;
-            LaserChild c = GameManager.instance.pollingsystem.PollingLaserChild(lc, transform);
-            c.Init(lr.GetPosition(i - 1), lr.GetPosition(i), LaserSize);
             OnCollider();
             // ray가 collider에 걸리는 경우 배제하기 위해 꺼줌
             ray.collider.gameObject.SetActive(false);
@@ -82,6 +80,11 @@ public class Laser : MonoBehaviour
         lr.enabled = false;
     }
 
+    public void CreateLaser()
+    {
+
+        GameManager.instance.pollingsystem.PollingLaserChild(lc, transform);
+    }
     // 콜라인더 SetActive
     public void OnCollider()
     {
