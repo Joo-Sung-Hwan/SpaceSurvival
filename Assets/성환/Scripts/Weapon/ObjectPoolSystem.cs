@@ -35,6 +35,28 @@ public class ObjectPoolSystem : MonoBehaviour
             }
             return item;
         }
+        public static T GetPoolasd(T value, int num, Transform trans)
+        {
+            T item = default(T);
+
+            if (!pools.ContainsKey(num))
+            {
+                pools.Add(num, new Queue<T>());
+            }
+            else
+            {
+                if (pools[num].Count == 0)
+                {
+                    item = Instantiate(value, trans);
+                }
+                else
+                {
+                    item = pools[num].Dequeue();
+                }
+            }
+            return item;
+        }
+
         public static void ReturnPool(T value,int num)
         {
             pools[num].Enqueue(value);
