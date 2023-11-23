@@ -14,9 +14,9 @@ public class MagnetBomb : Bomb
         ani = GetComponent<Animator>();
     }
 
-    public override void ResetData()
+    public override void Initalize()
     {
-        base.ResetData();
+        base.Initalize();
         bt = BombType.Magnet;
     }
 }

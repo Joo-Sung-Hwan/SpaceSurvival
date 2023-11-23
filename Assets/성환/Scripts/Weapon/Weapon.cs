@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BombType
+{
+    Nomal,
+    Magnet,
+    Web,
+    Fire
+}
+
 public struct WeaponData
 {
     public float Damage { get; set; }
@@ -15,19 +23,21 @@ public abstract class Weapon : MonoBehaviour
     public WeaponData weaponData = new WeaponData();
     public Weapon weapon;
     public Coroutine coroutine;
+    public BombType bt;
+
     private void OnEnable()
     {
         if (coroutine == null)
         {
-            coroutine = StartCoroutine(DestroyTime(weaponData.destroyTime));
+            //coroutine = StartCoroutine(DestroyTime(weaponData.destroyTime));
         }
     }
     private void OnDisable()
     {
         if (coroutine != null)
         {
-            StopCoroutine(coroutine);
-            coroutine = null;
+            //StopCoroutine(coroutine);
+            //coroutine = null;
         }
     }
     public abstract void Initalize();
@@ -36,6 +46,7 @@ public abstract class Weapon : MonoBehaviour
     {
         Attack();
     }
+
     public virtual void Attack()
     {
         if (GameManager.instance.isPause)
@@ -47,7 +58,7 @@ public abstract class Weapon : MonoBehaviour
         {
             //collision.GetComponent<Enemy>()
             // 적에게 피해주기
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
     }
     private IEnumerator DestroyTime(float time)

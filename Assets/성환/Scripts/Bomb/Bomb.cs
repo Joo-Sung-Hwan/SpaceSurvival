@@ -9,14 +9,6 @@ public enum BombState
     Explosion
 }
 
-public enum BombType
-{
-    Nomal,
-    Magnet,
-    Web,
-    Fire
-}
-
 public struct BombData
 {
     public float BombAttack { get; set; }
@@ -27,7 +19,7 @@ public struct BombData
     public CircleCollider2D collider2D;
 }
 
-public abstract class Bomb : MonoBehaviour
+public abstract class Bomb : Weapon
 {
     Vector3 start_pos;
     Vector2 dir;
@@ -50,12 +42,11 @@ public abstract class Bomb : MonoBehaviour
     Player player;
 
     protected BombState bs;
-    public BombType bt;
 
-    public virtual void ResetData()
+    public override void Initalize()
     {
         curbounce = 0;
-        
+
         SettingActive(true);
         player = GameManager.instance.player;
         start_pos = player.area.bounds.center;
@@ -66,10 +57,8 @@ public abstract class Bomb : MonoBehaviour
         AtiveObj(transform, true);
     }
 
-    void FixedUpdate()
+    public override void Attack()
     {
-        if (GameManager.instance.isPause)
-            return;
         if (!isGrounded)
         {
             curheight += -gravity * Time.deltaTime;
@@ -137,6 +126,8 @@ public abstract class Bomb : MonoBehaviour
         yield return new WaitForSeconds(delay);
         bd.collider2D.enabled = false;
         Destroy(part.gameObject);
+        Debug.Log(this.name);
+        ObjectPoolSystem.ObjectPoolling<Weapon>.ReturnPool(this, 1);
         gameObject.SetActive(false);
     }
 
@@ -166,7 +157,7 @@ public abstract class Bomb : MonoBehaviour
     float BombEvents()
     {
         float delay = 0;
-        switch(GameManager.instance.player.bomb.bt)
+        switch(GameManager.instance.player.weapon.bt)
         {
             case BombType.Nomal:
             case BombType.Magnet:

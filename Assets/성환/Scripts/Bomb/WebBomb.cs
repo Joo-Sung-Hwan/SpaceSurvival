@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class WebBomb : Bomb
 {
-
     void Start()
     {
         bd.BombAttack = 1f;
@@ -16,9 +15,9 @@ public class WebBomb : Bomb
         ani = GetComponent<Animator>();
     }
 
-    public override void ResetData()
+    public override void Initalize()
     {
-        base.ResetData();
         bt = BombType.Web;
+        base.Initalize();
     }
 }

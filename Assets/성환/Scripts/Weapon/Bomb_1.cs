@@ -98,9 +98,4 @@ public class Bomb_1 : Weapon
             trans.GetChild(i).GetComponent<SpriteRenderer>().enabled = isActive;
         }
     }
-    public void ExplosionFinish()
-    {
-        // 애니메이션에 넣어줄 함수 오브젝트 끄기.
-        gameObject.SetActive(false);
-    }
 }

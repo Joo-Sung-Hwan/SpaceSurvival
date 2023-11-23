@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     public Transform laser_parent;
 
     [Header("ÆøÅº")]
+    public Weapon weapon;
     public Bomb bomb;
     public Bomb[] bombkind;
     public BoxCollider2D area;
@@ -91,6 +92,8 @@ public class Player : MonoBehaviour
         {
             Fire();
             LevelUp();
+            CreateBomb();
+
             if (ps == PlayerState.Walk)
             {
                 ani.ResetTrigger("Idle");
@@ -180,8 +183,11 @@ public class Player : MonoBehaviour
         delayTimeB += Time.deltaTime;
         if (delayTimeB > BombCTime)
         {
-            Bomb b = GameManager.instance.pollingsystem.PollingBomb(bomb, area.transform);
-            b.ResetData();
+            Weapon weapon = ObjectPoolSystem.ObjectPoolling<Weapon>.GetPool(this.weapon,1,transform);
+            //Weapon b = GameManager.instance.pollingsystem.PollingBomb(bomb, area.transform);
+            weapon.Initalize();
+            weapon.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bomb_parent);
+            Debug.Log(weapon.name);
             delayTimeB = 0f;
         }
     }
@@ -235,7 +241,7 @@ public class Player : MonoBehaviour
 
     void SwitchBombCreate()
     {
-        switch (bomb.bt)
+        switch (weapon.GetComponent<Bomb>().bt)
         {
             case BombType.Nomal:
                 BombCTime = 2f;
