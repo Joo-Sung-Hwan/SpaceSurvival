@@ -80,10 +80,11 @@ public class Laser : MonoBehaviour
         lr.enabled = false;
     }
 
-    public void CreateLaser()
+    public LaserChild CreateLaser()
     {
 
-        GameManager.instance.pollingsystem.PollingLaserChild(lc, transform);
+        LaserChild l = GameManager.instance.pollingsystem.PollingLaserChild(lc, transform);
+        return l;
     }
     // 콜라인더 SetActive
     public void OnCollider()
