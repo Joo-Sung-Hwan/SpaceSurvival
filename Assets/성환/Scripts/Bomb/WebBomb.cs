@@ -17,7 +17,7 @@ public class WebBomb : Bomb
 
     public override void Initalize()
     {
-        bt = BombType.Web;
+        bt = WeaponName.Web;
         base.Initalize();
     }
 }

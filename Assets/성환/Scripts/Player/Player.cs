@@ -183,7 +183,7 @@ public class Player : MonoBehaviour
         delayTimeB += Time.deltaTime;
         if (delayTimeB > BombCTime)
         {
-            Weapon weapon = ObjectPoolSystem.ObjectPoolling<Weapon>.GetPool(this.weapon,1,transform);
+            Weapon weapon = ObjectPoolSystem.ObjectPoolling<Weapon>.GetPool(this.weapon,this.weapon.bt,transform);
             //Weapon b = GameManager.instance.pollingsystem.PollingBomb(bomb, area.transform);
             weapon.Initalize();
             weapon.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bomb_parent);
@@ -243,14 +243,14 @@ public class Player : MonoBehaviour
     {
         switch (weapon.GetComponent<Bomb>().bt)
         {
-            case BombType.Nomal:
+            case WeaponName.Nomal:
                 BombCTime = 2f;
                 break;
-            case BombType.Fire:
+            case WeaponName.Fire:
                 BombCTime = 4f;
                 break;
-            case BombType.Magnet:
-            case BombType.Web:
+            case WeaponName.Magnet:
+            case WeaponName.Web:
                 BombCTime = 6f;
                 break;
         }

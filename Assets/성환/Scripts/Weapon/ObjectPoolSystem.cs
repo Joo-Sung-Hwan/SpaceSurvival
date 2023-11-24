@@ -14,52 +14,36 @@ public class ObjectPoolSystem : MonoBehaviour
 
     public static class ObjectPoolling<T> where T : Object
     {
-        private static Dictionary<int, Queue<T>> pools = new Dictionary<int, Queue<T>>();
+        private static Dictionary<WeaponName, Queue<T>> pools = new Dictionary<WeaponName, Queue<T>>();
        
-        public static T GetPool(T value,int num, Transform trans)
+
+        public static T GetPool(T value, WeaponName name, Transform trans)
         {
             T item = default(T);
 
-            if (!pools.ContainsKey(num))
+            if (!pools.ContainsKey(name))
             {
-                pools.Add(num, new Queue<T>());
-                item = Instantiate(value, trans);
-            }
-            else if (pools.ContainsKey(num) && pools[num].Count ==0)
-            {
+                pools.Add(name, new Queue<T>());
                 item = Instantiate(value, trans);
             }
             else
             {
-                item = pools[num].Dequeue();
-            }
-            return item;
-        }
-        public static T GetPoolasd(T value, int num, Transform trans)
-        {
-            T item = default(T);
-
-            if (!pools.ContainsKey(num))
-            {
-                pools.Add(num, new Queue<T>());
-            }
-            else
-            {
-                if (pools[num].Count == 0)
+                if (pools[name].Count == 0)
                 {
                     item = Instantiate(value, trans);
                 }
                 else
                 {
-                    item = pools[num].Dequeue();
+                    item = pools[name].Dequeue();
                 }
             }
             return item;
         }
 
-        public static void ReturnPool(T value,int num)
+        public static void ReturnPool(T value,WeaponName name)
         {
-            pools[num].Enqueue(value);
+            Debug.Log("da");
+            pools[name].Enqueue(value);
         }
     }
 }

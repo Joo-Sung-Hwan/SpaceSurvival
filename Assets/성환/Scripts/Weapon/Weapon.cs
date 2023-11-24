@@ -2,13 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BombType
-{
-    Nomal,
-    Magnet,
-    Web,
-    Fire
-}
+
 
 public struct WeaponData
 {
@@ -16,6 +10,7 @@ public struct WeaponData
     public float destroyTime;
     public float createDelay;
     public byte compareNum;
+
 }
 
 public abstract class Weapon : MonoBehaviour
@@ -23,7 +18,7 @@ public abstract class Weapon : MonoBehaviour
     public WeaponData weaponData = new WeaponData();
     public Weapon weapon;
     public Coroutine coroutine;
-    public BombType bt;
+    public WeaponName bt = new WeaponName();
 
     private void OnEnable()
     {

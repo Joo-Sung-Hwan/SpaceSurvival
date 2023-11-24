@@ -127,7 +127,7 @@ public abstract class Bomb : Weapon
         bd.collider2D.enabled = false;
         Destroy(part.gameObject);
         Debug.Log(this.name);
-        ObjectPoolSystem.ObjectPoolling<Weapon>.ReturnPool(this, 1);
+        ObjectPoolSystem.ObjectPoolling<Weapon>.ReturnPool(this, bt);
         gameObject.SetActive(false);
     }
 
@@ -159,14 +159,14 @@ public abstract class Bomb : Weapon
         float delay = 0;
         switch(GameManager.instance.player.weapon.bt)
         {
-            case BombType.Nomal:
-            case BombType.Magnet:
+            case WeaponName.Nomal:
+            case WeaponName.Magnet:
                 delay = 0.2f;
                 return delay;
-            case BombType.Web:
+            case WeaponName.Web:
                 delay = 4f;
                 return delay;
-            case BombType.Fire:
+            case WeaponName.Fire:
                 delay = 2f;
                 return delay;
         }

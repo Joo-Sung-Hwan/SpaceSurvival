@@ -256,16 +256,16 @@ public abstract class Enemy : MonoBehaviour
         targetTrans = GetComponent<Transform>();
         switch(player.bomb.bt)
         {
-            case BombType.Nomal:
+            case WeaponName.Nomal:
                 targetTrans = transT.normalBombTrans;
                 return targetTrans;
-            case BombType.Magnet:
+            case WeaponName.Magnet:
                 targetTrans = transT.magnetTrans;
                 return targetTrans;
-            case BombType.Web:
+            case WeaponName.Web:
                 targetTrans = transT.WebTrans;
                 return targetTrans;
-            case BombType.Fire:
+            case WeaponName.Fire:
                 targetTrans = transT.fireTrans;
                 break;
         }

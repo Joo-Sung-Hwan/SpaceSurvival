@@ -17,6 +17,6 @@ public class MagnetBomb : Bomb
     public override void Initalize()
     {
         base.Initalize();
-        bt = BombType.Magnet;
+        bt = WeaponName.Magnet;
     }
 }
