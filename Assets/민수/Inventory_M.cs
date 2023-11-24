@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataManager : MonoBehaviour
+public class Inventory_M : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -15,13 +15,4 @@ public class DataManager : MonoBehaviour
     {
         
     }
-}
-
-public enum ObjectName
-{
-    Nomal,
-    Magnet,
-    Web,
-    Fire,
-    Astronaut
 }

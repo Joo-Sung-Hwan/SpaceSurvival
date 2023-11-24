@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ObjectPoolSystem : MonoBehaviour
@@ -14,10 +15,8 @@ public class ObjectPoolSystem : MonoBehaviour
 
     public static class ObjectPoolling<T> where T : Object
     {
-        private static Dictionary<WeaponName, Queue<T>> pools = new Dictionary<WeaponName, Queue<T>>();
-       
-
-        public static T GetPool(T value, WeaponName name, Transform trans)
+        private static Dictionary<ObjectName, Queue<T>> pools = new Dictionary<ObjectName, Queue<T>>();
+        public static T GetPool(T value, ObjectName name, Transform trans)
         {
             T item = default(T);
 
@@ -35,14 +34,15 @@ public class ObjectPoolSystem : MonoBehaviour
                 else
                 {
                     item = pools[name].Dequeue();
+                    item.GameObject().transform.position = trans.position;
+                    item.GameObject().SetActive(true);
                 }
             }
             return item;
         }
-
-        public static void ReturnPool(T value,WeaponName name)
+        public static void ReturnPool(T value, ObjectName name)
         {
-            Debug.Log("da");
+            value.GameObject().SetActive(false);
             pools[name].Enqueue(value);
         }
     }
