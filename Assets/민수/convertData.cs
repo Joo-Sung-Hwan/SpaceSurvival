@@ -6,16 +6,23 @@ public class ItemDatas
 {
     public string name;
     public int rank;
-    public List<float> damage;
-    public List<float> attackSpeed;
 }
 public class convertData : MonoBehaviour
 {
-    string path = Application.persistentDataPath + "/";
     ItemDatas itemDatas = new ItemDatas();
+    private string path;
+
+    private void Awake()
+    {
+        path = Application.persistentDataPath + "/";
+        itemDatas.name = "¤¾¤·";
+        itemDatas.rank = 1;
+    }
     private void Start()
     {
-        
+        string item = JsonUtility.ToJson(itemDatas);
+        File.WriteAllText(path + "TestItem", JsonUtility.ToJson(item));
+        Debug.Log(path + "TestItem");
     }
     public void SaveItemData(ItemDatas data,string filename)
     {
