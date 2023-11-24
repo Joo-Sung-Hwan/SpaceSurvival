@@ -18,6 +18,6 @@ public class NormalBomb : Bomb
     public override void Initalize()
     {
         base.Initalize();
-        bt = WeaponName.Nomal;
+        bt = ObjectName.Nomal;
     }
 }

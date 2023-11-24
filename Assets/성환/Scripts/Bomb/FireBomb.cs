@@ -17,6 +17,6 @@ public class FireBomb : Bomb
     public override void Initalize()
     {
         base.Initalize();
-        bt = WeaponName.Fire;
+        bt = ObjectName.Fire;
     }
 }

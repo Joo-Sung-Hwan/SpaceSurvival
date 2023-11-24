@@ -187,7 +187,6 @@ public class Player : MonoBehaviour
             //Weapon b = GameManager.instance.pollingsystem.PollingBomb(bomb, area.transform);
             weapon.Initalize();
             weapon.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bomb_parent);
-            Debug.Log(weapon.name);
             delayTimeB = 0f;
         }
     }
@@ -241,16 +240,16 @@ public class Player : MonoBehaviour
 
     void SwitchBombCreate()
     {
-        switch (weapon.GetComponent<Bomb>().bt)
+        switch (weapon.bt)
         {
-            case WeaponName.Nomal:
+            case ObjectName.Nomal:
                 BombCTime = 2f;
                 break;
-            case WeaponName.Fire:
+            case ObjectName.Fire:
                 BombCTime = 4f;
                 break;
-            case WeaponName.Magnet:
-            case WeaponName.Web:
+            case ObjectName.Magnet:
+            case ObjectName.Web:
                 BombCTime = 6f;
                 break;
         }

@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         float posX = pos.x + UnityEngine.Random.Range(-size.x / 2f, size.x / 2f);
         float posY = pos.y + UnityEngine.Random.Range(-size.y / 2f, size.y / 2f);
 
-        Vector3 spawnPos = new Vector2(posX, posY);
+        Vector2 spawnPos = new Vector2(posX, posY);
         return spawnPos;
     }
 

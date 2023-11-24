@@ -169,9 +169,9 @@ public abstract class Enemy : MonoBehaviour
                 break;
             case "Bullet":
                 Hp -= collision.GetComponent<Bullet>().Attack;
-                Debug.Log(collision.GetComponent<Bullet>().attackability);
+                //Debug.Log(collision.GetComponent<Bullet>().attackability);
                 collision.GetComponent<Bullet>().attackability -= 1;
-                Debug.Log(collision.GetComponent<Bullet>().attackability);
+                //Debug.Log(collision.GetComponent<Bullet>().attackability);
                 if (collision.GetComponent<Bullet>().attackability <= 0)
                 {
                     collision.gameObject.SetActive(false);
@@ -184,7 +184,7 @@ public abstract class Enemy : MonoBehaviour
                 break;
             case "MagnetBomb":
                 TransType(collision,out magnetBombZone);
-                CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
+                //CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
                 break;
             case "WebBomb":
                 TransType(collision, out webBombZone);
@@ -256,16 +256,16 @@ public abstract class Enemy : MonoBehaviour
         targetTrans = GetComponent<Transform>();
         switch(player.bomb.bt)
         {
-            case WeaponName.Nomal:
+            case ObjectName.Nomal:
                 targetTrans = transT.normalBombTrans;
                 return targetTrans;
-            case WeaponName.Magnet:
+            case ObjectName.Magnet:
                 targetTrans = transT.magnetTrans;
                 return targetTrans;
-            case WeaponName.Web:
+            case ObjectName.Web:
                 targetTrans = transT.WebTrans;
                 return targetTrans;
-            case WeaponName.Fire:
+            case ObjectName.Fire:
                 targetTrans = transT.fireTrans;
                 break;
         }

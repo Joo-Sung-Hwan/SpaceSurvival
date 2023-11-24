@@ -23,5 +23,6 @@ public enum ObjectName
     Magnet,
     Web,
     Fire,
-    Astronaut
+    Astronaut,
+    Particle
 }

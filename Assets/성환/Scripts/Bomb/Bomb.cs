@@ -23,13 +23,13 @@ public abstract class Bomb : Weapon
 {
     Vector3 start_pos;
     Vector2 dir;
-    Vector2 destination;
+    Vector3 destination;
     float dis;
     float maxdis;
     float gravity = 10f;
     bool isGrounded = true;
     int maxbounce = 5;
-    int curbounce;
+    protected int curbounce;
     public BombData bd = new();
     public List<Color> colors = new();
 
@@ -46,15 +46,14 @@ public abstract class Bomb : Weapon
     public override void Initalize()
     {
         curbounce = 0;
-
         SettingActive(true);
         player = GameManager.instance.player;
-        start_pos = player.area.bounds.center;
         destination = GameManager.instance.GetRandomPosition(player.transform, player.area);
-        maxdis = Vector3.Distance(start_pos, destination);
+        start_pos = player.area.transform.localPosition;
+        maxdis = Vector3.Distance(player.transform.position, destination);
         DirInit(destination);
-        bs = BombState.Idle;
         AtiveObj(transform, true);
+        bs = BombState.Idle;
     }
 
     public override void Attack()
@@ -65,7 +64,7 @@ public abstract class Bomb : Weapon
 
             // 폭탄 이미지 위아래로 바운드
             sprite.position += new Vector3(0, curheight, 0) * Time.deltaTime;
-            transform.position += (Vector3)dir * Time.deltaTime;
+            transform.position += (Vector3)dir.normalized * Time.deltaTime;
 
             CheckGroundHit();
         }
@@ -79,12 +78,11 @@ public abstract class Bomb : Weapon
         curbounce++;
     }
 
-    public void CheckGroundHit()
+    void CheckGroundHit()
     {
-        dis = Vector3.Distance(this.transform.position, start_pos);
-
+        //dis = Vector3.Distance(transform.localPosition, start_pos);
         // 최대거리이거나 3번 바운드하면 터짐
-        if(dis < maxdis && curbounce < maxbounce)
+        if(curbounce < maxbounce)
         {
             if (sprite.position.y < shadow.position.y)
             {
@@ -120,15 +118,13 @@ public abstract class Bomb : Weapon
     public IEnumerator BombParticle(float delay)
     {
         yield return new WaitForSeconds(0.5f);
-        ParticleSystem part = Instantiate(particle, transform);
+        ParticleSystem part = ObjectPoolSystem.ObjectPoolling<ParticleSystem>.GetPool(particle, ObjectName.Particle, transform);
         AtiveObj(gameObject.transform,false);
         bd.collider2D.enabled = true;
         yield return new WaitForSeconds(delay);
         bd.collider2D.enabled = false;
-        Destroy(part.gameObject);
-        Debug.Log(this.name);
+        ObjectPoolSystem.ObjectPoolling<ParticleSystem>.ReturnPool(part, ObjectName.Particle);
         ObjectPoolSystem.ObjectPoolling<Weapon>.ReturnPool(this, bt);
-        gameObject.SetActive(false);
     }
 
     // 폭탄 터지는 이벤트 구현
@@ -159,14 +155,14 @@ public abstract class Bomb : Weapon
         float delay = 0;
         switch(GameManager.instance.player.weapon.bt)
         {
-            case WeaponName.Nomal:
-            case WeaponName.Magnet:
+            case ObjectName.Nomal:
+            case ObjectName.Magnet:
                 delay = 0.2f;
                 return delay;
-            case WeaponName.Web:
+            case ObjectName.Web:
                 delay = 4f;
                 return delay;
-            case WeaponName.Fire:
+            case ObjectName.Fire:
                 delay = 2f;
                 return delay;
         }

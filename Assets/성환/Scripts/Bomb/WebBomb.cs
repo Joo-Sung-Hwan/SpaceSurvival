@@ -14,10 +14,9 @@ public class WebBomb : Bomb
         bd.collider2D.radius = bd.BombRange;
         ani = GetComponent<Animator>();
     }
-
     public override void Initalize()
     {
-        bt = WeaponName.Web;
         base.Initalize();
+        bt = ObjectName.Web;
     }
 }

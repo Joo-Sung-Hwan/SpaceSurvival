@@ -6,7 +6,7 @@ public class MagnetBomb : Bomb
 {
     void Start()
     {
-        bd.BombAttack = 2f;
+        //bd.BombAttack = 2f;
         bd.BombRange = 2f;
         bd.zoneTrans = transform.GetChild(2);
         bd.collider2D = bd.zoneTrans.GetComponent<CircleCollider2D>();
@@ -17,6 +17,6 @@ public class MagnetBomb : Bomb
     public override void Initalize()
     {
         base.Initalize();
-        bt = WeaponName.Magnet;
+        bt = ObjectName.Magnet;
     }
 }

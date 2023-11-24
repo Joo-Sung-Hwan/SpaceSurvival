@@ -10,7 +10,7 @@ public struct WeaponData
     public float destroyTime;
     public float createDelay;
     public byte compareNum;
-
+    public ObjectName name;
 }
 
 public abstract class Weapon : MonoBehaviour
@@ -18,7 +18,7 @@ public abstract class Weapon : MonoBehaviour
     public WeaponData weaponData = new WeaponData();
     public Weapon weapon;
     public Coroutine coroutine;
-    public WeaponName bt = new WeaponName();
+    public ObjectName bt = new ObjectName();
 
     private void OnEnable()
     {
