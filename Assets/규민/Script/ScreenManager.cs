@@ -19,6 +19,7 @@ public class ScreenManager : MonoBehaviour
             if(instance != this)
                 Destroy(gameObject);
         }
+        
         if (SceneManager.GetActiveScene().name == "Lobby_GM")
             DOTween.KillAll();
         else if (SceneManager.GetActiveScene().name == "GameScene")

@@ -2,20 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Bullet : MonoBehaviour
+public abstract class Bullet : Weapon
 {
     public float Speed { get; set; }
-    public float Attack { get; set; }
+    //public float Attack { get; set; }
     public int AttackAbility { get; set; }
     [HideInInspector] public int attackability;
     float destroy_time = 0f;
     protected bool dir;
-    public abstract void init();
 
     void Start()
     {
         Speed = 5f;
-        Attack = 10f;
+        weaponData.Damage = 10f;
         AttackAbility = 1;
     }
 
@@ -23,11 +22,11 @@ public abstract class Bullet : MonoBehaviour
     {
         if (GameManager.instance.isPause)
             return;
-        Move();
+        Attack();
         DestroyBullet();
     }
 
-    public void Move()
+    public override void Attack()
     {
         if (dir)
         {
@@ -56,7 +55,7 @@ public abstract class Bullet : MonoBehaviour
         destroy_time += Time.deltaTime;
         if(destroy_time > 5f)
         {
-            gameObject.SetActive(false);
+            ObjectPoolSystem.ObjectPoolling<Weapon>.ReturnPool(this,ObjectName.Bullet);
             destroy_time = 0f;
         }
     }

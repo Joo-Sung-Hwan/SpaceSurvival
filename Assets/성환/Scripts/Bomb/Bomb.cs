@@ -9,6 +9,14 @@ public enum BombState
     Explosion
 }
 
+public enum BombType
+{
+    Normal,
+    Magnet,
+    Web,
+    Fire
+}
+
 public struct BombData
 {
     public float BombAttack { get; set; }
@@ -32,7 +40,7 @@ public abstract class Bomb : Weapon
     protected int curbounce;
     public BombData bd = new();
     public List<Color> colors = new();
-
+    public BombType bt = new();
     public Transform sprite;
     public Transform shadow;
     public ParticleSystem particle;
@@ -43,7 +51,7 @@ public abstract class Bomb : Weapon
 
     protected BombState bs;
 
-    public override void Initalize()
+    public void Init()
     {
         curbounce = 0;
         SettingActive(true);
@@ -52,10 +60,9 @@ public abstract class Bomb : Weapon
         start_pos = player.area.transform.localPosition;
         maxdis = Vector3.Distance(player.transform.position, destination);
         DirInit(destination);
-        AtiveObj(transform, true);
+        TransFormObj(transform, true);
         bs = BombState.Idle;
     }
-
     public override void Attack()
     {
         if (!isGrounded)
@@ -119,12 +126,12 @@ public abstract class Bomb : Weapon
     {
         yield return new WaitForSeconds(0.5f);
         ParticleSystem part = ObjectPoolSystem.ObjectPoolling<ParticleSystem>.GetPool(particle, ObjectName.Particle, transform);
-        AtiveObj(gameObject.transform,false);
-        bd.collider2D.enabled = true;
+        TransFormObj(gameObject.transform,false);
+        weaponData.collider2D.enabled = true;
         yield return new WaitForSeconds(delay);
-        bd.collider2D.enabled = false;
+        weaponData.collider2D.enabled = false;
         ObjectPoolSystem.ObjectPoolling<ParticleSystem>.ReturnPool(part, ObjectName.Particle);
-        ObjectPoolSystem.ObjectPoolling<Weapon>.ReturnPool(this, bt);
+        ObjectPoolSystem.ObjectPoolling<Weapon>.ReturnPool(this, ObjectName.Bomb);
     }
 
     // ÆøÅº ÅÍÁö´Â ÀÌº¥Æ® ±¸Çö
@@ -141,7 +148,7 @@ public abstract class Bomb : Weapon
     }
 
     // ÆøÅº ¹üÀ§ collider2D On/Off
-    public void AtiveObj(Transform trans,bool isActive)
+    public void TransFormObj(Transform trans,bool isActive)
     {
         for (int i = 0; i < 2; i++)
         {
@@ -153,16 +160,16 @@ public abstract class Bomb : Weapon
     float BombEvents()
     {
         float delay = 0;
-        switch(GameManager.instance.player.weapon.bt)
+        switch(GameManager.instance.player.bomb.GetComponent<Bomb>().bt)
         {
-            case ObjectName.Nomal:
-            case ObjectName.Magnet:
+            case BombType.Normal:
+            case BombType.Magnet:
                 delay = 0.2f;
                 return delay;
-            case ObjectName.Web:
+            case BombType.Web:
                 delay = 4f;
                 return delay;
-            case ObjectName.Fire:
+            case BombType.Fire:
                 delay = 2f;
                 return delay;
         }

@@ -172,7 +172,7 @@ public class SelectCard : MonoBehaviour
                     case "bullet":
                         foreach (var item in GameManager.instance.pollingsystem.b_queue)
                         {
-                            item.Attack += cd.change;
+                            item.weaponData.Damage += cd.change;
                         }
                         break;
                     case "laser":

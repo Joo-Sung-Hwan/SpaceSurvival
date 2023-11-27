@@ -95,9 +95,11 @@ GameObject:
   - component: {fileID: 5549641650983845685}
   - component: {fileID: -8284519638914888950}
   - component: {fileID: -3068628585587695254}
+  - component: {fileID: 3727406155926993346}
+  - component: {fileID: 5314710110734467198}
   m_Layer: 0
   m_Name: MagnetBomb
-  m_TagString: Untagged
+  m_TagString: MagnetBomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,7 +118,6 @@ Transform:
   m_Children:
   - {fileID: 1023207484149046108}
   - {fileID: 1616676884776328808}
-  - {fileID: 7768395815626468161}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1}
@@ -132,12 +133,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f9d591bb68a9d542823d498900613c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weapon: {fileID: 0}
+  objectName: 1
   colors: []
+  bt: 1
   sprite: {fileID: 1023207484149046108}
   shadow: {fileID: 1616676884776328808}
   particle: {fileID: 198755127273645396, guid: e03e96e01fcb31b4290246cf8880f688, type: 3}
   ani: {fileID: 0}
-  bt: 1
 --- !u!95 &-3068628585587695254
 Animator:
   serializedVersion: 5
@@ -159,46 +162,13 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &3959360767379389388
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7768395815626468161}
-  - component: {fileID: 9134367240433422356}
-  - component: {fileID: 9031213683862238539}
-  m_Layer: 0
-  m_Name: MagnetZone
-  m_TagString: MagnetBomb
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7768395815626468161
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3959360767379389388}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5549641650983845685}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &9134367240433422356
+--- !u!58 &3727406155926993346
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3959360767379389388}
+  m_GameObject: {fileID: 3146206446776286723}
   m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
@@ -208,14 +178,14 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
---- !u!50 &9031213683862238539
+--- !u!50 &5314710110734467198
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3959360767379389388}
+  m_GameObject: {fileID: 3146206446776286723}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0

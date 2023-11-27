@@ -59,15 +59,15 @@ public abstract class Enemy : MonoBehaviour
     protected EnemyType enemyT = EnemyType.None;
     protected Animator anim;
     protected DefineEnemyData defineData;
-    Transform typeTrans;
+    public Transform typeTrans;
     //protected Transform magnetTrans;
     //protected Transform webTrans;
 
     float magnetDir = 1f;
-    bool looseZone = true;
-    bool normalBombZone;
-    bool magnetBombZone;
-    bool webBombZone;
+    public bool looseZone = true;
+    public bool normalBombZone;
+    public bool magnetBombZone;
+    public bool webBombZone;
     bool fireBombZone;
     //protected DefineEnemyData defineD = DefineEnemyData.None;
 
@@ -168,7 +168,7 @@ public abstract class Enemy : MonoBehaviour
                 CreateDamageTxt(collision.GetComponent<LaserChild>().Attack);
                 break;
             case "Bullet":
-                Hp -= collision.GetComponent<Bullet>().Attack;
+                Hp -= collision.GetComponent<Bullet>().weaponData.Damage;
                 //Debug.Log(collision.GetComponent<Bullet>().attackability);
                 collision.GetComponent<Bullet>().attackability -= 1;
                 //Debug.Log(collision.GetComponent<Bullet>().attackability);
@@ -176,13 +176,13 @@ public abstract class Enemy : MonoBehaviour
                 {
                     collision.gameObject.SetActive(false);
                 }
-                CreateDamageTxt(collision.GetComponent<Bullet>().Attack);
+                CreateDamageTxt(collision.GetComponent<Bullet>().weaponData.Damage);
                 break;
             case "EnegyBolt":
                 Hp -= collision.GetComponent<FxManager>().fd.Attack;
                 CreateDamageTxt(collision.GetComponent<FxManager>().fd.Attack);
                 break;
-            case "MagnetBomb":
+            /*case "MagnetBomb":
                 TransType(collision,out magnetBombZone);
                 //CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
                 break;
@@ -190,7 +190,7 @@ public abstract class Enemy : MonoBehaviour
                 TransType(collision, out webBombZone);
                 StartCoroutine("OnOff", collision.gameObject);
                 DeBuff = collision.transform.parent.GetComponent<Bomb>().bd.BombDebuff;
-                break;
+                break;*/
             case "FireBomb":
                 TransType(collision, out fireBombZone);
                 StartCoroutine("OnOff", collision.gameObject);
@@ -251,23 +251,23 @@ public abstract class Enemy : MonoBehaviour
     }
 
     // 특정 존의 Transform을 만들어주기위한 코드
-    Transform Trans()
+    public Transform Trans()
     {
         targetTrans = GetComponent<Transform>();
-        switch(player.bomb.bt)
+        switch(player.bomb.GetComponent<Bomb>().bt)
         {
-            case ObjectName.Nomal:
+            case BombType.Normal:
                 targetTrans = transT.normalBombTrans;
                 return targetTrans;
-            case ObjectName.Magnet:
+            case BombType.Magnet:
                 targetTrans = transT.magnetTrans;
                 return targetTrans;
-            case ObjectName.Web:
+            case BombType.Web:
                 targetTrans = transT.WebTrans;
                 return targetTrans;
-            case ObjectName.Fire:
+            case BombType.Fire:
                 targetTrans = transT.fireTrans;
-                break;
+                return targetTrans;
         }
         return targetTrans;
     }

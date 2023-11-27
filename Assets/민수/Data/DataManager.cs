@@ -20,9 +20,11 @@ public class DataManager : MonoBehaviour
 public enum ObjectName
 {
     Nomal,
+    Bomb,
     Magnet,
     Web,
     Fire,
     Astronaut,
+    Bullet,
     Particle
 }

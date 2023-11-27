@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FireBomb : Bomb
 {
-    void Start()
+    /*void Start()
     {
         bd.BombAttack = 1f;
         bd.BombRange = 1f;
@@ -12,11 +12,10 @@ public class FireBomb : Bomb
         bd.collider2D = bd.zoneTrans.GetComponent<CircleCollider2D>();
         bd.collider2D.radius = bd.BombRange;
         ani = GetComponent<Animator>();
-    }
+    }*/
 
     public override void Initalize()
     {
-        base.Initalize();
-        bt = ObjectName.Fire;
+        bt = BombType.Fire;
     }
 }

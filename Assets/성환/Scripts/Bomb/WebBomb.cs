@@ -6,17 +6,17 @@ public class WebBomb : Bomb
 {
     void Start()
     {
-        bd.BombAttack = 1f;
-        bd.BombRange = 2.5f;
-        bd.BombDebuff = 0.25f;
-        bd.zoneTrans = transform.GetChild(2);
-        bd.collider2D = bd.zoneTrans.GetComponent<CircleCollider2D>();
-        bd.collider2D.radius = bd.BombRange;
+        weaponData.Range = 2.5f;
+        weaponData.Debuff = 0.25f;
+        weaponData.zoneTrans = transform;
+        weaponData.collider2D = weaponData.zoneTrans.GetComponent<CircleCollider2D>();
+        weaponData.collider2D.radius = weaponData.Range;
         ani = GetComponent<Animator>();
+        bt = BombType.Web;
+        objectName = ObjectName.Bomb;
     }
     public override void Initalize()
     {
-        base.Initalize();
-        bt = ObjectName.Web;
+        Init();
     }
 }

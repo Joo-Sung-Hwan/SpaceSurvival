@@ -9,17 +9,29 @@ public class ObjectPoolSystem : MonoBehaviour
     public static ObjectPoolSystem Instance { get { return instance; } }
     private void Awake()
     {
-        if (Instance == null) instance = this;
-        else Destroy(gameObject);
+        if (Instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            if(instance != this)
+                Destroy(gameObject);
+        }
     }
 
+    void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     public static class ObjectPoolling<T> where T : Object
     {
-        private static Dictionary<ObjectName, Queue<T>> pools = new Dictionary<ObjectName, Queue<T>>();
+        public static Dictionary<ObjectName, Queue<T>> pools = new Dictionary<ObjectName, Queue<T>>();
         public static T GetPool(T value, ObjectName name, Transform trans)
         {
             T item = default(T);
-
+            
             if (!pools.ContainsKey(name))
             {
                 pools.Add(name, new Queue<T>());

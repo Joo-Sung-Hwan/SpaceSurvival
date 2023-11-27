@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet_small : Bullet
 {
-    public override void init()
+    public override void Initalize()
     {
         attackability = AttackAbility;
         SetDir();
