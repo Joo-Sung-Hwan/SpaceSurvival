@@ -19,5 +19,6 @@ public class NormalBomb : Bomb
     {
         base.Initalize();
         bt = ObjectName.Nomal;
+        weaponData.createDelay = 2f;
     }
 }

@@ -90,9 +90,9 @@ public class Player : MonoBehaviour
     {
         if (!GameManager.instance.isPause)
         {
-            Fire();
+            //Fire();
             LevelUp();
-            CreateBomb();
+            //CreateBomb();
 
             if (ps == PlayerState.Walk)
             {

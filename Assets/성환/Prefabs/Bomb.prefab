@@ -132,12 +132,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b671fcbb720e346ae6b7fbd95c86d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weapon: {fileID: 0}
+  bt: 0
   colors: []
   sprite: {fileID: 1023207484149046108}
   shadow: {fileID: 1616676884776328808}
   particle: {fileID: 198194127032045410, guid: 3686c9099121d3a4db30f87c97ce4511, type: 3}
   ani: {fileID: 4635545216529999539}
-  bt: 0
 --- !u!95 &4635545216529999539
 Animator:
   serializedVersion: 5
