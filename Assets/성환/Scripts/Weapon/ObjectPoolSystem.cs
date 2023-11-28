@@ -7,6 +7,7 @@ public class ObjectPoolSystem : MonoBehaviour
 {
     private static ObjectPoolSystem instance = null;
     public static ObjectPoolSystem Instance { get { return instance; } }
+
     private void Awake()
     {
         if (Instance == null)
@@ -20,7 +21,6 @@ public class ObjectPoolSystem : MonoBehaviour
                 Destroy(gameObject);
         }
     }
-
     void Start()
     {
         DontDestroyOnLoad(gameObject);

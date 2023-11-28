@@ -23,7 +23,9 @@ public struct TestM
 public class UpGradeManager : MonoBehaviour
 {
     [SerializeField] private List<ItemScriptableData> items;
-    [SerializeField] private List<TMP_Text> abilityTexts;
+    [SerializeField] private List<TMP_Text> cur_AbilityTexts;
+    [SerializeField] private List<TMP_Text> up_AbilityTexts;
+    [SerializeField] private TMP_Text goldNcost;
 
     public Image curItemimage;
     public Image upGradeimage;
@@ -39,21 +41,13 @@ public class UpGradeManager : MonoBehaviour
     public static Color green = Color.green;
     public static Color white = Color.white;
 
-    List<TestM> testM = new List<TestM>();
+    private ItemData item;
+
     string path;
 
     private void Start()
     {
-        testM.Add(new TestM("ㅎㅇ", 1, 1, 1));
-        testM.Add(new TestM("ㅎㅇㄹ", 2, 2, 2));
-
-        path = Application.dataPath + "/";
-        foreach (TestM item in testM)
-        {
-            //SaveData<TestM>("ItemDataNum.Json", item);
-        }
-        string jitems = JsonConvert.SerializeObject(testM, Formatting.Indented);
-        File.WriteAllText(path + "ConvertDataTest.Json", jitems);
+       
     }
     public void SaveData<T>(string fileName, T data)
     {
@@ -67,39 +61,97 @@ public class UpGradeManager : MonoBehaviour
             SetCurItemInfo(RandomItem());
         }
     }
+
+    public void OnOKButtonDown()
+    {
+
+    }
+    public void OnCancelButtonDown()
+    {
+
+    }
+
     public void SetCurItemInfo(ItemData item)
     {
         curItemimage.sprite = Resources.Load<Sprite>("ItemIcons/" + item.itemStaticData.spriteName);
 
-        SetDetails(item);
-        SetUpGradeItem();
+        SetCurItem(item,cur_AbilityTexts);
+        SetUpGradeItem(item,up_AbilityTexts);
     }
-    public void SetUpGradeItem()
+    public void SetUpGradeItem(ItemData item,List<TMP_Text> texts)
     {
+        ItemData upItem = SetUpGradeItemData(item);
         upGradeimage.sprite = curItemimage.sprite;
+        upGradeItemName.text = $"{upItem.itemStaticData.name}+{upItem.itemStaticData.itemLevel}";
+        SetColor(upItem.rarity, upGradeItemName);
 
-    }
-    public void SetDetails(ItemData item)
-    {
-        curItemName.text = item.itemStaticData.name;
-        SetColor(item.rarity, curItemName);
-
-        for (int i = 0; i < abilityTexts.Count; i++)
+        for (int i = 0; i < texts.Count; i++)
         {
-            if (i + 1 <= item.abilities.Count)
+            if (i + 1 <= upItem.abilities.Count)
             {
-                abilityTexts[i].gameObject.SetActive(true);
-                abilityTexts[i].text = AbEnumToString(item.abilities[i].abilityName) + " + " + item.abilities[i].abilityValue + "%";
-                SetColor(item.abilities[i].abilityrarity, abilityTexts[i]);
+                texts[i].gameObject.SetActive(true);
+                texts[i].text = AbEnumToString(upItem.abilities[i].abilityName) + " + " + upItem.abilities[i].abilityValue + "%";
+                SetColor(upItem.abilities[i].abilityrarity, texts[i]);
             }
             else
             {
-                abilityTexts[i].text = "";
-                abilityTexts[i].gameObject.SetActive(false);
+                texts[i].text = "";
+                texts[i].gameObject.SetActive(false);
             }
         }
+        SetColor(upItem.rarity, upGradeItemName);
+        SetCost(goldNcost, upItem);
+        this.item = upItem;
+    }
+    public void SetCurItem(ItemData item,List<TMP_Text> texts)
+    {
+        this.item = item;
 
+        //curItemName.text = item.itemStaticData.name;
+        curItemName.text = $"{item.itemStaticData.name}+{item.itemStaticData.itemLevel}";
+
+        for (int i = 0; i < texts.Count; i++)
+        {
+            if (i + 1 <= item.abilities.Count)
+            {
+                texts[i].gameObject.SetActive(true);
+                texts[i].text = AbEnumToString(item.abilities[i].abilityName) + " + " + item.abilities[i].abilityValue + "%";
+                SetColor(item.abilities[i].abilityrarity, texts[i]);
+            }
+            else
+            {
+                texts[i].text = "";
+                texts[i].gameObject.SetActive(false);
+            }
+        }
+        SetColor(item.rarity, curItemName);
         curItemimage.sprite = Resources.Load<Sprite>("ItemIcons/" + item.itemStaticData.spriteName);
+        SetCost(goldNcost, item);
+    }
+    private void SetCost(TMP_Text text, ItemData item)
+    {
+        int cost = 1000;
+        int gold = 5000;
+
+        if (item.itemStaticData.itemLevel > 0)
+        {
+            cost = item.itemStaticData.itemLevel * cost;
+        }
+
+        if ((int)item.rarity != 0)
+        {
+            cost = cost / (int)item.rarity;
+        }
+
+        if (gold >= cost)
+        {
+            text.color = Color.green;
+        }
+        else
+        {
+            text.color = Color.red;
+        }
+        text.text = $"{gold}/{cost}";
     }
     void SetColor(Enum_GM.Rarity rarity, TMP_Text Txt)
     {
@@ -138,11 +190,56 @@ public class UpGradeManager : MonoBehaviour
                 return "공격력";
         }
     }
+
+    private ItemData SetUpGradeItemData(ItemData item)
+    {
+        ItemStaticData itemStatic = new ItemStaticData
+            (item.itemStaticData.name, item.itemStaticData.place, item.itemStaticData.weaponKind, 
+            item.itemStaticData.spriteName, item.itemStaticData.description, item.itemStaticData.itemLevel + 1);
+
+        List<Item_Ability> newItemAbs = new List<Item_Ability>();
+
+        for (int i = 0; i < item.abilities.Count; i++)
+        {
+            Item_Ability item_Ab = new Item_Ability();
+
+            item_Ab.abilityName = item.abilities[i].abilityName;
+            item_Ab.abilityValue = item.abilities[i].abilityValue + 1;
+            
+            if (item_Ab.abilityValue > 0 && item_Ab.abilityValue <= 6)
+            {
+                item_Ab.abilityrarity = Enum_GM.Rarity.normal;
+            }
+            else if (item_Ab.abilityValue > 6 && item_Ab.abilityValue <= 10)
+            {
+                item_Ab.abilityrarity = Enum_GM.Rarity.rare;
+            }
+            else if (item_Ab.abilityValue > 10 && item_Ab.abilityValue <= 13)
+            {
+                item_Ab.abilityrarity = Enum_GM.Rarity.unique;
+            }
+            else
+            {
+                item_Ab.abilityrarity = Enum_GM.Rarity.legendary;
+            }
+            newItemAbs.Add(item_Ab);
+
+        }
+        Enum_GM.Rarity newRarity = (Enum_GM.Rarity)3;
+
+        foreach (var data in newItemAbs)
+        {
+            if (data.abilityrarity < newRarity)
+                newRarity = data.abilityrarity;
+        }
+        return new ItemData(itemStatic, newRarity, newItemAbs);
+    }
+
     public ItemData RandomItem()
     {
         int rand = Random.Range(0, items.Count);
         ItemScriptableData isd = items[rand];
-        ItemStaticData newIsData = new ItemStaticData(isd.ItemName, isd.Place, isd.WeaponKind, isd.SpriteName, isd.Description,0);
+        ItemStaticData newIsData = new ItemStaticData(isd.ItemName, isd.Place, isd.WeaponKind, isd.SpriteName, isd.Description,11);
 
         List<Item_Ability> newItemAbs = new List<Item_Ability>();
 
@@ -186,6 +283,7 @@ public class UpGradeManager : MonoBehaviour
         }
         //아이템 자체의 희귀도 (가장 높은 등급의 ability 희귀도를 따라감)
         Enum_GM.Rarity newRarity = (Enum_GM.Rarity)3;
+
         foreach (var item in newItemAbs)
         {
             if (item.abilityrarity < newRarity)
