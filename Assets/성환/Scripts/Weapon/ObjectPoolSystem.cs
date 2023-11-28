@@ -57,5 +57,12 @@ public class ObjectPoolSystem : MonoBehaviour
             value.GameObject().SetActive(false);
             pools[name].Enqueue(value);
         }
+        public static void AllClear()
+        {
+            foreach (var item in pools)
+            {
+                pools[item.Key].Clear();
+            }
+        }
     }
 }

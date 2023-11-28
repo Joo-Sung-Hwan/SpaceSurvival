@@ -6,7 +6,6 @@ using TMPro;
 using System.IO;
 using Newtonsoft.Json;
 
-
 public struct TestM
 {
     public string name;
@@ -21,7 +20,6 @@ public struct TestM
         this.speed = speed;
     }
 }
-
 public class UpGradeManager : MonoBehaviour
 {
     [SerializeField] private List<ItemScriptableData> items;
@@ -31,7 +29,8 @@ public class UpGradeManager : MonoBehaviour
     public Image upGradeimage;
     public TMP_Text curIteminfo;
     public TMP_Text upGradeiteminfo;
-
+    [SerializeField] private TMP_Text curItemName;
+    [SerializeField] private TMP_Text upGradeItemName;
 
 
     public static Color yellow = new Color(1, 1, (74f / 255f));
@@ -71,19 +70,19 @@ public class UpGradeManager : MonoBehaviour
     public void SetCurItemInfo(ItemData item)
     {
         curItemimage.sprite = Resources.Load<Sprite>("ItemIcons/" + item.itemStaticData.spriteName);
-        foreach (var itemInfo in item.abilities)
-        {
-            curIteminfo.text = $"{itemInfo.abilityName} + {itemInfo.abilityValue}%";
-        }
+
+        SetDetails(item);
+        SetUpGradeItem();
     }
     public void SetUpGradeItem()
     {
+        upGradeimage.sprite = curItemimage.sprite;
 
     }
     public void SetDetails(ItemData item)
     {
-        //itemName_Txt.text = item.itemStaticData.name;
-        //SetColor(item.rarity, itemName_Txt);
+        curItemName.text = item.itemStaticData.name;
+        SetColor(item.rarity, curItemName);
 
         for (int i = 0; i < abilityTexts.Count; i++)
         {
@@ -143,7 +142,7 @@ public class UpGradeManager : MonoBehaviour
     {
         int rand = Random.Range(0, items.Count);
         ItemScriptableData isd = items[rand];
-        ItemStaticData newIsData = new ItemStaticData(isd.ItemName, isd.Place, isd.WeaponKind, isd.SpriteName, isd.Description);
+        ItemStaticData newIsData = new ItemStaticData(isd.ItemName, isd.Place, isd.WeaponKind, isd.SpriteName, isd.Description,0);
 
         List<Item_Ability> newItemAbs = new List<Item_Ability>();
 
@@ -192,7 +191,6 @@ public class UpGradeManager : MonoBehaviour
             if (item.abilityrarity < newRarity)
                 newRarity = item.abilityrarity;
         }
-
         return new ItemData(newIsData, newRarity, newItemAbs);
     }
 }

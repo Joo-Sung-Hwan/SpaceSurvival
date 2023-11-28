@@ -1,0 +1,14 @@
+[
+  {
+    "name": "ㅎㅇ",
+    "level": 1,
+    "damage": 1,
+    "speed": 1
+  },
+  {
+    "name": "ㅎㅇㄹ",
+    "level": 2,
+    "damage": 2,
+    "speed": 2
+  }
+]

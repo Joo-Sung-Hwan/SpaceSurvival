@@ -73,6 +73,7 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
+
     private void TransChange(Collider2D collider, out bool zone)
     {
         collider.GetComponent<Enemy>().typeTrans = transform;
