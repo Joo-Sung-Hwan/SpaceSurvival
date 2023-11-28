@@ -13,7 +13,7 @@ public struct PlayerData
     public float MaxExp { get; set; }
 }
 
-public abstract class PlayerManager : MonoBehaviour , ObectPool
+public abstract class PlayerManager : MonoBehaviour
 {
     [HideInInspector] public PlayerState playerState;
 
@@ -47,7 +47,6 @@ public abstract class PlayerManager : MonoBehaviour , ObectPool
     private List<Weapon> weapons = new List<Weapon>();
     private Dictionary<Weapon, float> weaponss = new Dictionary<Weapon, float>();
     private Animator ani;
-    private ObectPool.PoolsTest<Weapon> pools = new ObectPool.PoolsTest<Weapon>();
     public abstract void Initalize();
 
     private void Awake()
@@ -98,15 +97,7 @@ public abstract class PlayerManager : MonoBehaviour , ObectPool
             weaponss[item.Key] += Time.deltaTime;
             if (item.Value >= item.Key.weaponData.createDelay)
             {
-                // 무기 생성.
-                if (pools.CheckPool())
-                {
-                    pools.GetPool();
-                }
-                else
-                {
-                    //Instantiate(gameObject, transform);
-                }
+             
                 weaponss[item.Key] = 0f;
             }
         }

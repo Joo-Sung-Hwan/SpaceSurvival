@@ -17,8 +17,7 @@ public class NormalBomb : Bomb
 
     public override void Initalize()
     {
-        base.Initalize();
-        bt = ObjectName.Nomal;
+        bt = BombType.Normal;
         weaponData.createDelay = 2f;
     }
 }

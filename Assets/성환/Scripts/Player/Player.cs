@@ -150,12 +150,10 @@ public class Player : MonoBehaviour
             if (GetComponent<SpriteRenderer>().flipX)
             {
                 Bullet b = GameManager.instance.pollingsystem.PollingBullet(bullet, bullet_parent[1]);
-                b.init();
             }
             else
             {
                 Bullet b = GameManager.instance.pollingsystem.PollingBullet(bullet, bullet_parent[0]);
-                b.init();
             }
             delayTimeBullet = 0f;
         }
@@ -183,7 +181,7 @@ public class Player : MonoBehaviour
         delayTimeB += Time.deltaTime;
         if (delayTimeB > BombCTime)
         {
-            Weapon weapon = ObjectPoolSystem.ObjectPoolling<Weapon>.GetPool(this.weapon,this.weapon.bt,transform);
+            Weapon weapon = ObjectPoolSystem.ObjectPoolling<Weapon>.GetPool(this.weapon,this.weapon.objectName,transform);
             //Weapon b = GameManager.instance.pollingsystem.PollingBomb(bomb, area.transform);
             weapon.Initalize();
             weapon.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_bomb_parent);
@@ -240,16 +238,16 @@ public class Player : MonoBehaviour
 
     void SwitchBombCreate()
     {
-        switch (weapon.bt)
+        switch (weapon.GetComponent<Bomb>().bt)
         {
-            case ObjectName.Nomal:
+            case BombType.Normal:
                 BombCTime = 2f;
                 break;
-            case ObjectName.Fire:
+            case BombType.Fire:
                 BombCTime = 4f;
                 break;
-            case ObjectName.Magnet:
-            case ObjectName.Web:
+            case BombType.Magnet:
+            case BombType.Web:
                 BombCTime = 6f;
                 break;
         }
