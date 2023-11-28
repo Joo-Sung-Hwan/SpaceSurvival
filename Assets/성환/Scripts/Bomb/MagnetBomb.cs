@@ -18,4 +18,13 @@ public class MagnetBomb : Bomb
     {
         Init();
     }
+
+    public override void PlayAct(Collider2D collider)
+    {
+        Enemy e = collider.GetComponent<Enemy>();
+        e.typeTrans = transform;
+        e.magnetBombZone = true;
+        e.bombEvent = BombEvent.Magnet;
+        e.Events(this);
+    }
 }

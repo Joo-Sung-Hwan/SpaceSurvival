@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -577172998427142138}
   - component: {fileID: 4606208600480242177}
   m_Layer: 0
-  m_Name: CFX_ElectricityBall
+  m_Name: EnergyBolt
   m_TagString: EnegyBolt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4822,6 +4822,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d8e574e370ad3448b3e2074ad8041e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weapon: {fileID: 0}
+  objectName: 7
+  looseZone: 1
 --- !u!58 &4606208600480242177
 CircleCollider2D:
   m_ObjectHideFlags: 0

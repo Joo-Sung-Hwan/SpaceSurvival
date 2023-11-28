@@ -95,6 +95,8 @@ GameObject:
   - component: {fileID: 5549641650983845685}
   - component: {fileID: 5973910409910810619}
   - component: {fileID: 4635545216529999539}
+  - component: {fileID: 8330227147628668280}
+  - component: {fileID: 7930380010627859444}
   m_Layer: 0
   m_Name: Bomb
   m_TagString: Untagged
@@ -116,7 +118,6 @@ Transform:
   m_Children:
   - {fileID: 1023207484149046108}
   - {fileID: 1616676884776328808}
-  - {fileID: 2819620693963941145}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1}
@@ -133,8 +134,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 0}
-  bt: 0
+  objectName: 1
+  looseZone: 1
   colors: []
+  bt: 0
   sprite: {fileID: 1023207484149046108}
   shadow: {fileID: 1616676884776328808}
   particle: {fileID: 198194127032045410, guid: 3686c9099121d3a4db30f87c97ce4511, type: 3}
@@ -160,46 +163,13 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &3242893943271086840
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2819620693963941145}
-  - component: {fileID: 1432173788665034144}
-  - component: {fileID: 3863022600991183091}
-  m_Layer: 0
-  m_Name: BoomTrans
-  m_TagString: NormalBomb
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2819620693963941145
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3242893943271086840}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5549641650983845685}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &1432173788665034144
+--- !u!58 &8330227147628668280
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3242893943271086840}
+  m_GameObject: {fileID: 3146206446776286723}
   m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
@@ -209,14 +179,14 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
---- !u!50 &3863022600991183091
+--- !u!50 &7930380010627859444
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3242893943271086840}
+  m_GameObject: {fileID: 3146206446776286723}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0

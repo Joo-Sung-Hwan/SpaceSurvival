@@ -184,7 +184,7 @@ public class SelectCard : MonoBehaviour
                     case "energybolt":
                         foreach (var item in GameManager.instance.player.enegyTrans)
                         {
-                            item.fd.Attack += cd.change;
+                            //item.weaponData.Damage += cd.change;
                         }
                         break;
                 }

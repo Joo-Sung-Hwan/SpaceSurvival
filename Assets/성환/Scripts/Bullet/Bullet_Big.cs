@@ -9,6 +9,10 @@ public class Bullet_Big : Bullet
         Speed = 1f;
     }
 
+    public override void PlayAct(Collider2D collider)
+    {
+        throw new System.NotImplementedException();
+    }
     void Start()
     {
         Initalize();

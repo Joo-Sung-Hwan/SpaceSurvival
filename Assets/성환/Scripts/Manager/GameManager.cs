@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     public PlayerSpawnManager playerSpawnManager;
     public PollingSystem pollingsystem;
+    public ObjectPoolSystem system;
     public SpawnManager spawnManager;
     public PlayerCamera playerCamera;
     public InGameUI gameUI;

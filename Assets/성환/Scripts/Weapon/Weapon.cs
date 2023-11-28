@@ -23,7 +23,7 @@ public abstract class Weapon : MonoBehaviour
     public ObjectName objectName = new();
     //public ObjectName bt = new ObjectName();
 
-    bool looseZone = true;
+    public bool looseZone = true;
     private void OnEnable()
     {
         if (coroutine == null)
@@ -50,35 +50,13 @@ public abstract class Weapon : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Enemy[] enemys = FindObjectsOfType<Enemy>();
         if (collision.CompareTag("Enemy"))
         {
-            Enemy e = collision.GetComponent<Enemy>();
-            switch(objectName)
-            {
-                case ObjectName.Bomb:
-                    switch (GameManager.instance.player.bomb.tag)
-                    {
-                        case "MagnetBomb":
-                            TransChange(collision, out e.magnetBombZone);
-                            break;
-                        case "WebBomb":
-                            TransChange(collision, out e.webBombZone);
-                            StartCoroutine(e.OnOff(gameObject));
-                            e.DeBuff = weaponData.Debuff;
-                            break;
-                    }
-                    break;
-            }
+            PlayAct(collision);
         }
     }
 
-
-    private void TransChange(Collider2D collider, out bool zone)
-    {
-        collider.GetComponent<Enemy>().typeTrans = transform;
-        zone = true;
-    }
+    public abstract void PlayAct(Collider2D collider);
 
     private IEnumerator DestroyTime(float time)
     {

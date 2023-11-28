@@ -92,6 +92,5 @@ public class ResultManager : MonoBehaviour
     {
         FindObjectOfType<SceneChangeManger>().SetGold(resultGold);
         button.onClick.AddListener(FindObjectOfType<SceneChangeManger>().OnClickLobby);
-        ObjectPoolSystem.ObjectPoolling<Player>.AllClear();
     }
 }

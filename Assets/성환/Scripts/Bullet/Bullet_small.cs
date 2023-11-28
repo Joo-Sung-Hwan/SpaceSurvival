@@ -9,4 +9,10 @@ public class Bullet_small : Bullet
         attackability = AttackAbility;
         SetDir();
     }
+
+    public override void PlayAct(Collider2D collider)
+    {
+        Enemy e = collider.GetComponent<Enemy>();
+        e.Hp -= weaponData.Damage;
+    }
 }

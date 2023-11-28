@@ -19,4 +19,14 @@ public class WebBomb : Bomb
     {
         Init();
     }
+
+    public override void PlayAct(Collider2D collider)
+    {
+        Enemy e = collider.GetComponent<Enemy>();
+        e.typeTrans = transform;
+        e.webBombZone = true;
+        e.DeBuff = weaponData.Debuff;
+        e.bombEvent = BombEvent.Web;
+        e.Events(this);
+    }
 }

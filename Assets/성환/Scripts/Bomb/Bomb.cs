@@ -20,7 +20,6 @@ public enum BombType
 public struct BombData
 {
     public float BombAttack { get; set; }
-    //public float bomb_attack;
     public float BombRange { get; set; }
     public float BombDebuff { get; set; }
     public Transform zoneTrans;
@@ -160,7 +159,7 @@ public abstract class Bomb : Weapon
     float BombEvents()
     {
         float delay = 0;
-        switch(GameManager.instance.player.bomb.GetComponent<Bomb>().bt)
+        switch(GameManager.instance.player.weapon.GetComponent<Bomb>().bt)
         {
             case BombType.Normal:
             case BombType.Magnet:

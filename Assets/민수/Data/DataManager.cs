@@ -26,5 +26,6 @@ public enum ObjectName
     Fire,
     Astronaut,
     Bullet,
+    EnergyBolt,
     Particle
 }

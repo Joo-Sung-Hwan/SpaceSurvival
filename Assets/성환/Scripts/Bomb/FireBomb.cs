@@ -4,18 +4,29 @@ using UnityEngine;
 
 public class FireBomb : Bomb
 {
-    /*void Start()
+    void Start()
     {
-        bd.BombAttack = 1f;
-        bd.BombRange = 1f;
-        bd.zoneTrans = transform.GetChild(2);
-        bd.collider2D = bd.zoneTrans.GetComponent<CircleCollider2D>();
-        bd.collider2D.radius = bd.BombRange;
+        weaponData.Damage = 1f;
+        weaponData.Range = 1f;
+        weaponData.zoneTrans = transform;
+        weaponData.collider2D = weaponData.zoneTrans.GetComponent<CircleCollider2D>();
+        weaponData.collider2D.radius = weaponData.Range;
         ani = GetComponent<Animator>();
-    }*/
+        bt = BombType.Fire;
+        objectName = ObjectName.Bomb;
+    }
 
     public override void Initalize()
     {
-        bt = BombType.Fire;
+        Init();
+    }
+
+    public override void PlayAct(Collider2D collider)
+    {
+        Enemy e = collider.GetComponent<Enemy>();
+        e.typeTrans = transform;
+        e.fireBombZone = true;
+        e.bombEvent = BombEvent.Fire;
+        e.Events(this);
     }
 }

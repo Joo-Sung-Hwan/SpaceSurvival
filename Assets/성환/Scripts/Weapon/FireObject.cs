@@ -17,7 +17,7 @@ public class FireObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Fire();
+        //Fire();
     }
 
     public void Fire()

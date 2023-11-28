@@ -40,8 +40,8 @@ public class Player : MonoBehaviour
     [HideInInspector] public int Size { get; set; }
 
     [Header("에너지볼트")]
-    public FxManager fxmanager;
-    public List<EnergyBolt> enegyTrans;
+    public Weapon energyBolt;
+    public List<Transform> enegyTrans;
     public Transform enegy;
     public int index;
     [HideInInspector] public bool levelup;
@@ -92,8 +92,10 @@ public class Player : MonoBehaviour
         {
             //Fire();
             LevelUp();
-            //CreateBomb();
-
+            CreateBomb();
+            //LaserFire();
+            Test();
+            EnegyBolt();
             if (ps == PlayerState.Walk)
             {
                 ani.ResetTrigger("Idle");
@@ -124,7 +126,7 @@ public class Player : MonoBehaviour
                 CreateBomb();
                 break;
             case PlayerWeapon.EnergyBolt:
-                EnegyBolt();
+                //EnegyBolt();
                 break;
             case PlayerWeapon.Laser:
                 LaserFire();
@@ -159,6 +161,14 @@ public class Player : MonoBehaviour
         }
     }
 
+    void Test()
+    {
+        if(Input.GetKeyDown(KeyCode.F1))
+        {
+            levelup = true;
+            index++;
+        }
+    }
     public void LaserFire()
     {
         delayTimeL += Time.deltaTime;
@@ -194,18 +204,23 @@ public class Player : MonoBehaviour
         {
             int val = 360 / index;
             int temVal = val;
+
             for (int i = 0; i < index; i++)
             {
-                enegyTrans[i].gameObject.transform.parent.gameObject.SetActive(true);
-                enegyTrans[i].gameObject.transform.parent.rotation = Quaternion.Euler(new Vector3(0f, 0f, temVal));
+                Weapon enegyBolt = ObjectPoolSystem.ObjectPoolling<Weapon>.GetPool(energyBolt, ObjectName.EnergyBolt, enegyTrans[i]);
+                enegyBolt.Initalize();
+                enegyTrans[i].gameObject.SetActive(true);
+                enegyTrans[i].gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, temVal));
                 temVal += val;
             }
+
         }
         levelup = false;
-        foreach (var trans in enegyTrans)
+        
+        /*foreach (var trans in enegyTrans)
         {
-            trans.gameObject.transform.rotation = Quaternion.Euler(Vector3.zero);
-        }
+            trans.GetChild(0).rotation = Quaternion.Euler(Vector3.zero);
+        }*/
         enegy.Rotate(Vector3.forward * Time.deltaTime * 70f);
     }
 

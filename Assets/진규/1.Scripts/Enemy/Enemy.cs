@@ -14,7 +14,6 @@ public struct EnemyData
     public float magnetStrength;
     public float magnetDistance;
     public EnemyState enemyState;
-    public SpriteRenderer sr;
 }
 
 public enum EnemyState
@@ -37,7 +36,12 @@ public struct TransType
     public Transform WebTrans;
     public Transform fireTrans;
 }
-
+public enum BombEvent
+{
+    Magnet,
+    Web,
+    Fire
+}
 public enum DefineEnemyData
 {
     Exp,
@@ -52,6 +56,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] DamageTxt damageTxt;
     public EnemyData ed = new EnemyData();
     public TransType transT;
+    public BombEvent bombEvent = new();
     public List<Item> items = new List<Item>();
     public Canvas canvas;
     Transform targetTrans;
@@ -60,15 +65,16 @@ public abstract class Enemy : MonoBehaviour
     protected Animator anim;
     protected DefineEnemyData defineData;
     public Transform typeTrans;
-    //protected Transform magnetTrans;
-    //protected Transform webTrans;
 
     float magnetDir = 1f;
-    public bool looseZone = true;
-    public bool normalBombZone;
-    public bool magnetBombZone;
-    public bool webBombZone;
-    bool fireBombZone;
+    bool looseZone = true;
+    [HideInInspector] public bool normalBombZone;
+    [HideInInspector] public bool magnetBombZone;
+    [HideInInspector] public bool webBombZone;
+    [HideInInspector] public bool fireBombZone;
+
+    public SpriteRenderer sr;
+
     //protected DefineEnemyData defineD = DefineEnemyData.None;
 
     public abstract void Init();
@@ -91,7 +97,7 @@ public abstract class Enemy : MonoBehaviour
 
     void Start()
     {
-        ed.sr = GetComponent<SpriteRenderer>();
+        sr = GetComponent<SpriteRenderer>();
         ed.magnetStrength = 1f;
         ed.magnetDistance = 10f;
         DataInPut();
@@ -158,11 +164,7 @@ public abstract class Enemy : MonoBehaviour
             case "Player":
                 GameManager.instance.player.definePD.CurHp -= ed.attack;
                 break;
-            case "NormalBomb":
-                TransType(collision, out normalBombZone);
-                Hp -= collision.transform.parent.GetComponent<Bomb>().bd.BombAttack;
-                CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
-                break;
+
             case "Laser":
                 Hp -= collision.GetComponent<LaserChild>().Attack;
                 CreateDamageTxt(collision.GetComponent<LaserChild>().Attack);
@@ -178,27 +180,28 @@ public abstract class Enemy : MonoBehaviour
                 }
                 CreateDamageTxt(collision.GetComponent<Bullet>().weaponData.Damage);
                 break;
-            case "EnegyBolt":
+            /*case "EnegyBolt":
                 Hp -= collision.GetComponent<FxManager>().fd.Attack;
                 CreateDamageTxt(collision.GetComponent<FxManager>().fd.Attack);
-                break;
-            /*case "MagnetBomb":
-                TransType(collision,out magnetBombZone);
-                //CreateDamageTxt(collision.transform.parent.GetComponent<Bomb>().bd.BombAttack);
-                break;
-            case "WebBomb":
-                TransType(collision, out webBombZone);
-                StartCoroutine("OnOff", collision.gameObject);
-                DeBuff = collision.transform.parent.GetComponent<Bomb>().bd.BombDebuff;
                 break;*/
-            case "FireBomb":
-                TransType(collision, out fireBombZone);
-                StartCoroutine("OnOff", collision.gameObject);
-                break;
         }
     }
 
-
+    public void Events(Weapon weapon)
+    {
+        switch (bombEvent)
+        {
+            case BombEvent.Magnet:
+                MagnetEvents();
+                break;
+            case BombEvent.Web:
+                StartCoroutine("OnOff", weapon);
+                break;
+            case BombEvent.Fire:
+                StartCoroutine("OnOff", weapon);
+                break;
+        }
+    }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("MagnetBomb") && looseZone)
@@ -209,7 +212,7 @@ public abstract class Enemy : MonoBehaviour
         {
             webBombZone = false;
             StopCoroutine("OnOff");
-            ed.sr.color = new Color(1f, 1f, 1f, 1f);
+            sr.color = new Color(1f, 1f, 1f, 1f);
         }
     }
 
@@ -233,7 +236,7 @@ public abstract class Enemy : MonoBehaviour
     }
 
     // 데미지 텍스트 구현
-    void CreateDamageTxt(float damage)
+    public void CreateDamageTxt(float damage)
     {
         Vector3 transformVec = transform.position + (Vector3.up * 0.5f);
         DamageTxt damageT = GameManager.instance.pollingsystem.PoolingDamageTxt(damageTxt, transformVec, canvas);
@@ -250,55 +253,25 @@ public abstract class Enemy : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    // 특정 존의 Transform을 만들어주기위한 코드
-    public Transform Trans()
-    {
-        targetTrans = GetComponent<Transform>();
-        switch(player.bomb.GetComponent<Bomb>().bt)
-        {
-            case BombType.Normal:
-                targetTrans = transT.normalBombTrans;
-                return targetTrans;
-            case BombType.Magnet:
-                targetTrans = transT.magnetTrans;
-                return targetTrans;
-            case BombType.Web:
-                targetTrans = transT.WebTrans;
-                return targetTrans;
-            case BombType.Fire:
-                targetTrans = transT.fireTrans;
-                return targetTrans;
-        }
-        return targetTrans;
-    }
-
-    // 특정 존의 따른 Transform과 bool값 받아주는 함수
-    void TransType(Collider2D collider, out bool zone)
-    {
-        typeTrans = Trans();
-        typeTrans = collider.transform;
-        zone = true;
-    }
-
     // 특정 폭탄에 의한 색깔 표현
-    public IEnumerator OnOff(GameObject bombObj)
+    public IEnumerator OnOff(Weapon weapon)
     {
         bool isShow = false;
-        Bomb bomb = bombObj.transform.parent.GetComponent<Bomb>();
+        Bomb bomb = weapon.GetComponent<Bomb>();
         for (int i = 0; i < 9; i++)
         {
             if (fireBombZone && !IsDead)
             {
-                Hp -= bomb.bd.BombAttack;
-                CreateDamageTxt(bomb.bd.BombAttack);
+                Hp -= bomb.weaponData.Damage;
+                CreateDamageTxt(bomb.weaponData.Damage);
             }
             isShow = !isShow;
-            for(int j = 0; j < bomb.colors.Count; j++)
+            for (int j = 0; j < bomb.colors.Count; j++)
             {
-                ed.sr.color = bomb.colors[j];
+                sr.color = bomb.colors[j];
                 yield return new WaitForSeconds(0.2f);
             }
         }
-        ed.sr.color = new Color(1f, 1f, 1f, 1f);
+        sr.color = Color.white;
     }
 }
