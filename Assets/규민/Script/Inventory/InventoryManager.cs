@@ -82,8 +82,10 @@ public class InventoryManager : MonoBehaviour
     [HideInInspector] public bool isSelectMode = false;
     ///선택모드에서 선택한 아이템들 리스트
     [HideInInspector] public List<InventoryCell> selectedCells = new List<InventoryCell>();
+
+    public bool IsUpGrade { get; set; }
     //골드
-    private int gold = 300;
+    private int gold = 300000;
     public int Gold
     {
         get
@@ -152,6 +154,16 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F2))
         {
             Gold += 500;
+        }
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            for (int i = 0; i < InventoryManager.Instance.inventoryDatas.Count; i++)
+            {
+                for (int j = 0; j < InventoryManager.Instance.inventoryDatas[i].abilities.Count; j++)
+                {
+                    Debug.Log($"{InventoryManager.Instance.inventoryDatas[i].abilities[j].abilityName}:{InventoryManager.Instance.inventoryDatas[i].abilities[j].abilityValue}");
+                }
+            }
         }
     }
 

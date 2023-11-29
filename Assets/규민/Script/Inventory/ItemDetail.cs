@@ -11,6 +11,7 @@ public class ItemDetail : MonoBehaviour
     [SerializeField] TMP_Text itemDesc_Txt;
     [SerializeField] List<TMP_Text> ability_Txt;
     [SerializeField] Image itemImage;
+    [SerializeField] private UpGradeManager upGradeManager;
 
     public GameObject mask;
 
@@ -40,7 +41,14 @@ public class ItemDetail : MonoBehaviour
     {
         itemdata = ivd;
         itemPlace_Txt.text = ivd.itemStaticData.place.ToString();
-        itemName_Txt.text = ivd.itemStaticData.name;
+        if (ivd.itemStaticData.itemLevel != 0)
+        {
+            itemName_Txt.text = $"{ivd.itemStaticData.name}+{ivd.itemStaticData.itemLevel}";
+        }
+        else
+        {
+            itemName_Txt.text = ivd.itemStaticData.name;
+        }
         SetColor(ivd.rarity, itemName_Txt);
 
         itemDesc_Txt.text = ivd.itemStaticData.description;
@@ -151,5 +159,12 @@ public class ItemDetail : MonoBehaviour
         ItemData id = InventoryManager.Instance.RandomItem();
         SetDetails(id);
         InventoryManager.Instance.AddItem(id);
+    }
+    public void OnMyItemDataToUpGrade()
+    {
+        InventoryManager.Instance.IsUpGrade = true;
+        upGradeManager.gameObject.SetActive(true);
+        upGradeManager.SetCurItemInfo(InventoryManager.Instance.SelectedItem);
+        gameObject.SetActive(false);
     }
 }

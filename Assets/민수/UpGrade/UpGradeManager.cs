@@ -26,11 +26,12 @@ public class UpGradeManager : MonoBehaviour
     [SerializeField] private List<TMP_Text> cur_AbilityTexts;
     [SerializeField] private List<TMP_Text> up_AbilityTexts;
     [SerializeField] private TMP_Text goldNcost;
+    [SerializeField] private UpGradePopUp popUp;
+    [SerializeField] private InventoryCells inventoryCells;
+
 
     public Image curItemimage;
     public Image upGradeimage;
-    public TMP_Text curIteminfo;
-    public TMP_Text upGradeiteminfo;
     [SerializeField] private TMP_Text curItemName;
     [SerializeField] private TMP_Text upGradeItemName;
 
@@ -47,7 +48,7 @@ public class UpGradeManager : MonoBehaviour
 
     private void Start()
     {
-       
+        
     }
     public void SaveData<T>(string fileName, T data)
     {
@@ -60,15 +61,27 @@ public class UpGradeManager : MonoBehaviour
         {
             SetCurItemInfo(RandomItem());
         }
+        
     }
-
     public void OnOKButtonDown()
     {
-
+        popUp.gameObject.SetActive(true);
+        popUp.SetAction(UpGradedItemDataToInventory);
     }
     public void OnCancelButtonDown()
     {
-
+        //InventoryManager.Instance.IsUpGrade = false;
+        item = null;
+        gameObject.SetActive(false);
+    }
+    private void UpGradedItemDataToInventory()
+    {
+        InventoryManager.Instance.inventoryDatas.Remove(InventoryManager.Instance.SelectedItem);
+        InventoryManager.Instance.inventoryDatas.Add(item);
+        item = null;
+        InventoryManager.Instance.inventory_UI.OnCellsEnable();
+        InventoryManager.Instance.IsUpGrade = false;
+        gameObject.SetActive(false);
     }
 
     public void SetCurItemInfo(ItemData item)

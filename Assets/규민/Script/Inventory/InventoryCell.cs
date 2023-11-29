@@ -55,6 +55,7 @@ public class InventoryCell : MonoBehaviour
     /// </summary>
     public void OnButtonClicked()
     {
+        if (InventoryManager.Instance.IsUpGrade) return;
         //선택 모드가 켜져있을 때
         if (InventoryManager.Instance.isSelectMode)
         {

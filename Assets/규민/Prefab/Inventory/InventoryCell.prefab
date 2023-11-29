@@ -57,8 +57,10 @@ MonoBehaviour:
     itemStaticData:
       name: 
       place: 0
+      weaponKind: 0
       spriteName: 
       description: 
+      itemLevel: 0
     rarity: 0
   itemImage: {fileID: 3863615909320175848}
   cellBg: {fileID: 3863615908652262673}
