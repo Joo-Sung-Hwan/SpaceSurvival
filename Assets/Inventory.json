@@ -1,1 +1,35 @@
-[]
+[
+  {
+    "itemStaticData": {
+      "name": "광선 갑옷",
+      "place": 1,
+      "weaponKind": 0,
+      "spriteName": "LightSaber_Icon",
+      "description": "광선검으로 위장한 갑옷",
+      "itemLevel": 0
+    },
+    "rarity": 0,
+    "abilities": [
+      {
+        "abilityName": 1,
+        "abilityValue": 15.0,
+        "abilityrarity": 0
+      },
+      {
+        "abilityName": 0,
+        "abilityValue": 11.0,
+        "abilityrarity": 2
+      },
+      {
+        "abilityName": 1,
+        "abilityValue": 10.0,
+        "abilityrarity": 2
+      },
+      {
+        "abilityName": 1,
+        "abilityValue": 9.0,
+        "abilityrarity": 3
+      }
+    ]
+  }
+]

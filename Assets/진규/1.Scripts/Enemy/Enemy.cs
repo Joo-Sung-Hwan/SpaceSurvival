@@ -169,7 +169,7 @@ public abstract class Enemy : MonoBehaviour
                 Hp -= collision.GetComponent<LaserChild>().Attack;
                 CreateDamageTxt(collision.GetComponent<LaserChild>().Attack);
                 break;
-            case "Bullet":
+            /*case "Bullet":
                 Hp -= collision.GetComponent<Bullet>().weaponData.Damage;
                 //Debug.Log(collision.GetComponent<Bullet>().attackability);
                 collision.GetComponent<Bullet>().attackability -= 1;
@@ -179,10 +179,6 @@ public abstract class Enemy : MonoBehaviour
                     collision.gameObject.SetActive(false);
                 }
                 CreateDamageTxt(collision.GetComponent<Bullet>().weaponData.Damage);
-                break;
-            /*case "EnegyBolt":
-                Hp -= collision.GetComponent<FxManager>().fd.Attack;
-                CreateDamageTxt(collision.GetComponent<FxManager>().fd.Attack);
                 break;*/
         }
     }

@@ -14,5 +14,7 @@ public class Bullet_small : Bullet
     {
         Enemy e = collider.GetComponent<Enemy>();
         e.Hp -= weaponData.Damage;
+        e.CreateDamageTxt(weaponData.Damage);
+        ObjectPoolSystem.ObjectPoolling<Weapon>.ReturnPool(this, ObjectName.Bullet);
     }
 }

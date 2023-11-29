@@ -383,6 +383,7 @@ MonoBehaviour:
       weaponKind: 0
       spriteName: 
       description: 
+      itemLevel: 0
     rarity: 0
   itemImage: {fileID: 1675936808}
   cellBg: {fileID: 0}
@@ -1541,6 +1542,7 @@ MonoBehaviour:
       weaponKind: 0
       spriteName: 
       description: 
+      itemLevel: 0
     rarity: 2
   cellIndex: 0
 --- !u!222 &123399976
@@ -2532,6 +2534,7 @@ MonoBehaviour:
       weaponKind: 0
       spriteName: 
       description: 
+      itemLevel: 0
     rarity: 0
   itemImage: {fileID: 2050448462}
   cellBg: {fileID: 0}
@@ -2727,6 +2730,7 @@ MonoBehaviour:
       weaponKind: 0
       spriteName: 
       description: 
+      itemLevel: 0
     rarity: 0
   itemImage: {fileID: 742379689}
   cellBg: {fileID: 0}
@@ -4302,6 +4306,7 @@ MonoBehaviour:
       weaponKind: 0
       spriteName: 
       description: 
+      itemLevel: 0
     rarity: 0
   itemImage: {fileID: 962363433}
   cellBg: {fileID: 0}
@@ -12729,6 +12734,7 @@ MonoBehaviour:
       weaponKind: 0
       spriteName: 
       description: 
+      itemLevel: 0
     rarity: 0
   cellIndex: 0
 --- !u!1 &886028374
@@ -15036,6 +15042,7 @@ MonoBehaviour:
       weaponKind: 0
       spriteName: 
       description: 
+      itemLevel: 0
     rarity: 0
   itemImage: {fileID: 1230258670}
   cellBg: {fileID: 0}
@@ -20315,6 +20322,7 @@ MonoBehaviour:
       weaponKind: 0
       spriteName: 
       description: 
+      itemLevel: 0
     rarity: 0
   cellIndex: 0
 --- !u!222 &1494982345
@@ -21627,6 +21635,7 @@ MonoBehaviour:
       weaponKind: 0
       spriteName: 
       description: 
+      itemLevel: 0
     rarity: 0
   itemImage: {fileID: 1526390172}
   cellBg: {fileID: 0}
@@ -24462,6 +24471,7 @@ MonoBehaviour:
       weaponKind: 0
       spriteName: 
       description: 
+      itemLevel: 0
     rarity: 0
   cellIndex: 0
 --- !u!114 &1791998760

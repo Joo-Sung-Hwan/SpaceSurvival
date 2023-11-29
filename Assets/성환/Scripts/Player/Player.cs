@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
     public BoxCollider2D area;
 
     [Header("ÃÑ¾Ë")]
-    public Bullet bullet;
+    public Weapon bullet;
     public Transform[] bullet_parent;
     [HideInInspector] public int Size { get; set; }
 
@@ -43,7 +43,8 @@ public class Player : MonoBehaviour
     public Weapon energyBolt;
     public List<Transform> enegyTrans;
     public Transform enegy;
-    public int index;
+    public int index = 0;
+    public int count = 0;
     [HideInInspector] public bool levelup;
 
     float delayTimeL = 0f;
@@ -57,8 +58,8 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        index = 1;
-        levelup = true;
+        //index = 1;
+        //levelup = true;
         
         ps = PlayerState.Idle;
         ani = GetComponent<Animator>();
@@ -94,6 +95,7 @@ public class Player : MonoBehaviour
             LevelUp();
             CreateBomb();
             //LaserFire();
+            BulletFire();
             Test();
             EnegyBolt();
             if (ps == PlayerState.Walk)
@@ -151,11 +153,13 @@ public class Player : MonoBehaviour
         {
             if (GetComponent<SpriteRenderer>().flipX)
             {
-                Bullet b = GameManager.instance.pollingsystem.PollingBullet(bullet, bullet_parent[1]);
+                Weapon b = ObjectPoolSystem.ObjectPoolling<Weapon>.GetPool(bullet, ObjectName.Bullet, bullet_parent[1]);
+                b.Initalize();
             }
             else
             {
-                Bullet b = GameManager.instance.pollingsystem.PollingBullet(bullet, bullet_parent[0]);
+                Weapon b = ObjectPoolSystem.ObjectPoolling<Weapon>.GetPool(bullet, ObjectName.Bullet, bullet_parent[0]);
+                b.Initalize();
             }
             delayTimeBullet = 0f;
         }
@@ -200,27 +204,23 @@ public class Player : MonoBehaviour
     }
     public void EnegyBolt()
     {
-        if (levelup)
+        if(levelup)
         {
             int val = 360 / index;
             int temVal = val;
+            Weapon enegyBolt = ObjectPoolSystem.ObjectPoolling<Weapon>.GetPool(energyBolt, ObjectName.EnergyBolt, enegyTrans[count]);
+            enegyBolt.Initalize();
 
             for (int i = 0; i < index; i++)
             {
-                Weapon enegyBolt = ObjectPoolSystem.ObjectPoolling<Weapon>.GetPool(energyBolt, ObjectName.EnergyBolt, enegyTrans[i]);
-                enegyBolt.Initalize();
                 enegyTrans[i].gameObject.SetActive(true);
-                enegyTrans[i].gameObject.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, temVal));
+                enegyTrans[i].rotation = Quaternion.Euler(new Vector3(0f, 0f, temVal));
                 temVal += val;
             }
-
+            count++;
         }
         levelup = false;
-        
-        /*foreach (var trans in enegyTrans)
-        {
-            trans.GetChild(0).rotation = Quaternion.Euler(Vector3.zero);
-        }*/
+
         enegy.Rotate(Vector3.forward * Time.deltaTime * 70f);
     }
 
