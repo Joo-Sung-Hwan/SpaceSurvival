@@ -27,14 +27,14 @@ public class UpGradeManager : MonoBehaviour
     [SerializeField] private List<TMP_Text> up_AbilityTexts;
     [SerializeField] private TMP_Text goldNcost;
     [SerializeField] private UpGradePopUp popUp;
-    [SerializeField] private InventoryCells inventoryCells;
-
-
-    public Image curItemimage;
-    public Image upGradeimage;
+    [SerializeField] private Image failImage;
+    [SerializeField] private Image curItemimage;
+    [SerializeField] private Image upGradeimage;
     [SerializeField] private TMP_Text curItemName;
     [SerializeField] private TMP_Text upGradeItemName;
-
+    [SerializeField] private Button okButton;
+    [SerializeField] private Button cancelButton;
+    [SerializeField] private Button failButton;
 
     public static Color yellow = new Color(1, 1, (74f / 255f));
     public static Color purple = new Color((195f / 255f), 0, 255);
@@ -43,17 +43,12 @@ public class UpGradeManager : MonoBehaviour
     public static Color white = Color.white;
 
     private ItemData item;
-
-    string path;
-
-    private void Start()
+    private int cost;
+    private void Awake()
     {
-        
-    }
-    public void SaveData<T>(string fileName, T data)
-    {
-        string jsonData = JsonUtility.ToJson(data);
-        File.WriteAllText(path + fileName, jsonData);
+        okButton.onClick.AddListener(() => OnOKButtonDown());
+        cancelButton.onClick.AddListener(() => OnCancelButtonDown());
+        failButton.onClick.AddListener(() => OnFailButtonDown());
     }
     private void Update()
     {
@@ -65,22 +60,39 @@ public class UpGradeManager : MonoBehaviour
     }
     public void OnOKButtonDown()
     {
-        popUp.gameObject.SetActive(true);
-        popUp.SetAction(UpGradedItemDataToInventory);
+        Debug.Log("È®ÀÎ");
+        /*
+        if (InventoryManager.Instance.Gold >= cost)
+        {
+            popUp.gameObject.SetActive(true);
+            popUp.SetAction(UpGradedItemDataToInventory);
+        }
+        else
+        {
+            failImage.gameObject.SetActive(true);
+        }
+        */
+        
     }
     public void OnCancelButtonDown()
     {
-        //InventoryManager.Instance.IsUpGrade = false;
+        InventoryManager.Instance.IsUpGrade = false;
         item = null;
         gameObject.SetActive(false);
     }
+    public void OnFailButtonDown()
+    {
+        failImage.gameObject.SetActive(false);
+    }
     private void UpGradedItemDataToInventory()
     {
-        InventoryManager.Instance.inventoryDatas.Remove(InventoryManager.Instance.SelectedItem);
-        InventoryManager.Instance.inventoryDatas.Add(item);
+        InventoryManager inven = InventoryManager.Instance;
+        inven.inventoryDatas.Remove(InventoryManager.Instance.SelectedItem);
+        inven.inventoryDatas.Add(item);
+        inven.inventory_UI.OnCellsEnable();
+        inven.IsUpGrade = false;
+        inven.Gold -= cost;
         item = null;
-        InventoryManager.Instance.inventory_UI.OnCellsEnable();
-        InventoryManager.Instance.IsUpGrade = false;
         gameObject.SetActive(false);
     }
 
@@ -143,17 +155,16 @@ public class UpGradeManager : MonoBehaviour
     }
     private void SetCost(TMP_Text text, ItemData item)
     {
-        int cost = 1000;
-        int gold = 5000;
-
+        int gold = InventoryManager.Instance.Gold;
+        int basicCost = 1000;
         if (item.itemStaticData.itemLevel > 0)
         {
-            cost = item.itemStaticData.itemLevel * cost;
+            basicCost *= item.itemStaticData.itemLevel;
         }
 
         if ((int)item.rarity != 0)
         {
-            cost = cost / (int)item.rarity;
+            cost = basicCost / (int)item.rarity;
         }
 
         if (gold >= cost)
