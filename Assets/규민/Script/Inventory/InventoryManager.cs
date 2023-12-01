@@ -12,12 +12,13 @@ public class ItemData
     public ItemStaticData itemStaticData;
     public Enum_GM.Rarity rarity;
     public List<Item_Ability> abilities;
-
-    public ItemData(ItemStaticData itemStaticData, Enum_GM.Rarity rarity, List<Item_Ability> abilities)
+    public int level;
+    public ItemData(ItemStaticData itemStaticData, Enum_GM.Rarity rarity, List<Item_Ability> abilities,int level)
     {
         this.itemStaticData = itemStaticData;
         this.rarity = rarity;
         this.abilities = abilities;
+        this.level = level;
     }
 }
 
@@ -30,16 +31,14 @@ public class ItemStaticData
     public PlayerWeapon weaponKind;
     public string spriteName;
     public string description;
-    public int itemLevel;
 
-    public ItemStaticData(string name, Enum_GM.ItemPlace place, PlayerWeapon weaponKind, string spriteName, string description,int itemLevel)
+    public ItemStaticData(string name, Enum_GM.ItemPlace place, PlayerWeapon weaponKind, string spriteName, string description)
     {
         this.name = name;
         this.place = place;
         this.weaponKind = weaponKind;
         this.spriteName = spriteName;
         this.description = description;
-        this.itemLevel = itemLevel;
     }
 }
 
@@ -155,16 +154,6 @@ public class InventoryManager : MonoBehaviour
         {
             Gold += 500;
         }
-        if (Input.GetKeyDown(KeyCode.F3))
-        {
-            for (int i = 0; i < InventoryManager.Instance.inventoryDatas.Count; i++)
-            {
-                for (int j = 0; j < InventoryManager.Instance.inventoryDatas[i].abilities.Count; j++)
-                {
-                    Debug.Log($"{InventoryManager.Instance.inventoryDatas[i].abilities[j].abilityName}:{InventoryManager.Instance.inventoryDatas[i].abilities[j].abilityValue}");
-                }
-            }
-        }
     }
 
     #region 아이템 추가
@@ -176,7 +165,7 @@ public class InventoryManager : MonoBehaviour
     {
         int rand = Random.Range(0, isdList.Count);
         ItemScriptableData isd = isdList[rand];
-        ItemStaticData newIsData = new ItemStaticData(isd.ItemName, isd.Place, isd.WeaponKind, isd.SpriteName, isd.Description,0);
+        ItemStaticData newIsData = new ItemStaticData(isd.ItemName, isd.Place, isd.WeaponKind, isd.SpriteName, isd.Description);
 
         List<Item_Ability> newItemAbs = new List<Item_Ability>();
 
@@ -227,7 +216,7 @@ public class InventoryManager : MonoBehaviour
                 newRarity = item.abilityrarity;
         }
 
-        return new ItemData(newIsData, newRarity, newItemAbs);
+        return new ItemData(newIsData, newRarity, newItemAbs,0);
     }
 
     public void AddItem(ItemData id)
@@ -250,7 +239,7 @@ public class InventoryManager : MonoBehaviour
         List<ItemData> itemDatas_json = JsonConvert.DeserializeObject<List<ItemData>>(str);
         foreach (var item in itemDatas_json)
         {
-            inventoryDatas.Add(new ItemData(item.itemStaticData , item.rarity, item.abilities));
+            inventoryDatas.Add(new ItemData(item.itemStaticData , item.rarity, item.abilities,item.level));
         }
     }
 
@@ -266,7 +255,7 @@ public class InventoryManager : MonoBehaviour
         Dictionary<Enum_GM.ItemPlace, ItemData> equipmentDatas_json = JsonConvert.DeserializeObject<Dictionary<Enum_GM.ItemPlace, ItemData>>(str);
         foreach (var item in equipmentDatas_json)
         {
-            d_equipments.Add(item.Key ,(new ItemData(item.Value.itemStaticData, item.Value.rarity, item.Value.abilities)));
+            d_equipments.Add(item.Key ,(new ItemData(item.Value.itemStaticData, item.Value.rarity, item.Value.abilities,item.Value.level)));
             PutCellData(item.Key);
         }
     }

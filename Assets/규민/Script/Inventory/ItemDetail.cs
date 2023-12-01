@@ -41,9 +41,9 @@ public class ItemDetail : MonoBehaviour
     {
         itemdata = ivd;
         itemPlace_Txt.text = ivd.itemStaticData.place.ToString();
-        if (ivd.itemStaticData.itemLevel != 0)
+        if (ivd.level != 0)
         {
-            itemName_Txt.text = $"{ivd.itemStaticData.name}+{ivd.itemStaticData.itemLevel}";
+            itemName_Txt.text = $"{ivd.itemStaticData.name}+{ivd.level}";
         }
         else
         {

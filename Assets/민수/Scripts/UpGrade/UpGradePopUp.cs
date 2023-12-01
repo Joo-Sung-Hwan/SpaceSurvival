@@ -5,11 +5,16 @@ using System;
 
 public class UpGradePopUp : MonoBehaviour
 {
+    [HideInInspector] public UpGradeManager gradeManager;
     private Action action = null;
-
-    public void SetAction(Action action)
+    
+    public void SetAction(Action action,UpGradeManager upGradeManager)
     {
         this.action = action;
+        if (gradeManager == null)
+        {
+            gradeManager = upGradeManager;
+        }
     }
     public void OnButtonDown(bool ison)
     {
@@ -21,16 +26,13 @@ public class UpGradePopUp : MonoBehaviour
                 return;
             }
             action();
-            SetOff();
         }
-        else
-        {
-            SetOff();
-        }
+        SetOff();
     }
     void SetOff()
     {
         action = null;
         gameObject.SetActive(false);
+        gradeManager.isOn = false;
     }
 }

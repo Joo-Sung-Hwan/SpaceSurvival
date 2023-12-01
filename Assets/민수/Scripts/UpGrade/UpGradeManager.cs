@@ -42,6 +42,7 @@ public class UpGradeManager : MonoBehaviour
     public static Color green = Color.green;
     public static Color white = Color.white;
 
+    [HideInInspector] public bool isOn = false;
     private ItemData item;
     private int cost;
     private void Awake()
@@ -60,22 +61,24 @@ public class UpGradeManager : MonoBehaviour
     }
     public void OnOKButtonDown()
     {
-        Debug.Log("È®ÀÎ");
-        /*
+        if (isOn == true) return;
+
         if (InventoryManager.Instance.Gold >= cost)
         {
             popUp.gameObject.SetActive(true);
-            popUp.SetAction(UpGradedItemDataToInventory);
+            popUp.SetAction(UpGradedItemDataToInventory,this);
         }
         else
         {
             failImage.gameObject.SetActive(true);
+            popUp.SetAction(UpGradedItemDataToInventory, this);
         }
-        */
-        
+        isOn = true;
     }
     public void OnCancelButtonDown()
     {
+        if (isOn == true) return;
+
         InventoryManager.Instance.IsUpGrade = false;
         item = null;
         gameObject.SetActive(false);
@@ -107,7 +110,7 @@ public class UpGradeManager : MonoBehaviour
     {
         ItemData upItem = SetUpGradeItemData(item);
         upGradeimage.sprite = curItemimage.sprite;
-        upGradeItemName.text = $"{upItem.itemStaticData.name}+{upItem.itemStaticData.itemLevel}";
+        upGradeItemName.text = $"{upItem.itemStaticData.name}+{upItem.level}";
         SetColor(upItem.rarity, upGradeItemName);
 
         for (int i = 0; i < texts.Count; i++)
@@ -133,7 +136,7 @@ public class UpGradeManager : MonoBehaviour
         this.item = item;
 
         //curItemName.text = item.itemStaticData.name;
-        curItemName.text = $"{item.itemStaticData.name}+{item.itemStaticData.itemLevel}";
+        curItemName.text = $"{item.itemStaticData.name}+{item.level}";
 
         for (int i = 0; i < texts.Count; i++)
         {
@@ -157,9 +160,9 @@ public class UpGradeManager : MonoBehaviour
     {
         int gold = InventoryManager.Instance.Gold;
         int basicCost = 1000;
-        if (item.itemStaticData.itemLevel > 0)
+        if (item.level > 0)
         {
-            basicCost *= item.itemStaticData.itemLevel;
+            basicCost *= item.level;
         }
 
         if ((int)item.rarity != 0)
@@ -175,6 +178,7 @@ public class UpGradeManager : MonoBehaviour
         {
             text.color = Color.red;
         }
+        cost = basicCost;
         text.text = $"{gold}/{cost}";
     }
     void SetColor(Enum_GM.Rarity rarity, TMP_Text Txt)
@@ -217,11 +221,10 @@ public class UpGradeManager : MonoBehaviour
 
     private ItemData SetUpGradeItemData(ItemData item)
     {
-        ItemStaticData itemStatic = new ItemStaticData
-            (item.itemStaticData.name, item.itemStaticData.place, item.itemStaticData.weaponKind, 
-            item.itemStaticData.spriteName, item.itemStaticData.description, item.itemStaticData.itemLevel + 1);
-
         List<Item_Ability> newItemAbs = new List<Item_Ability>();
+        
+        ItemData newItemData = item;
+        newItemData.level += 1;
 
         for (int i = 0; i < item.abilities.Count; i++)
         {
@@ -234,11 +237,11 @@ public class UpGradeManager : MonoBehaviour
             {
                 item_Ab.abilityrarity = Enum_GM.Rarity.normal;
             }
-            else if (item_Ab.abilityValue > 6 && item_Ab.abilityValue <= 10)
+            else if (item_Ab.abilityValue <= 10)
             {
                 item_Ab.abilityrarity = Enum_GM.Rarity.rare;
             }
-            else if (item_Ab.abilityValue > 10 && item_Ab.abilityValue <= 13)
+            else if (item_Ab.abilityValue <= 13)
             {
                 item_Ab.abilityrarity = Enum_GM.Rarity.unique;
             }
@@ -247,23 +250,32 @@ public class UpGradeManager : MonoBehaviour
                 item_Ab.abilityrarity = Enum_GM.Rarity.legendary;
             }
             newItemAbs.Add(item_Ab);
-
         }
-        Enum_GM.Rarity newRarity = (Enum_GM.Rarity)3;
-
-        foreach (var data in newItemAbs)
+        if (newItemAbs[0].abilityValue >= 0)
         {
-            if (data.abilityrarity < newRarity)
-                newRarity = data.abilityrarity;
+            newItemData.rarity = Enum_GM.Rarity.normal;
         }
-        return new ItemData(itemStatic, newRarity, newItemAbs);
+        else if (newItemAbs[0].abilityValue >= 10)
+        {
+            newItemData.rarity = Enum_GM.Rarity.rare;
+        }
+        else if (newItemAbs[0].abilityValue >= 20)
+        {
+            newItemData.rarity = Enum_GM.Rarity.unique;
+        }
+        else
+        {
+            newItemData.rarity = Enum_GM.Rarity.legendary;
+        }
+
+        return newItemData;
     }
 
     public ItemData RandomItem()
     {
         int rand = Random.Range(0, items.Count);
         ItemScriptableData isd = items[rand];
-        ItemStaticData newIsData = new ItemStaticData(isd.ItemName, isd.Place, isd.WeaponKind, isd.SpriteName, isd.Description,11);
+        ItemStaticData newIsData = new ItemStaticData(isd.ItemName, isd.Place, isd.WeaponKind, isd.SpriteName, isd.Description);
 
         List<Item_Ability> newItemAbs = new List<Item_Ability>();
 
@@ -313,6 +325,6 @@ public class UpGradeManager : MonoBehaviour
             if (item.abilityrarity < newRarity)
                 newRarity = item.abilityrarity;
         }
-        return new ItemData(newIsData, newRarity, newItemAbs);
+        return new ItemData(newIsData, newRarity, newItemAbs,0);
     }
 }
