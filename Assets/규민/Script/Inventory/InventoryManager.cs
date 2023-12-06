@@ -65,6 +65,10 @@ public class InventoryManager : MonoBehaviour
 
     [Header("ÀåºñÄ­ (¼ø¼­-¹«±â,¿Ê,½Å¹ß,±Í°í¸®,¹ÝÁö,Æê)")]
     public List<InventoryCell> equipCells = new List<InventoryCell>();
+    
+    [Header("Àë")]
+    [SerializeField] private TMP_Text lobbyGam_Text;
+    [SerializeField] private TMP_Text shopGam_Text;
 
     [Header("°ñµå")]
     [SerializeField] TMP_Text lobbyGold_Text;
@@ -83,8 +87,20 @@ public class InventoryManager : MonoBehaviour
     [HideInInspector] public List<InventoryCell> selectedCells = new List<InventoryCell>();
 
     public bool IsUpGrade { get; set; }
+    //Àë
+    private int gem = 3000;
+    public int Gem
+    {
+        get { return gem; }
+        set
+        {
+            gem = value;
+            lobbyGam_Text.text = string.Format("{0:#,###}", value);
+            shopGam_Text.text = string.Format("{0:#,###}", value);
+        }
+    }   
     //°ñµå
-    private int gold = 300000;
+    private int gold = 300;
     public int Gold
     {
         get
@@ -93,8 +109,8 @@ public class InventoryManager : MonoBehaviour
         }
         set
         {
-            lobbyGold_Text.text = value.ToString();
-            shopGold_Text.text = value.ToString();
+            lobbyGold_Text.text = string.Format("{0:#,###}", value);
+            shopGold_Text.text = string.Format("{0:#,###}", value);
             gold = value;
         }
     }
@@ -153,6 +169,7 @@ public class InventoryManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F2))
         {
             Gold += 500;
+            Gem += 50000;
         }
     }
 

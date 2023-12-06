@@ -9,12 +9,14 @@ public abstract class ShopManager : MonoBehaviour
     [SerializeField] protected List<ItemScriptableData> scriptableDatas = new List<ItemScriptableData>();
     [SerializeField] protected Button buyButton;
     [SerializeField] protected GameObject maskObj;
-    [SerializeField] protected GameObject buyCheckObj;
+    [SerializeField] protected BuyCheck buycheck;
+    [SerializeField] protected GameObject failImage;
 
-    [SerializeField] Image product_Image;
-    [SerializeField] TMP_Text information_Text;
-    [SerializeField] Image check_Image;
-    [SerializeField] TMP_Text check_Text;
+
+    [SerializeField] protected Image product_Image;
+    [SerializeField] protected TMP_Text information_Text;
+    [SerializeField] protected Image check_Image;
+    [SerializeField] protected TMP_Text check_Text;
 
     private void Awake()
     {
