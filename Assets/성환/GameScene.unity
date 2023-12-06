@@ -2087,7 +2087,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &662265176
 GameObject:
@@ -2480,7 +2480,7 @@ Transform:
   - {fileID: 740235342}
   - {fileID: 2147177569}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &672161367
 GameObject:
@@ -13245,6 +13245,7 @@ MonoBehaviour:
   tmp_item_parent: {fileID: 1265005933}
   tmp_laser_parent: {fileID: 99800435}
   tmp_damageText_Parent: {fileID: 438951939}
+  tmp_missile_parent: {fileID: 1892951752}
 --- !u!4 &915089228
 Transform:
   m_ObjectHideFlags: 0
@@ -15914,14 +15915,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1826725411}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1883693752}
-  m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_Father: {fileID: 4083857610078351947}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1850457872
 GameObject:
@@ -16202,6 +16203,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1826725413}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1892951751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1892951752}
+  m_Layer: 0
+  m_Name: Missile_parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1892951752
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1892951751}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.6912975, y: -2.6050599, z: -0.003013535}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1917324176
 GameObject:
@@ -22578,6 +22610,7 @@ Transform:
   - {fileID: 8898409927773117031}
   - {fileID: 88947800062768257}
   - {fileID: 381087046}
+  - {fileID: 1826725413}
   m_Father: {fileID: 87477378}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22908,6 +22941,7 @@ MonoBehaviour:
   - {fileID: 2035206978}
   enegy: {fileID: 381087046}
   index: 0
+  count: 0
   levelup: 0
   missionCheck: 0
 --- !u!50 &9200852978829632583

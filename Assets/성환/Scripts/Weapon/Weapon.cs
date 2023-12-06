@@ -23,7 +23,6 @@ public abstract class Weapon : MonoBehaviour
     public ObjectName objectName = new();
     //public ObjectName bt = new ObjectName();
 
-    public bool looseZone = true;
     private void OnEnable()
     {
         if (coroutine == null)
