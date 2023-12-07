@@ -97,6 +97,7 @@ public class InventoryManager : MonoBehaviour
             gem = value;
             lobbyGam_Text.text = string.Format("{0:#,###}", value);
             shopGam_Text.text = string.Format("{0:#,###}", value);
+            SaveGem();
         }
     }   
     //°ñµå
@@ -112,6 +113,7 @@ public class InventoryManager : MonoBehaviour
             lobbyGold_Text.text = string.Format("{0:#,###}", value);
             shopGold_Text.text = string.Format("{0:#,###}", value);
             gold = value;
+            SaveGold();
         }
     }
     
@@ -158,6 +160,8 @@ public class InventoryManager : MonoBehaviour
     {
         LoadInventory();
         LoadEquipment();
+        LoadGold();
+        LoadGem();
     }
 
     void Update()
@@ -275,6 +279,26 @@ public class InventoryManager : MonoBehaviour
             d_equipments.Add(item.Key ,(new ItemData(item.Value.itemStaticData, item.Value.rarity, item.Value.abilities,item.Value.level)));
             PutCellData(item.Key);
         }
+    }
+    private void SaveGold()
+    {
+        string goldData = JsonConvert.SerializeObject(Gold, Formatting.Indented);
+        File.WriteAllText(Application.dataPath + "/Gold.json", goldData);
+    }
+    private void LoadGold()
+    {
+        string goldData = File.ReadAllText(Application.dataPath + "/Gold.json");
+        Gold = JsonConvert.DeserializeObject<int>(goldData);
+    }
+    private void SaveGem()
+    {
+        string gemData = JsonConvert.SerializeObject(Gem, Formatting.Indented);
+        File.WriteAllText(Application.dataPath + "/Gem.json", gemData);
+    }
+    private void LoadGem()
+    {
+        string gemData = File.ReadAllText(Application.dataPath + "/Gem.json");
+        Gem = JsonConvert.DeserializeObject<int>(gemData);
     }
     #endregion
 
