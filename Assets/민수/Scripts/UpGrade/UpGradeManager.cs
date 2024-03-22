@@ -53,11 +53,10 @@ public class UpGradeManager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
+        if (Input.GetKeyDown(KeyCode.F7))
         {
-            SetCurItemInfo(RandomItem());
+            Debug.Log(isOn);
         }
-        
     }
     public void OnOKButtonDown()
     {
@@ -65,26 +64,28 @@ public class UpGradeManager : MonoBehaviour
 
         if (InventoryManager.Instance.Gold >= cost)
         {
-            popUp.gameObject.SetActive(true);
+            popUp.transform.GetChild(0).gameObject.SetActive(true);
             popUp.SetAction(UpGradedItemDataToInventory,this);
         }
         else
         {
             failImage.gameObject.SetActive(true);
-            popUp.SetAction(UpGradedItemDataToInventory, this);
+            //popUp.SetAction(UpGradedItemDataToInventory, this);
         }
         isOn = true;
     }
     public void OnCancelButtonDown()
     {
         if (isOn == true) return;
-
         InventoryManager.Instance.IsUpGrade = false;
         item = null;
+        isOn = false;
         gameObject.SetActive(false);
     }
     public void OnFailButtonDown()
     {
+        isOn = false;
+        InventoryManager.Instance.IsUpGrade = false;
         failImage.gameObject.SetActive(false);
     }
     private void UpGradedItemDataToInventory()
@@ -96,6 +97,7 @@ public class UpGradeManager : MonoBehaviour
         inven.IsUpGrade = false;
         inven.Gold -= cost;
         item = null;
+        isOn = false;
         gameObject.SetActive(false);
     }
 
@@ -170,6 +172,8 @@ public class UpGradeManager : MonoBehaviour
             cost = basicCost / (int)item.rarity;
         }
 
+        cost = basicCost;
+
         if (gold >= cost)
         {
             text.color = Color.green;
@@ -178,7 +182,6 @@ public class UpGradeManager : MonoBehaviour
         {
             text.color = Color.red;
         }
-        cost = basicCost;
         text.text = $"{gold}/{cost}";
     }
     void SetColor(Enum_GM.Rarity rarity, TMP_Text Txt)

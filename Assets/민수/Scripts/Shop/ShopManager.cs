@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using TMPro;
+
 public abstract class ShopManager : MonoBehaviour
 {
     [SerializeField] protected List<ItemScriptableData> scriptableDatas = new List<ItemScriptableData>();
@@ -11,6 +12,8 @@ public abstract class ShopManager : MonoBehaviour
     [SerializeField] protected GameObject maskObj;
     [SerializeField] protected BuyCheck buycheck;
     [SerializeField] protected GameObject failImage;
+    [SerializeField] protected Image priceImage;
+    [SerializeField] protected TMP_Text priceText;
 
 
     [SerializeField] protected Image product_Image;
@@ -26,14 +29,6 @@ public abstract class ShopManager : MonoBehaviour
     {
         maskObj.SetActive(true);
     }
-
-
-
-
-
-
-
-
 
     public ItemData RandomItem()
     {

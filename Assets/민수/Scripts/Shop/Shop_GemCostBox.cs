@@ -10,11 +10,11 @@ public class Shop_GemCostBox : ShopManager
     protected override void OnClickBuyButtonDown()
     {
         base.OnClickBuyButtonDown();
-
         if (InventoryManager.Instance.Gem >= gemCost)
         {
             // 잼이 충분할때
             buycheck.gameObject.SetActive(true);
+            buycheck.SetInfoText(gemCost);
             buycheck.SetBuyCheckData(ItemDataToCheckObect, product_Image.sprite);
         }
         else
@@ -29,5 +29,7 @@ public class Shop_GemCostBox : ShopManager
         ItemData newItem = RandomItem();
         itemDetail.SetDetails(newItem);
         InventoryManager.Instance.AddItem(newItem);
+        InventoryManager.Instance.Gem -= gemCost;
+        maskObj.SetActive(false);
     }
 }
