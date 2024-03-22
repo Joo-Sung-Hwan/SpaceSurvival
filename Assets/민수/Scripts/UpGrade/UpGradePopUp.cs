@@ -32,7 +32,7 @@ public class UpGradePopUp : MonoBehaviour
     void SetOff()
     {
         action = null;
+        gameObject.SetActive(false);
         gradeManager.isOn = false;
-        transform.GetChild(0).gameObject.SetActive(false);
     }
 }
