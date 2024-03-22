@@ -27,5 +27,6 @@ public enum ObjectName
     Astronaut,
     Bullet,
     EnergyBolt,
+    Missile,
     Particle
 }

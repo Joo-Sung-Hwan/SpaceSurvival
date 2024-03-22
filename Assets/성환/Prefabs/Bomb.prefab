@@ -135,7 +135,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 0}
   objectName: 1
-  looseZone: 1
   colors: []
   bt: 0
   sprite: {fileID: 1023207484149046108}
