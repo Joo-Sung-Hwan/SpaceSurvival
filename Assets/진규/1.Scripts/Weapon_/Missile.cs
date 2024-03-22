@@ -25,13 +25,18 @@ public class Missile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FireBullet();
+        //FireBullet();
         //DestroyBullet();
         //Init();
         //FindEnemy();
     }
+    public Transform FindE()
+    {
+        Enemy enemy = FindObjectOfType<Enemy>();
 
-    void FindEnemy()
+        return enemy.transform;
+    }
+    public Enemy[] FindEnemy()
     {
         Enemy[] enemy = FindObjectsOfType<Enemy>().OrderBy(x => Vector2.Distance(transform.position, x.transform.position)).ToArray();
         findEnemy.Clear();
@@ -41,6 +46,7 @@ public class Missile : MonoBehaviour
             if (findEnemy.Count >= 6)
                 break;
         }
+        return findEnemy.ToArray();
     }
     void FireBullet()
     {
@@ -62,16 +68,17 @@ public class Missile : MonoBehaviour
     }
     IEnumerator Fire()
     {
-        FindEnemy();
         //yield return new WaitForSeconds(1f);
         int _shot = count;
         while(_shot > 0)
         {
+            FindEnemy();
+
             for (int i = 0; i < countInterval; i++)
             {
                 if (_shot > 0)
                 {
-                    Weapon missile = ObjectPoolSystem.ObjectPoolling<Weapon>.GetPool(mi, ObjectName.Missile, transform);
+                    Weapon missile = ObjectPoolSystem.ObjectPoolling<Weapon>.GetPool(mi, ObjectName.Missile, this.transform);
                     missile.Initalize();
                     missile.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_missile_parent);
                     missile.GetComponent<Missile_Bullet>().Init(transform, findEnemy[0].transform, 0.5f, disStart, disEnd);
@@ -92,8 +99,8 @@ public class Missile : MonoBehaviour
             Weapon missile_Bullet = ObjectPoolSystem.ObjectPoolling<Weapon>.GetPool(mi,ObjectName.Missile, transform);
             missile_Bullet.Initalize();
             missile_Bullet.transform.SetParent(transform.GetChild(0));
-            missile_Bullet.GetComponent<Missile_Bullet>().master = transform.gameObject;
-            missile_Bullet.GetComponent<Missile_Bullet>().enemy = findEnemy[i].gameObject;
+            //missile_Bullet.GetComponent<Missile_Bullet>().master = transform.gameObject;
+            //missile_Bullet.GetComponent<Missile_Bullet>().enemy = findEnemy[i].gameObject;
             missiles.Add(missile_Bullet);
         }
     }
