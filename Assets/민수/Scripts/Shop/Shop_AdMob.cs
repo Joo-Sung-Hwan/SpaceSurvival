@@ -9,5 +9,8 @@ public class Shop_AdMob : ShopManager
     {
         base.OnClickBuyButtonDown();
         itemDetail.gameObject.SetActive(true);
+        ItemData newItem = RandomItem();
+        itemDetail.SetDetails(newItem);
+        InventoryManager.Instance.AddItem(newItem);
     }
 }
