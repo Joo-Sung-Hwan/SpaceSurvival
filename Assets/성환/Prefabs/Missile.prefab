@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 6181126272311613863}
   - component: {fileID: 7560121079993243699}
   - component: {fileID: 6181126272311613861}
-  - component: {fileID: 6047675985001434431}
-  - component: {fileID: 1521508879460008862}
   m_Layer: 0
   m_Name: Missile
   m_TagString: Untagged
@@ -28,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6181126272311613866}
   m_LocalRotation: {x: -0, y: -0, z: -0.54828835, w: 0.83628935}
-  m_LocalPosition: {x: -2.1311634, y: -1.5927535, z: 0}
+  m_LocalPosition: {x: -0.11145767, y: -0.98384553, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47,15 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a5b1396ce1dbaf498d22391bdb36c08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 0}
-  objectName: 8
-  looseZone: 1
-  t: 0
-  spd: 5
-  posA: 0.55
-  posB: 0.45
-  master: {fileID: 0}
-  enemy: {fileID: 0}
 --- !u!212 &6181126272311613861
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -108,40 +97,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &6047675985001434431
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6181126272311613866}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.07
---- !u!50 &1521508879460008862
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6181126272311613866}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0

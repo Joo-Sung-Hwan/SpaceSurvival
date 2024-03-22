@@ -5,17 +5,9 @@ using System.Linq;
 public class Missile : MonoBehaviour
 {
     public List<Enemy> findEnemy;
-    public List<Weapon> missiles;
-    public Weapon mi;
-    [Space(10f)]
-    int count = 12;
-    [Space(10f)]
-    public float disStart = 3.0f;
-    public float disEnd = 1.0f;
-    [Range(0, 1)] public float m_interval = 0.15f;
-    public int countInterval = 2;
+    public List<Missile_Bullet> missiles;
+    public Missile_Bullet mi;
     float time = 0;
-    float destroyTime = 0;
     //public Enemy e;
     void Start()
     {
@@ -25,10 +17,14 @@ public class Missile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FireBullet();
-        //DestroyBullet();
-        //Init();
-        //FindEnemy();
+        /*time += Time.deltaTime;
+        if (time > 5)
+        {
+            time = 0;
+            StartCoroutine("Fire");
+        }
+            //Init();
+        //FindEnemy();*/
     }
 
     void FindEnemy()
@@ -42,58 +38,22 @@ public class Missile : MonoBehaviour
                 break;
         }
     }
-    void FireBullet()
-    {
-        time += Time.deltaTime;
-        if(time > 5)
-        {
-            time = 0;
-            StartCoroutine("Fire");
-        }
-    }
-    void DestroyBullet()
-    {
-        destroyTime += Time.deltaTime;
-        if (destroyTime > 8)
-        {
-            destroyTime = 0;
-            ObjectPoolSystem.ObjectPoolling<Weapon>.ReturnPool(mi, ObjectName.Missile);
-        }
-    }
+
     IEnumerator Fire()
     {
         FindEnemy();
-        //yield return new WaitForSeconds(1f);
-        int _shot = count;
-        while(_shot > 0)
-        {
-            for (int i = 0; i < countInterval; i++)
-            {
-                if (_shot > 0)
-                {
-                    Weapon missile = ObjectPoolSystem.ObjectPoolling<Weapon>.GetPool(mi, ObjectName.Missile, transform);
-                    missile.Initalize();
-                    missile.transform.SetParent(GameManager.instance.playerSpawnManager.tmp_missile_parent);
-                    missile.GetComponent<Missile_Bullet>().Init(transform, findEnemy[0].transform, 0.5f, disStart, disEnd);
-                    //missile.GetComponent<Missile_Bullet>().master = transform.gameObject;
-                    //missile.GetComponent<Missile_Bullet>().enemy = findEnemy[0].gameObject;
-                    _shot--;
-                }
-            }
-            yield return new WaitForSeconds(m_interval);
-        }
-        yield return null;
+        yield return new WaitForSeconds(0.5f);
+        Init();
+        yield return new WaitForSeconds(0.1f);
+        mi.DrawTrajectory();
     }
     void Init()
     {
         missiles.Clear();
-        for (int i = 0; i < findEnemy.Count; i++)
+        for (int i = 0; i < 6; i++)
         {
-            Weapon missile_Bullet = ObjectPoolSystem.ObjectPoolling<Weapon>.GetPool(mi,ObjectName.Missile, transform);
-            missile_Bullet.Initalize();
+            Missile_Bullet missile_Bullet = Instantiate(mi, transform);
             missile_Bullet.transform.SetParent(transform.GetChild(0));
-            missile_Bullet.GetComponent<Missile_Bullet>().master = transform.gameObject;
-            missile_Bullet.GetComponent<Missile_Bullet>().enemy = findEnemy[i].gameObject;
             missiles.Add(missile_Bullet);
         }
     }

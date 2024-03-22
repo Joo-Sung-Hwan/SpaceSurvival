@@ -15,13 +15,14 @@ public class MainSceneManager : MonoBehaviour
     float cur = 0;
     float max = 1;
     bool isActive = false;
-    public bool isDo = true;
+    bool isDo = true;
     // Start is called before the first frame update
     void Start()
     {
-
+        sequence = DOTween.Sequence();
     }
 
+    // Update is called once per frame
     void Update()
     {
         Move();
@@ -32,29 +33,26 @@ public class MainSceneManager : MonoBehaviour
 
     private void Move()
     {
-        trans.position = Vector3.MoveTowards(trans.position, new Vector3(0f, 1f, 0f), Time.deltaTime * 40f);
+        trans.position = Vector3.MoveTowards(trans.position, new Vector3(0f, 1f, 0f), Time.deltaTime * 30f);
         if(trans.position.y == 1 && !isActive)
         {
             isActive = true;
             popUpObj.SetActive(isActive);
-            if(popUpObj.gameObject.activeSelf)
+            if(popUpObj.gameObject.activeSelf && isDo)
             {
-                Do();
                 isDo = false;
+                Debug.Log(sequence);
+                Do();
             }
         }
     }
 
     private void Do()
     {
-        Sequence sequence = DOTween.Sequence(); ;
-        if(isDo)
-        {
-            sequence.Append(popUpObj.GetComponent<RectTransform>().DOSizeDelta(new Vector2(600, 300), 0.5f, true))
-                .Join(popUpObj.transform.GetChild(0).GetComponent<RectTransform>().DOSizeDelta(new Vector2(400, 150), 0.5f, true))
-                .Join(popUpObj.transform.GetChild(0).transform.GetChild(0).GetComponent<RectTransform>().DOScale(1f, 0.5f))
-                .Join(popUpObj.transform.GetChild(0).transform.GetChild(1).GetComponent<RectTransform>().DOScale(1f, 0.5f)).SetLink(gameObject);
-        }
+        sequence.Append(popUpObj.GetComponent<RectTransform>().DOSizeDelta(new Vector2(600, 300), 1f, true))
+                        .Append((popUpObj.transform.GetChild(0).GetComponent<RectTransform>().DOSizeDelta(new Vector2(400, 150), 1f, true)))
+                        .Append(popUpObj.transform.GetChild(0).transform.GetChild(0).GetComponent<RectTransform>().DOScale(1f, 1f))
+                        .Append(popUpObj.transform.GetChild(0).transform.GetChild(1).GetComponent<RectTransform>().DOScale(1f, 1f)).SetLink(gameObject);
     }
 
 
