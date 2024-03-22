@@ -1,4 +1,0 @@
-﻿[*.{cs,vb}]
-
-# IDE0003: 한정자 제거
-dotnet_style_qualification_for_event = true

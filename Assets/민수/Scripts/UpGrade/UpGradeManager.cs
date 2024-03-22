@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.IO;
 using Newtonsoft.Json;
-using System.Linq;
+
 public struct TestM
 {
     public string name;
@@ -221,54 +221,54 @@ public class UpGradeManager : MonoBehaviour
 
     private ItemData SetUpGradeItemData(ItemData item)
     {
-        ItemData newItem = null;
         List<Item_Ability> newItemAbs = new List<Item_Ability>();
+        
+        ItemData newItemData = item;
+        newItemData.level += 1;
 
         for (int i = 0; i < item.abilities.Count; i++)
         {
             Item_Ability item_Ab = new Item_Ability();
+
             item_Ab.abilityName = item.abilities[i].abilityName;
-            item_Ab.abilityValue = (item.abilities[i].abilityValue + 1);
-            if (item_Ab.abilityValue > 0 && item_Ab.abilityValue < 10)
+            item_Ab.abilityValue = item.abilities[i].abilityValue + 1;
+            
+            if (item_Ab.abilityValue > 0 && item_Ab.abilityValue <= 6)
             {
                 item_Ab.abilityrarity = Enum_GM.Rarity.normal;
             }
-            else if (item_Ab.abilityValue >= 10)
+            else if (item_Ab.abilityValue <= 10)
             {
                 item_Ab.abilityrarity = Enum_GM.Rarity.rare;
             }
-            else if (item_Ab.abilityValue >= 20)
-            {
-                item_Ab.abilityrarity = Enum_GM.Rarity.legendary;
-            }
-            else if (item_Ab.abilityValue >= 30)
+            else if (item_Ab.abilityValue <= 13)
             {
                 item_Ab.abilityrarity = Enum_GM.Rarity.unique;
             }
+            else
+            {
+                item_Ab.abilityrarity = Enum_GM.Rarity.legendary;
+            }
             newItemAbs.Add(item_Ab);
         }
-        
-        newItemAbs.Sort((Item_Ability ab_A, Item_Ability ab_B) => ab_B.abilityValue.CompareTo(ab_A.abilityValue));
+        if (newItemAbs[0].abilityValue >= 0)
+        {
+            newItemData.rarity = Enum_GM.Rarity.normal;
+        }
+        else if (newItemAbs[0].abilityValue >= 10)
+        {
+            newItemData.rarity = Enum_GM.Rarity.rare;
+        }
+        else if (newItemAbs[0].abilityValue >= 20)
+        {
+            newItemData.rarity = Enum_GM.Rarity.unique;
+        }
+        else
+        {
+            newItemData.rarity = Enum_GM.Rarity.legendary;
+        }
 
-        newItem = new ItemData(item.itemStaticData, Enum_GM.Rarity.normal, newItemAbs, item.level + 1);
-
-        if (newItem.level > 0 && newItem.level <= 10)
-        {
-            newItem.rarity = Enum_GM.Rarity.normal;
-        }
-        else if (newItem.level <= 15)
-        {
-            newItem.rarity = Enum_GM.Rarity.rare;
-        }
-        else if (newItem.level <= 20)
-        {
-            newItem.rarity = Enum_GM.Rarity.legendary;
-        }
-        else if (newItem.level <= 25)
-        {
-            newItem.rarity = Enum_GM.Rarity.unique;
-        }
-        return newItem;
+        return newItemData;
     }
 
     public ItemData RandomItem()

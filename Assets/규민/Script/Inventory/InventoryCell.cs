@@ -29,16 +29,6 @@ public class InventoryCell : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F5))
-        {
-            if (cellData == null)
-                return;
-            Debug.Log(cellData.rarity);
-        }
-    }
-
     /// <summary>
     /// 인벤토리 칸에서의 이미지를 변경하는 함수
     /// </summary>
