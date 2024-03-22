@@ -49,14 +49,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 0}
   objectName: 8
+  looseZone: 1
   t: 0
-  spd: 1
+  spd: 5
   posA: 0.55
   posB: 0.45
-  timerMax: 0
-  timerCurrent: 0
-  disStart: 3
-  disEnd: 1
+  master: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!212 &6181126272311613861
 SpriteRenderer:
   m_ObjectHideFlags: 0

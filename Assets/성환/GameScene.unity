@@ -15908,8 +15908,6 @@ MonoBehaviour:
   findEnemy: []
   missiles: []
   mi: {fileID: 7560121079993243699, guid: ae610b23e5c52064c9e7565c8f51f271, type: 3}
-  m_interval: 0.15
-  countInterval: 2
 --- !u!4 &1826725413
 Transform:
   m_ObjectHideFlags: 0
@@ -15921,7 +15919,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1883693752}
   m_Father: {fileID: 4083857610078351947}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16174,6 +16173,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1873567649}
   m_CullTransparentMesh: 1
+--- !u!1 &1883693751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1883693752}
+  m_Layer: 0
+  m_Name: parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1883693752
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883693751}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1826725413}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1892951751
 GameObject:
   m_ObjectHideFlags: 0
@@ -22914,7 +22944,6 @@ MonoBehaviour:
   count: 0
   levelup: 0
   missionCheck: 0
-  missile: {fileID: 1826725413}
 --- !u!50 &9200852978829632583
 Rigidbody2D:
   serializedVersion: 4

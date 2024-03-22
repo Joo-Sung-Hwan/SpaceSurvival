@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class Missile_Bullet : Weapon
 {
@@ -13,13 +12,9 @@ public class Missile_Bullet : Weapon
     [SerializeField] public float posB = 0.45f;
     [SerializeField] private float timerMax = 0;
     [SerializeField] private float timerCurrent = 0;
-    public Enemy target;
-    [Space(10f)]
-    public float disStart = 3.0f;
-    public float disEnd = 1.0f;
-
-    //public GameObject master;
-    //public GameObject enemy;
+    
+    public GameObject master;
+    public GameObject enemy;
 
     void Start()
     {
@@ -28,7 +23,6 @@ public class Missile_Bullet : Weapon
         point[2] = PointSetting(enemy.transform.position);
         point[3] = enemy.transform.position;*/
     }
-
     public override void Attack()
     {
         /*if (t > 1)
@@ -37,10 +31,8 @@ public class Missile_Bullet : Weapon
         //DrawTrajectory();*/
         if (timerCurrent > timerMax)
             return;
-        timerCurrent += Time.deltaTime * 1;
-        Find();
-        //transform.position += DrawTrajectory() * Time.deltaTime * 1f;
-        //DrawTrajectory();
+        timerCurrent += Time.deltaTime * spd;
+        DrawTrajectory();
         //transform.Translate(Vector3.forward * Time.deltaTime * spd);
     }
 
@@ -51,32 +43,12 @@ public class Missile_Bullet : Weapon
         y = posB * Mathf.Sin(Random.Range(0, 360) * Mathf.Deg2Rad) + origin.y;
         return new Vector2(x, y);
     }*/
-    void Find()
-    {
-        Missile m = GameManager.instance.player.missile.GetComponent<Missile>();
 
-        Vector2 vec = transform.position - m.FindE().transform.position;
-        Vector3 axis = Vector3.Cross(vec, transform.forward);
-        Quaternion.AngleAxis(90, axis);
-        Quaternion rot = Quaternion.AngleAxis(Time.deltaTime * 45, axis);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rot, 50 * Time.deltaTime);
-        transform.Translate(DrawTrajectory() * Time.deltaTime * 1f);
-    }
-    IEnumerator Draw()
-    {
-        transform.position = new Vector3(
-            FourPointBezier(point[0].x, point[1].x, point[2].x, point[3].x),
-            FourPointBezier(point[0].y, point[1].y, point[2].y, point[3].y),
-            FourPointBezier(point[0].z, point[1].z, point[2].z, point[3].z));
-        yield return new WaitForSeconds(2f);
-        ObjectPoolSystem.ObjectPoolling<Weapon>.ReturnPool(this, ObjectName.Missile);
-
-    }
-    public Vector3 DrawTrajectory()
+    public void DrawTrajectory()
     {
         /*transform.position = new Vector2(FourPointBezier(point[0].x, point[1].x, point[2].x, point[3].x),
                     FourPointBezier(point[0].y, point[1].y, point[2].y, point[3].y));*/
-        return transform.position = new Vector3(
+        transform.position = new Vector3(
             FourPointBezier(point[0].x, point[1].x, point[2].x, point[3].x),
             FourPointBezier(point[0].y, point[1].y, point[2].y, point[3].y),
             FourPointBezier(point[0].z, point[1].z, point[2].z, point[3].z));
@@ -131,7 +103,6 @@ public class Missile_Bullet : Weapon
     {
         weaponData.Damage = 10f;
         objectName = ObjectName.Missile;
-        //Init(m.transform, m.FindE(), spd, disStart, disEnd);
     }
 
     public override void PlayAct(Collider2D collider)
@@ -139,6 +110,5 @@ public class Missile_Bullet : Weapon
         Enemy e = collider.GetComponent<Enemy>();
         e.Hp -= weaponData.Damage;
         e.CreateDamageTxt(weaponData.Damage);
-        ObjectPoolSystem.ObjectPoolling<Weapon>.ReturnPool(this, ObjectName.Missile);
     }
 }

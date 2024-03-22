@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public float BulletCTime { get; set; }
     [HideInInspector] public float LaserCTime { get; set; }
     public bool missionCheck = false;
-    public Transform missile;
+
     // Start is called before the first frame update
     void Start()
     {
